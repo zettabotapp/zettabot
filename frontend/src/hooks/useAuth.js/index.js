@@ -36,8 +36,9 @@ const useAuth = () => {
     async (error) => {
       const originalRequest = error.config;
       if (error?.response?.status === 403 && !originalRequest._retry) {
+        
         originalRequest._retry = true;
-
+ 
         const { data } = await api.post("/auth/refresh_token");
         if (data) {
           localStorage.setItem("token", JSON.stringify(data.token));
@@ -45,12 +46,14 @@ const useAuth = () => {
         }
         return api(originalRequest);
       }
-      if (error?.response?.status === 401) {
+
+      if (error?.response?.status === 401 || ( error?.response?.status === 403 && originalRequest._retry )) {
         localStorage.removeItem("token");
         localStorage.removeItem("companyId");
         api.defaults.headers.Authorization = undefined;
         setIsAuth(false);
       }
+      
       return Promise.reject(error);
     }
   );
