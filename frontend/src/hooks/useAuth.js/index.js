@@ -14,6 +14,7 @@ const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [qntRetry, setQntRetry] = useState(0);
 
   api.interceptors.request.use(
     (config) => {
@@ -35,9 +36,11 @@ const useAuth = () => {
     },
     async (error) => {
       const originalRequest = error.config;
-      if (error?.response?.status === 403 && !originalRequest._retry) {
-        originalRequest._retry = true;
 
+      if (error?.response?.status === 403 && !originalRequest._retry) {
+        
+        originalRequest._retry = true;
+ 
         const { data } = await api.post("/auth/refresh_token");
         if (data) {
           localStorage.setItem("token", JSON.stringify(data.token));
@@ -45,12 +48,14 @@ const useAuth = () => {
         }
         return api(originalRequest);
       }
-      if (error?.response?.status === 401) {
+
+      if (error?.response?.status === 401 || ( error?.response?.status === 403 && originalRequest._retry )) {
         localStorage.removeItem("token");
         localStorage.removeItem("companyId");
         api.defaults.headers.Authorization = undefined;
         setIsAuth(false);
       }
+      
       return Promise.reject(error);
     }
   );
