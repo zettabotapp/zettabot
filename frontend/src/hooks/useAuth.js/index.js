@@ -14,7 +14,6 @@ const useAuth = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
-  const [qntRetry, setQntRetry] = useState(0);
 
   api.interceptors.request.use(
     (config) => {
@@ -36,7 +35,6 @@ const useAuth = () => {
     },
     async (error) => {
       const originalRequest = error.config;
-
       if (error?.response?.status === 403 && !originalRequest._retry) {
         
         originalRequest._retry = true;
