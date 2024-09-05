@@ -188,6 +188,6 @@ Versão 1.0.0
 
 Este projeto está sob a licença
 
-⌨️ com ❤️ por [Axify](https://axify.com.br) 😊
+⌨️ com ❤️ por [Atendechat](https://atendechat.com) 😊
 
 Todos os direitos reservados a https://atendechat.com
