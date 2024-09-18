@@ -667,10 +667,12 @@ const handleOpenAi = async (
     openai = sessionsOpenAi[openAiIndex];
   }
 
+  let maxMessages = prompt.maxMessages;
+
   const messages = await Message.findAll({
     where: { ticketId: ticket.id },
-    order: [["createdAt", "ASC"]],
-    limit: prompt.maxMessages
+    order: [["createdAt", "DESC"]],
+    limit: maxMessages
   });
 
   const promptSystem = `Nas respostas utilize o nome ${sanitizeName(
@@ -685,9 +687,12 @@ const handleOpenAi = async (
   if (msg.message?.conversation || msg.message?.extendedTextMessage?.text) {
     messagesOpenAi = [];
     messagesOpenAi.push({ role: "system", content: promptSystem });
-    for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
+    for (let i = 0; i < Math.min(maxMessages, messages.length); i++) {
       const message = messages[i];
-      if (message.mediaType === "chat") {
+      if (
+        message.mediaType === "conversation" ||
+        message.mediaType === "extendedTextMessage"
+      ) {
         if (message.fromMe) {
           messagesOpenAi.push({ role: "assistant", content: message.body });
         } else {
@@ -750,9 +755,12 @@ const handleOpenAi = async (
 
     messagesOpenAi = [];
     messagesOpenAi.push({ role: "system", content: promptSystem });
-    for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
+    for (let i = 0; i < Math.min(maxMessages, messages.length); i++) {
       const message = messages[i];
-      if (message.mediaType === "chat") {
+      if (
+        message.mediaType === "conversation" ||
+        message.mediaType === "extendedTextMessage"
+      ) {
         if (message.fromMe) {
           messagesOpenAi.push({ role: "assistant", content: message.body });
         } else {
