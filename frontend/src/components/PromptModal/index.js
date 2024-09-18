@@ -100,7 +100,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 setPrompt(prevState => {
                     return { ...prevState, ...data };
                 });
-                console.log(data);
+                
                 setSelectedModel(data.model);
             } catch (err) {
                 toastError(err);
