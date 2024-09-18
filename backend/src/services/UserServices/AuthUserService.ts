@@ -39,7 +39,7 @@ const AuthUserService = async ({
   });
 
   if (!user) {
-    throw new AppError("ERR_INVALID_CREDENTIALS", 401);
+    throw new AppError("ERR_USER_DONT_EXISTS", 401);
   }
 
   if (!(await user.checkPassword(password))) {

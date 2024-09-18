@@ -929,6 +929,7 @@ transferTicketModal: {
     },
   },
   backendErrors: {
+    ERR_INTERNAL_SERVER_ERROR: "Ha ocurrido un error inesperado. Por favor inténtalo de nuevo más tarde.",
     ERR_NO_OTHER_WHATSAPP: "Debe haber al menos un WhatsApp predeterminado.",
     ERR_NO_DEF_WAPP_FOUND:
       "No se encontró ningún WhatsApp predeterminado. Comprueba la página de conexiones.",
@@ -941,6 +942,7 @@ transferTicketModal: {
       "No se pudo descargar medios de WhatsApp. Comprueba la página de conexiones.",
     ERR_INVALID_CREDENTIALS:
       "Error de autenticación. Por favor, inténtalo de nuevo.",
+    ERR_USER_DONT_EXISTS: "El usuario no existe.",
     ERR_SENDING_WAPP_MSG:
       "Error al enviar mensaje de WhatsApp. Comprueba la página de conexiones.",
     ERR_DELETE_WAPP_MSG: "No se pudo eliminar el mensaje de WhatsApp.",

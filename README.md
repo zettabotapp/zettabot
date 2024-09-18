@@ -94,16 +94,6 @@ REACT_APP_BACKEND_URL=${backend_url}
 REACT_APP_HOURS_CLOSE_TICKETS_AUTO = 24
 ```
 
-```
-- Croar banco de dados Redis
-- Criar .env apartir do .env-example
-- $ composer install
-- $ php artisan migrate
-- $ php artisan queue:work
-- $ php artisan serve
-- Generate key
-```
-
 #### Instalando dependências
 ```
 cd backend/
