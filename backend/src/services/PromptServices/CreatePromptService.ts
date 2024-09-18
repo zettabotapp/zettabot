@@ -15,9 +15,7 @@ interface PromptData {
     queueId?: number;
     maxMessages?: number;
     companyId: string | number;
-    voice?: string;
-    voiceKey?: string;
-    voiceRegion?: string;
+    model: string;
 }
 
 const CreatePromptService = async (promptData: PromptData): Promise<Prompt> => {

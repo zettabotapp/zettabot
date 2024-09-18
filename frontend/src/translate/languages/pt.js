@@ -229,13 +229,11 @@ const messages = {
         form: {
           name: "Nome",
           prompt: "Prompt",
-          voice: "Voz",
+          model: "Modelo",
           max_tokens: "Máximo de Tokens na resposta",
           temperature: "Temperatura",
           apikey: "API Key",
           max_messages: "Máximo de mensagens no Histórico",
-          voiceKey: "Chave da API de Voz",
-          voiceRegion: "Região de Voz",
         },
         success: "Prompt salvo com sucesso!",
         title: {

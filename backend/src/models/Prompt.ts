@@ -50,17 +50,8 @@ class Prompt extends Model<Prompt> {
   @Column({ defaultValue: 0 })
   totalTokens: number;
 
-  @AllowNull(false)
   @Column
-  voice: string;
-
-  @AllowNull(true)
-  @Column
-  voiceKey:string;
-
-  @AllowNull(true)
-  @Column
-  voiceRegion:string;
+  model: string;
 
   @AllowNull
   @ForeignKey(() => Queue)

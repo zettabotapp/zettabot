@@ -226,13 +226,11 @@ promptModal: {
   form: {
     name: "Nombre",
     prompt: "Prompt",
-    voice: "Voz",
+    voice: "Modelo",
     max_tokens: "Máximo de Tokens en la respuesta",
     temperature: "Temperatura",
     apikey: "API Key",
     max_messages: "Máximo de mensajes en el Historial",
-    voiceKey: "Clave de la API de Voz",
-    voiceRegion: "Región de Voz",
   },
   success: "Prompt guardado con éxito!",
   title: {
