@@ -703,7 +703,7 @@ const handleOpenAi = async (
     messagesOpenAi.push({ role: "user", content: bodyMessage! });
 
     const chat = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-1106",
+      model: prompt.model,
       messages: messagesOpenAi,
       max_tokens: prompt.maxTokens,
       temperature: prompt.temperature
@@ -718,6 +718,7 @@ const handleOpenAi = async (
         .trim();
     }
 
+    /*
     if (prompt.voice === "texto") {
       const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
         text: response!
@@ -746,7 +747,7 @@ const handleOpenAi = async (
           console.log(`Erro para responder com audio: ${error}`);
         }
       });
-    }
+    }*/
   } else if (msg.message?.audioMessage) {
     const mediaUrl = mediaSent!.mediaUrl!.split("/").pop();
     const file = fs.createReadStream(`${publicFolder}/${mediaUrl}`) as any;
@@ -769,7 +770,7 @@ const handleOpenAi = async (
     }
     messagesOpenAi.push({ role: "user", content: transcription.data.text });
     const chat = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-1106",
+      model: prompt.model,
       messages: messagesOpenAi,
       max_tokens: prompt.maxTokens,
       temperature: prompt.temperature
@@ -782,7 +783,7 @@ const handleOpenAi = async (
         .replace("Ação: Transferir para o setor de atendimento", "")
         .trim();
     }
-    if (prompt.voice === "texto") {
+    /*if (prompt.voice === "texto") {
       const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
         text: response!
       });
@@ -810,7 +811,7 @@ const handleOpenAi = async (
           console.log(`Erro para responder com audio: ${error}`);
         }
       });
-    }
+    }*/
   }
   messagesOpenAi = [];
 };

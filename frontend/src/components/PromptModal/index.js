@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { i18n } from "../../translate/i18n";
-import { MenuItem, FormControl, InputLabel, Select } from "@material-ui/core";
+import { MenuItem, FormControl, InputLabel, Select, Menu, Grid } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { InputAdornment, IconButton } from "@material-ui/core";
 import QueueSelectSingle from "../../components/QueueSelectSingle";
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 const PromptSchema = Yup.object().shape({
     name: Yup.string().min(5, "Muito curto!").max(100, "Muito longo!").required("Obrigatório"),
     prompt: Yup.string().min(50, "Muito curto!").required("Descreva o treinamento para Inteligência Artificial"),
-    voice: Yup.string().required("Informe o modo para Voz"),
+    model: Yup.string().required("Informe o modelo desejado para o Prompt"),
     max_tokens: Yup.number().required("Informe o número máximo de tokens"),
     temperature: Yup.number().required("Informe a temperatura"),
     apikey: Yup.string().required("Informe a API Key"),
@@ -69,7 +69,7 @@ const PromptSchema = Yup.object().shape({
 
 const PromptModal = ({ open, onClose, promptId }) => {
     const classes = useStyles();
-    const [selectedVoice, setSelectedVoice] = useState("texto");
+    const [selectedModel, setSelectedModel] = useState("gpt-3.5-turbo-1106");
     const [showApiKey, setShowApiKey] = useState(false);
 
     const handleToggleApiKey = () => {
@@ -79,9 +79,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
     const initialState = {
         name: "",
         prompt: "",
-        voice: "texto",
-        voiceKey: "",
-        voiceRegion: "",
+        model: "gpt-3.5-turbo-1106",
         maxTokens: 100,
         temperature: 1,
         apiKey: "",
@@ -102,7 +100,8 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 setPrompt(prevState => {
                     return { ...prevState, ...data };
                 });
-                setSelectedVoice(data.voice);
+                console.log(data);
+                setSelectedModel(data.model);
             } catch (err) {
                 toastError(err);
             }
@@ -113,16 +112,16 @@ const PromptModal = ({ open, onClose, promptId }) => {
 
     const handleClose = () => {
         setPrompt(initialState);
-        setSelectedVoice("texto");
+        setSelectedModel("gpt-3.5-turbo-1106");
         onClose();
     };
 
-    const handleChangeVoice = (e) => {
-        setSelectedVoice(e.target.value);
+    const handleChangeModel = (e) => {
+        setSelectedModel(e.target.value);
     };
 
     const handleSavePrompt = async values => {
-        const promptData = { ...values, voice: selectedVoice };
+        const promptData = { ...values, model: selectedModel };
         if (!values.queueId) {
             toastError("Informe o setor");
             return;
@@ -214,88 +213,23 @@ const PromptModal = ({ open, onClose, promptId }) => {
                                 <QueueSelectSingle />
                                 <div className={classes.multFieldLine}>
                                     <FormControl fullWidth margin="dense" variant="outlined">
-                                    <InputLabel>{i18n.t("promptModal.form.voice")}</InputLabel>
+                                    <InputLabel>{i18n.t("promptModal.form.model")}</InputLabel>
                                         <Select
                                             id="type-select"
                                             labelWidth={60}
-                                            name="voice"
-                                            value={selectedVoice}
-                                            onChange={handleChangeVoice}
+                                            name="model"
+                                            value={selectedModel}
+                                            onChange={handleChangeModel}
                                             multiple={false}
                                         >
-                                            <MenuItem key={"texto"} value={"texto"}>
-                                                Texto
+                                            <MenuItem key={"gpt-3.5"} value={"gpt-3.5-turbo-1106"}>
+                                                GPT 3.5 turbo
                                             </MenuItem>
-                                            <MenuItem key={"pt-BR-FranciscaNeural"} value={"pt-BR-FranciscaNeural"}>
-                                                Francisa
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-AntonioNeural"} value={"pt-BR-AntonioNeural"}>
-                                                Antônio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-BrendaNeural"} value={"pt-BR-BrendaNeural"}>
-                                                Brenda
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-DonatoNeural"} value={"pt-BR-DonatoNeural"}>
-                                                Donato
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ElzaNeural"} value={"pt-BR-ElzaNeural"}>
-                                                Elza
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-FabioNeural"} value={"pt-BR-FabioNeural"}>
-                                                Fábio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-GiovannaNeural"} value={"pt-BR-GiovannaNeural"}>
-                                                Giovanna
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-HumbertoNeural"} value={"pt-BR-HumbertoNeural"}>
-                                                Humberto
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-JulioNeural"} value={"pt-BR-JulioNeural"}>
-                                                Julio
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-LeilaNeural"} value={"pt-BR-LeilaNeural"}>
-                                                Leila
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-LeticiaNeural"} value={"pt-BR-LeticiaNeural"}>
-                                                Letícia
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ManuelaNeural"} value={"pt-BR-ManuelaNeural"}>
-                                                Manuela
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-NicolauNeural"} value={"pt-BR-NicolauNeural"}>
-                                                Nicolau
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-ValerioNeural"} value={"pt-BR-ValerioNeural"}>
-                                                Valério
-                                            </MenuItem>
-                                            <MenuItem key={"pt-BR-YaraNeural"} value={"pt-BR-YaraNeural"}>
-                                                Yara
+                                            <MenuItem key={"gpt-4"} value={"gpt-4o-mini"}>
+                                                GPT 4.0
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.voiceKey")}
-                                        name="voiceKey"
-                                        error={touched.voiceKey && Boolean(errors.voiceKey)}
-                                        helperText={touched.voiceKey && errors.voiceKey}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                    <Field
-                                        as={TextField}
-                                        label={i18n.t("promptModal.form.voiceRegion")}
-                                        name="voiceRegion"
-                                        error={touched.voiceRegion && Boolean(errors.voiceRegion)}
-                                        helperText={touched.voiceRegion && errors.voiceRegion}
-                                        variant="outlined"
-                                        margin="dense"
-                                        fullWidth
-                                    />
-                                </div>
-                                
-                                <div className={classes.multFieldLine}>
                                     <Field
                                         as={TextField}
                                         label={i18n.t("promptModal.form.temperature")}
@@ -305,7 +239,14 @@ const PromptModal = ({ open, onClose, promptId }) => {
                                         variant="outlined"
                                         margin="dense"
                                         fullWidth
+                                        type="number"
+                                        inputProps={{
+                                            step: "0.1",
+                                        }}
                                     />
+                                </div>
+                                
+                                <div className={classes.multFieldLine}>
                                     <Field
                                         as={TextField}
                                         label={i18n.t("promptModal.form.max_tokens")}
