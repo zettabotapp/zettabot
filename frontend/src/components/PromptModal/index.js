@@ -21,6 +21,7 @@ import QueueSelectSingle from "../../components/QueueSelectSingle";
 
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
+import { max, min } from "moment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -67,7 +68,7 @@ const PromptSchema = Yup.object().shape({
     max_messages: Yup.number().required("Informe o número máximo de mensagens")
 });
 
-const PromptModal = ({ open, onClose, promptId }) => {
+const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
     const classes = useStyles();
     const [selectedModel, setSelectedModel] = useState("gpt-3.5-turbo-1106");
     const [showApiKey, setShowApiKey] = useState(false);
@@ -102,7 +103,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 });
                 
                 setSelectedModel(data.model);
-            } catch (err) {
+            } catch (err) { 
                 toastError(err);
             }
         };
@@ -133,6 +134,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 await api.post("/prompt", promptData);
             }
             toast.success(i18n.t("promptModal.success"));
+            refreshPrompts(  )
         } catch (err) {
             toastError(err);
         }
@@ -156,6 +158,7 @@ const PromptModal = ({ open, onClose, promptId }) => {
                 <Formik
                     initialValues={prompt}
                     enableReinitialize={true}
+                    validationSchema={PromptSchema}
                     onSubmit={(values, actions) => {
                         setTimeout(() => {
                             handleSavePrompt(values);
@@ -242,6 +245,8 @@ const PromptModal = ({ open, onClose, promptId }) => {
                                         type="number"
                                         inputProps={{
                                             step: "0.1",
+                                            min: "0",
+                                            max: "1"
                                         }}
                                     />
                                 </div>
