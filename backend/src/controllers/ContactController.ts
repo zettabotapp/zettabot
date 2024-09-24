@@ -96,9 +96,7 @@ export const storeUpload = async (req: Request, res: Response) : Promise<Respons
 
   const schema = Yup.object().shape({
     name: Yup.string().required(),
-    number: Yup.string()
-      .required()
-      .matches(/^\d+$/, "Invalid number format. Only numbers is allowed.")
+    number: Yup.string().required()
   });
 
   const promises = contacts.map(async contact => {
@@ -211,7 +209,7 @@ const createNewContact = async ( newContact : ContactData, companyId : number, s
 
     await CheckIsValidContact(newContact.number, companyId);
     const validNumber = await CheckContactNumber(newContact.number, companyId);
-    const number = validNumber.jid.replace(/\D/g, "");
+    const number = "55" + validNumber.jid.replace(/\D/g, "");
     newContact.number = number;
 
     /**
@@ -242,7 +240,7 @@ const createUploadedContact = async ( newContact : ContactData, companyId : numb
     throw new AppError(err.message);
   }
 
-  newContact.number = newContact.number.replace(/\D/g, "");
+  newContact.number = "55" + newContact.number.replace(/\D/g, "");
   const contact = await CreateContactService({
     ...newContact,
     companyId
