@@ -1,5 +1,7 @@
+import AppError from "../../errors/AppError";
 import GetDefaultWhatsApp from "../../helpers/GetDefaultWhatsApp";
 import { getWbot } from "../../libs/wbot";
+import { logger } from "../../utils/logger";
 
 interface IOnWhatsapp {
   jid: string;
@@ -20,8 +22,8 @@ const CheckContactNumber = async (
   const wbot = getWbot(defaultWhatsapp.id);
   const isNumberExit = await checker(number, wbot);
 
-  if (!isNumberExit.exists) {
-    throw new Error("ERR_CHECK_NUMBER");
+  if (!isNumberExit) {
+    throw new AppError("ERR_CHECK_NUMBER");
   }
   return isNumberExit;
 };

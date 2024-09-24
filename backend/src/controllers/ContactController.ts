@@ -208,8 +208,8 @@ const createNewContact = async ( newContact : ContactData, companyId : number, s
     }
 
     await CheckIsValidContact(newContact.number, companyId);
-    const validNumber = await CheckContactNumber(newContact.number, companyId);
-    const number = "55" + validNumber.jid.replace(/\D/g, "");
+    //const validNumber = await CheckContactNumber(newContact.number, companyId);
+    const number = "55" + newContact.number.replace(/\D/g, "");
     newContact.number = number;
 
     /**
