@@ -41,13 +41,14 @@ app.use(routes);
 app.use(Sentry.Handlers.errorHandler());
 
 app.use(async (err: Error, req: Request, res: Response, _: NextFunction) => {
+
   if (err instanceof AppError) {
     logger.warn(err);
     return res.status(err.statusCode).json({ error: err.message });
   }
 
   logger.error(err);
-  return res.status(500).json({ error: "Internal server error" });
+  return res.status(500).json({ error: "ERR_INTERNAL_SERVER_ERROR" });
 });
 
 export default app;

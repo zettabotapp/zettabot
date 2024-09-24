@@ -667,10 +667,12 @@ const handleOpenAi = async (
     openai = sessionsOpenAi[openAiIndex];
   }
 
+  let maxMessages = prompt.maxMessages;
+
   const messages = await Message.findAll({
     where: { ticketId: ticket.id },
-    order: [["createdAt", "ASC"]],
-    limit: prompt.maxMessages
+    order: [["createdAt", "DESC"]],
+    limit: maxMessages
   });
 
   const promptSystem = `Nas respostas utilize o nome ${sanitizeName(
@@ -685,9 +687,12 @@ const handleOpenAi = async (
   if (msg.message?.conversation || msg.message?.extendedTextMessage?.text) {
     messagesOpenAi = [];
     messagesOpenAi.push({ role: "system", content: promptSystem });
-    for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
+    for (let i = 0; i < Math.min(maxMessages, messages.length); i++) {
       const message = messages[i];
-      if (message.mediaType === "chat") {
+      if (
+        message.mediaType === "conversation" ||
+        message.mediaType === "extendedTextMessage"
+      ) {
         if (message.fromMe) {
           messagesOpenAi.push({ role: "assistant", content: message.body });
         } else {
@@ -698,7 +703,7 @@ const handleOpenAi = async (
     messagesOpenAi.push({ role: "user", content: bodyMessage! });
 
     const chat = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-1106",
+      model: prompt.model,
       messages: messagesOpenAi,
       max_tokens: prompt.maxTokens,
       temperature: prompt.temperature
@@ -713,6 +718,7 @@ const handleOpenAi = async (
         .trim();
     }
 
+    /*
     if (prompt.voice === "texto") {
       const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
         text: response!
@@ -741,7 +747,7 @@ const handleOpenAi = async (
           console.log(`Erro para responder com audio: ${error}`);
         }
       });
-    }
+    }*/
   } else if (msg.message?.audioMessage) {
     const mediaUrl = mediaSent!.mediaUrl!.split("/").pop();
     const file = fs.createReadStream(`${publicFolder}/${mediaUrl}`) as any;
@@ -749,9 +755,12 @@ const handleOpenAi = async (
 
     messagesOpenAi = [];
     messagesOpenAi.push({ role: "system", content: promptSystem });
-    for (let i = 0; i < Math.min(prompt.maxMessages, messages.length); i++) {
+    for (let i = 0; i < Math.min(maxMessages, messages.length); i++) {
       const message = messages[i];
-      if (message.mediaType === "chat") {
+      if (
+        message.mediaType === "conversation" ||
+        message.mediaType === "extendedTextMessage"
+      ) {
         if (message.fromMe) {
           messagesOpenAi.push({ role: "assistant", content: message.body });
         } else {
@@ -761,7 +770,7 @@ const handleOpenAi = async (
     }
     messagesOpenAi.push({ role: "user", content: transcription.data.text });
     const chat = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-1106",
+      model: prompt.model,
       messages: messagesOpenAi,
       max_tokens: prompt.maxTokens,
       temperature: prompt.temperature
@@ -774,7 +783,7 @@ const handleOpenAi = async (
         .replace("Ação: Transferir para o setor de atendimento", "")
         .trim();
     }
-    if (prompt.voice === "texto") {
+    /*if (prompt.voice === "texto") {
       const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
         text: response!
       });
@@ -802,7 +811,7 @@ const handleOpenAi = async (
           console.log(`Erro para responder com audio: ${error}`);
         }
       });
-    }
+    }*/
   }
   messagesOpenAi = [];
 };

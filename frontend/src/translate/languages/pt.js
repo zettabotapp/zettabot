@@ -229,13 +229,11 @@ const messages = {
         form: {
           name: "Nome",
           prompt: "Prompt",
-          voice: "Voz",
+          model: "Modelo",
           max_tokens: "Máximo de Tokens na resposta",
           temperature: "Temperatura",
           apikey: "API Key",
           max_messages: "Máximo de mensagens no Histórico",
-          voiceKey: "Chave da API de Voz",
-          voiceRegion: "Região de Voz",
         },
         success: "Prompt salvo com sucesso!",
         title: {
@@ -932,6 +930,7 @@ const messages = {
         },
       },
       backendErrors: {
+        ERR_INTERNAL_SERVER_ERROR: "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde",
         ERR_NO_OTHER_WHATSAPP: "Deve haver pelo menos um WhatsApp padrão.",
         ERR_NO_DEF_WAPP_FOUND:
           "Nenhum WhatsApp padrão encontrado. Verifique a página de conexões.",
@@ -944,6 +943,7 @@ const messages = {
           "Não foi possível baixar mídia do WhatsApp. Verifique a página de conexões.",
         ERR_INVALID_CREDENTIALS:
           "Erro de autenticação. Por favor, tente novamente.",
+        ERR_USER_DONT_EXISTS: "Usuário não encontrado. Verifique o e-mail informado.",
         ERR_SENDING_WAPP_MSG:
           "Erro ao enviar mensagem do WhatsApp. Verifique a página de conexões.",
         ERR_DELETE_WAPP_MSG: "Não foi possível excluir a mensagem do WhatsApp.",

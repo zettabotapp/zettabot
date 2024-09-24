@@ -369,6 +369,7 @@ const messages = {
 				},
 			},
 			backendErrors: {
+				ERR_INTERNAL_SERVER_ERROR: "An unexpected error has occurred. Please try again later",
 				ERR_NO_OTHER_WHATSAPP:
 					"There must be at lest one default WhatsApp connection.",
 				ERR_NO_DEF_WAPP_FOUND:
@@ -381,6 +382,7 @@ const messages = {
 				ERR_WAPP_DOWNLOAD_MEDIA:
 					"Could not download media from WhatsApp. Check connections page.",
 				ERR_INVALID_CREDENTIALS: "Authentication error. Please try again.",
+				ERR_USER_DONT_EXISTS: "User does not exist.",
 				ERR_SENDING_WAPP_MSG:
 					"Error sending WhatsApp message. Check connections page.",
 				ERR_DELETE_WAPP_MSG: "Couldn't delete message from WhatsApp.",

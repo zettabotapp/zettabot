@@ -63,6 +63,7 @@ const SessionSchema = Yup.object().shape({
 });
 
 const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
+
   const classes = useStyles();
   const initialState = {
     name: "",
@@ -80,6 +81,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     timeUseBotQueues: 0,
     maxUseBotQueues: 3
   };
+
   const [whatsApp, setWhatsApp] = useState(initialState);
   const [selectedQueueIds, setSelectedQueueIds] = useState([]);
   const [queues, setQueues] = useState([]);
@@ -88,22 +90,25 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
   const [prompts, setPrompts] = useState([]);
   
     useEffect(() => {
-    const fetchSession = async () => {
-      if (!whatsAppId) return;
+      const fetchSession = async () => {
+        if (!whatsAppId) return;
 
-      try {
-        const { data } = await api.get(`whatsapp/${whatsAppId}?session=0`);
-        setWhatsApp(data);
+        try {
+          
+          const { data } = await api.get(`whatsapp/${whatsAppId}?session=0`);
 
-        const whatsQueueIds = data.queues?.map((queue) => queue.id);
-        setSelectedQueueIds(whatsQueueIds);
-		setSelectedQueueId(data.transferQueueId);
-      } catch (err) {
-        toastError(err);
-      }
-    };
-    fetchSession();
-  }, [whatsAppId]);
+          setWhatsApp(data);
+          setSelectedPrompt( data.promptId );
+
+          const whatsQueueIds = data.queues?.map((queue) => queue.id);
+          setSelectedQueueIds(whatsQueueIds);
+          setSelectedQueueId(data.transferQueueId);
+        } catch (err) {
+          toastError(err);
+        }
+      };
+      fetchSession();
+    }, [whatsAppId]);
 
   useEffect(() => {
     (async () => {
@@ -128,7 +133,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
   }, []);
 
   const handleSaveWhatsApp = async (values) => {
-const whatsappData = {
+    const whatsappData = {
       ...values, queueIds: selectedQueueIds, transferQueueId: selectedQueueId,
       promptId: selectedPrompt ? selectedPrompt : null
     };
