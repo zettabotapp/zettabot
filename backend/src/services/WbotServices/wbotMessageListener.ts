@@ -702,8 +702,6 @@ const handleOpenAi = async (
     }
     messagesOpenAi.push({ role: "user", content: bodyMessage! });
 
-    logger.info(messagesOpenAi)
-
     const chat = await openai.createChatCompletion({
       model: prompt.model,
       messages: messagesOpenAi,
