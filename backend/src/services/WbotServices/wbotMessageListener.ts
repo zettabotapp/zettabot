@@ -702,6 +702,8 @@ const handleOpenAi = async (
     }
     messagesOpenAi.push({ role: "user", content: bodyMessage! });
 
+    logger.info(messagesOpenAi)
+
     const chat = await openai.createChatCompletion({
       model: prompt.model,
       messages: messagesOpenAi,
@@ -717,6 +719,11 @@ const handleOpenAi = async (
         .replace("Ação: Transferir para o setor de atendimento", "")
         .trim();
     }
+
+    const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
+      text: response!
+    });
+    await verifyMessage(sentMessage!, ticket, contact);
 
     /*
     if (prompt.voice === "texto") {

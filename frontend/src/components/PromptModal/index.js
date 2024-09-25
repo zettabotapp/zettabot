@@ -61,11 +61,11 @@ const PromptSchema = Yup.object().shape({
     name: Yup.string().min(5, "Muito curto!").max(100, "Muito longo!").required("Obrigatório"),
     prompt: Yup.string().min(50, "Muito curto!").required("Descreva o treinamento para Inteligência Artificial"),
     model: Yup.string().required("Informe o modelo desejado para o Prompt"),
-    max_tokens: Yup.number().required("Informe o número máximo de tokens"),
+    maxTokens: Yup.number().required("Informe o número máximo de tokens"),
     temperature: Yup.number().required("Informe a temperatura"),
-    apikey: Yup.string().required("Informe a API Key"),
+    apiKey: Yup.string().required("Informe a API Key"),
     queueId: Yup.number().required("Informe a fila"),
-    max_messages: Yup.number().required("Informe o número máximo de mensagens")
+    maxMessages: Yup.number().required("Informe o número máximo de mensagens")
 });
 
 const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
@@ -84,7 +84,7 @@ const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
         maxTokens: 100,
         temperature: 1,
         apiKey: "",
-        queueId: null,
+        queueId: '',
         maxMessages: 10
     };
 
@@ -123,6 +123,7 @@ const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
 
     const handleSavePrompt = async values => {
         const promptData = { ...values, model: selectedModel };
+        console.log(promptData);
         if (!values.queueId) {
             toastError("Informe o setor");
             return;
@@ -213,7 +214,7 @@ const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
                                     rows={10}
                                     multiline={true}
                                 />
-                                <QueueSelectSingle />
+                                <QueueSelectSingle touched={touched} errors={errors}/>
                                 <div className={classes.multFieldLine}>
                                     <FormControl fullWidth margin="dense" variant="outlined">
                                     <InputLabel>{i18n.t("promptModal.form.model")}</InputLabel>
