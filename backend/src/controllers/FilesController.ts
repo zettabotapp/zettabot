@@ -11,8 +11,6 @@ import ShowService from "../services/FileServices/ShowService";
 import DeleteService from "../services/FileServices/DeleteService";
 import SimpleListService from "../services/FileServices/SimpleListService";
 import DeleteAllService from "../services/FileServices/DeleteAllService";
-import ShowTicketService from "../services/TicketServices/ShowTicketService";
-import UpdateTicketService from "../services/TicketServices/UpdateTicketService";
 import FilesOptions from "../models/FilesOptions";
 
 type IndexQuery = {

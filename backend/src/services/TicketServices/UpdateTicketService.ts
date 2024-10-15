@@ -35,6 +35,7 @@ interface Request {
   ticketData: TicketData;
   ticketId: string | number;
   companyId: number;
+  actionUserId?: string | null;
 }
 
 interface Response {
@@ -46,7 +47,8 @@ interface Response {
 const UpdateTicketService = async ({
   ticketData,
   ticketId,
-  companyId
+  companyId,
+  actionUserId = null
 }: Request): Promise<Response> => {
 
   try {
@@ -67,8 +69,6 @@ const UpdateTicketService = async ({
         key
       }
     });
-
-
 
     const ticket = await ShowTicketService(ticketId, companyId);
     const ticketTraking = await FindOrCreateATicketTrakingService({
@@ -127,7 +127,8 @@ const UpdateTicketService = async ({
           await SendWhatsAppMessage({ body: bodyRatingMessage, ticket });
 
           await ticketTraking.update({
-            ratingAt: moment().toDate()
+            ratingAt: moment().toDate(),
+            userId: actionUserId
           });
 
           io.to(`company-${ticket.companyId}-open`)

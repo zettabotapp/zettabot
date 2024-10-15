@@ -185,12 +185,13 @@ export const update = async (
 ): Promise<Response> => {
   const { ticketId } = req.params;
   const ticketData: TicketData = req.body;
-  const { companyId } = req.user;
+  const { companyId, id} = req.user;
 
   const { ticket } = await UpdateTicketService({
     ticketData,
     ticketId,
-    companyId
+    companyId,
+    actionUserId: id
   });
 
 
