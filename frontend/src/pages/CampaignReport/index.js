@@ -15,8 +15,6 @@ import CardCounter from "../../components/Dashboard/CardCounter";
 import GroupIcon from "@material-ui/icons/Group";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import DoneIcon from "@material-ui/icons/Done";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
@@ -47,8 +45,6 @@ const CampaignReport = () => {
   const [campaign, setCampaign] = useState({});
   const [validContacts, setValidContacts] = useState(0);
   const [delivered, setDelivered] = useState(0);
-  const [confirmationRequested, setConfirmationRequested] = useState(0);
-  const [confirmed, setConfirmed] = useState(0);
   const [percent, setPercent] = useState(0);
   const [loading, setLoading] = useState(false);
   const mounted = useRef(true);
@@ -72,22 +68,15 @@ const CampaignReport = () => {
     if (mounted.current && has(campaign, "shipping")) {
       if (has(campaign, "contactList")) {
         const contactList = get(campaign, "contactList");
+        if (!contactList) return;
         const valids = contactList.contacts.filter((c) => c.isWhatsappValid);
         setValidContacts(valids.length);
       }
 
       if (has(campaign, "shipping")) {
         const contacts = get(campaign, "shipping");
+        if(!contacts) return;
         const delivered = contacts.filter((c) => !isNull(c.deliveredAt));
-        const confirmationRequested = contacts.filter(
-          (c) => !isNull(c.confirmationRequestedAt)
-        );
-        const confirmed = contacts.filter(
-          (c) => !isNull(c.deliveredAt) && !isNull(c.confirmationRequestedAt)
-        );
-        setDelivered(delivered.length);
-        setConfirmationRequested(confirmationRequested.length);
-        setConfirmed(confirmed.length);
         setDelivered(delivered.length);
       }
     }
@@ -173,26 +162,6 @@ const CampaignReport = () => {
               loading={loading}
             />
           </Grid>
-          {campaign.confirmation && (
-            <>
-              <Grid xs={12} md={4} item>
-                <CardCounter
-                  icon={<DoneIcon fontSize="inherit" />}
-                  title="Confirmações Solicitadas"
-                  value={confirmationRequested}
-                  loading={loading}
-                />
-              </Grid>
-              <Grid xs={12} md={4} item>
-                <CardCounter
-                  icon={<DoneAllIcon fontSize="inherit" />}
-                  title="Confirmações"
-                  value={confirmed}
-                  loading={loading}
-                />
-              </Grid>
-            </>
-          )}
           <Grid xs={12} md={4} item>
             <CardCounter
               icon={<CheckCircleIcon fontSize="inherit" />}

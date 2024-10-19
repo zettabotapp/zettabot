@@ -32,7 +32,6 @@ type IndexQuery = {
 type StoreData = {
   name: string;
   status: string;
-  confirmation: boolean;
   scheduledAt: string;
   companyId: number;
   contactListId: number;

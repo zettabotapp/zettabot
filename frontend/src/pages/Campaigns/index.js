@@ -329,9 +329,6 @@ const Campaigns = () => {
                 {i18n.t("campaigns.table.completedAt")}
               </TableCell>
               <TableCell align="center">
-                {i18n.t("campaigns.table.confirmation")}
-              </TableCell>
-              <TableCell align="center">
                 {i18n.t("campaigns.table.actions")}
               </TableCell>
             </TableRow>
@@ -363,9 +360,6 @@ const Campaigns = () => {
                     {campaign.completedAt
                       ? datetimeToClient(campaign.completedAt)
                       : "Não concluída"}
-                  </TableCell>
-                  <TableCell align="center">
-                    {campaign.confirmation ? "Habilitada" : "Desabilitada"}
                   </TableCell>
                   <TableCell align="center">
                     {campaign.status === "EM_ANDAMENTO" && (
