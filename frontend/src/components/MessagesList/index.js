@@ -503,7 +503,9 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
               Download
             </Button>
           </div>
-          <Divider />
+          <div style={{marginBottom: message.body === "" ? 8 : 0}}>
+            <Divider />
+          </div>
         </>
       );
     }
@@ -655,10 +657,7 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
           }
 
           {message.quotedMsg.mediaType === "image"
-            && (
-              <ModalImageCors imageUrl={message.quotedMsg.mediaUrl} />)
-            || message.quotedMsg?.body}
-
+            && (<ModalImageCors imageUrl={message.quotedMsg.mediaUrl} />)}
         </div>
       </div>
     );
@@ -742,7 +741,7 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
                 ) && checkMessageMedia(message)}
                 <div className={classes.textContentItem}>
                   {message.quotedMsg && renderQuotedMessage(message)}
-                  <MarkdownWrapper>{message.mediaType === "locationMessage" ? null : message.body}</MarkdownWrapper>
+                  <MarkdownWrapper>{message.mediaType === "locationMessage" || message.mediaType === 'application' ? '' : message.body}</MarkdownWrapper>
                   <span className={classes.timestamp}>
 				    {message.isEdited && <span>Editada </span>}
                     {format(parseISO(message.createdAt), "HH:mm")}
@@ -785,7 +784,7 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
                     />
                   )}
                   {message.quotedMsg && renderQuotedMessage(message)}
-                  <MarkdownWrapper>{message.body}</MarkdownWrapper>
+                  <MarkdownWrapper>{message.mediaType === "locationMessage" || message.mediaType === 'application' ? '' : message.body}</MarkdownWrapper>
                   <span className={classes.timestamp}>
 				    {message.isEdited && <span>Editada </span>}
                     {format(parseISO(message.createdAt), "HH:mm")}

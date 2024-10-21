@@ -95,6 +95,14 @@ const getTypeMessage = (msg: proto.IWebMessageInfo): string => {
   return getContentType(msg.message);
 };
 
+function hasCaption(title: string, fileName: string) {
+  if(!title || !fileName) return false;
+
+  const fileNameExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+
+  return !fileName.includes(`${title}.${fileNameExtension}`)
+}
+
 export function validaCpfCnpj(val) {
   if (val.length == 11) {
     var cpf = val.trim();
@@ -863,12 +871,15 @@ const verifyMediaMessage = async (
   }
 
   const body = getBodyMessage(msg);
+  
+  const hasCap = hasCaption(body, media.filename);
+  const bodyMessage = body ? hasCap ? formatBody(body, ticket.contact) : "-" : "-";
 
   const messageData = {
     id: msg.key.id,
     ticketId: ticket.id,
     contactId: msg.key.fromMe ? undefined : contact.id,
-    body: body ? formatBody(body, ticket.contact) : media.filename,
+    body: bodyMessage,
     fromMe: msg.key.fromMe,
     read: msg.key.fromMe,
     mediaUrl: media.filename,
@@ -881,7 +892,7 @@ const verifyMediaMessage = async (
   };
 
   await ticket.update({
-    lastMessage: body || media.filename
+    lastMessage: body || "Arquivo de mídia"
   });
 
   const newMessage = await CreateMessageService({
