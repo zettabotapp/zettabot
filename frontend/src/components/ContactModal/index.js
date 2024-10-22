@@ -103,7 +103,10 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 				const { data } = await api.get(`/contacts/${contactId}`);
 				if (isMounted.current) {
 					console.log(data)
-					setContact(data);
+					setContact({
+						...data,
+						number: data.number.substring(2),
+					});
 				}
 			} catch (err) {
 				toastError(err);
