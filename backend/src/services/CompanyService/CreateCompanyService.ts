@@ -3,6 +3,7 @@ import AppError from "../../errors/AppError";
 import Company from "../../models/Company";
 import User from "../../models/User";
 import Setting from "../../models/Setting";
+import { hash } from "bcryptjs";
 
 interface CompanyData {
   name: string;
@@ -25,7 +26,6 @@ const CreateCompanyService = async (
     email,
     status,
     planId,
-    password,
     campaignsEnabled,
     dueDate,
     recurrence
@@ -67,10 +67,13 @@ const CreateCompanyService = async (
     recurrence
   });
 
-  const user = await User.create({
+  const passwordHash = await hash('123456', 8);
+
+  await User.create({
     name: company.name,
     email: company.email,
-    password: companyData.password,
+    password: '123456',
+    passwordHash,
     profile: "admin",
     companyId: company.id
   });

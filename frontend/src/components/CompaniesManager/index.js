@@ -526,11 +526,12 @@ export default function CompaniesManager() {
   const handleSubmit = async (data) => {
     setLoading(true);
     try {
-      if (data.id !== undefined) {
+      if (data.id !== 0 && data.id !== undefined) {
         await update(data);
       } else {
         await save(data);
       }
+
       await loadPlans();
       handleCancel();
       toast.success("Operação realizada com sucesso!");
@@ -562,6 +563,7 @@ export default function CompaniesManager() {
   const handleCancel = () => {
     setRecord((prev) => ({
       ...prev,
+      id: undefined,
       name: "",
       email: "",
       phone: "",
