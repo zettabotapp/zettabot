@@ -105,7 +105,7 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 					console.log(data)
 					setContact({
 						...data,
-						number: data.number.replace("55", ""),
+						number: data.number.substring(2),
 					});
 				}
 			} catch (err) {
