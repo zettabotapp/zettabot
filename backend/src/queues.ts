@@ -449,47 +449,6 @@ function getCampaignValidMessages(campaign) {
   return messages;
 }
 
-function getCampaignValidConfirmationMessages(campaign) {
-  const messages = [];
-
-  if (
-    !isEmpty(campaign.confirmationMessage1) &&
-    !isNil(campaign.confirmationMessage1)
-  ) {
-    messages.push(campaign.confirmationMessage1);
-  }
-
-  if (
-    !isEmpty(campaign.confirmationMessage2) &&
-    !isNil(campaign.confirmationMessage2)
-  ) {
-    messages.push(campaign.confirmationMessage2);
-  }
-
-  if (
-    !isEmpty(campaign.confirmationMessage3) &&
-    !isNil(campaign.confirmationMessage3)
-  ) {
-    messages.push(campaign.confirmationMessage3);
-  }
-
-  if (
-    !isEmpty(campaign.confirmationMessage4) &&
-    !isNil(campaign.confirmationMessage4)
-  ) {
-    messages.push(campaign.confirmationMessage4);
-  }
-
-  if (
-    !isEmpty(campaign.confirmationMessage5) &&
-    !isNil(campaign.confirmationMessage5)
-  ) {
-    messages.push(campaign.confirmationMessage5);
-  }
-
-  return messages;
-}
-
 function getProcessedMessage(msg: string, variables: any[], contact: any) {
   let finalMessage = msg;
 
@@ -619,20 +578,6 @@ async function handlePrepareContact(job) {
       campaignShipping.message = `\u200c ${message}`;
     }
 
-    if (campaign.confirmation) {
-      const confirmationMessages =
-        getCampaignValidConfirmationMessages(campaign);
-      if (confirmationMessages.length) {
-        const radomIndex = randomValue(0, confirmationMessages.length);
-        const message = getProcessedMessage(
-          confirmationMessages[radomIndex],
-          variables,
-          contact
-        );
-        campaignShipping.confirmationMessage = `\u200c ${message}`;
-      }
-    }
-
     const [record, created] = await CampaignShipping.findOrCreate({
       where: {
         campaignId: campaignShipping.campaignId,
@@ -643,16 +588,14 @@ async function handlePrepareContact(job) {
 
     if (
       !created &&
-      record.deliveredAt === null &&
-      record.confirmationRequestedAt === null
+      record.deliveredAt === null
     ) {
       record.set(campaignShipping);
       await record.save();
     }
 
     if (
-      record.deliveredAt === null &&
-      record.confirmationRequestedAt === null
+      record.deliveredAt === null 
     ) {
       const nextJob = await campaignQueue.add(
         "DispatchCampaign",
@@ -713,10 +656,6 @@ async function handleDispatchCampaign(job) {
 
     let body = campaignShipping.message;
 
-    if (campaign.confirmation && campaignShipping.confirmation === null) {
-      body = campaignShipping.confirmationMessage
-    }
-
     if (!isNil(campaign.fileListId)) {
       try {
         const publicFolder = path.resolve(__dirname, "..", "public");
@@ -741,17 +680,9 @@ async function handleDispatchCampaign(job) {
       }
     }
     else {
-      if (campaign.confirmation && campaignShipping.confirmation === null) {
-        await wbot.sendMessage(chatId, {
-          text: body
-        });
-        await campaignShipping.update({ confirmationRequestedAt: moment() });
-      } else {
-
-        await wbot.sendMessage(chatId, {
-          text: body
-        });
-      }
+      await wbot.sendMessage(chatId, {
+        text: body
+      });
     }
     await campaignShipping.update({ deliveredAt: moment() });
 

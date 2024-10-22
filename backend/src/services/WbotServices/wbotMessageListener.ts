@@ -2203,19 +2203,15 @@ const verifyRecentCampaign = async (
   if (!message.key.fromMe) {
     const number = message.key.remoteJid.replace(/\D/g, "");
     const campaigns = await Campaign.findAll({
-      where: { companyId, status: "EM_ANDAMENTO", confirmation: true }
+      where: { companyId, status: "EM_ANDAMENTO" }
     });
     if (campaigns) {
       const ids = campaigns.map(c => c.id);
       const campaignShipping = await CampaignShipping.findOne({
-        where: { campaignId: { [Op.in]: ids }, number, confirmation: null }
+        where: { campaignId: { [Op.in]: ids }, number }
       });
 
       if (campaignShipping) {
-        await campaignShipping.update({
-          confirmedAt: moment(),
-          confirmation: true
-        });
         await campaignQueue.add(
           "DispatchCampaign",
           {
