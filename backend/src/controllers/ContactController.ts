@@ -134,6 +134,8 @@ export const update = async (
   const contactData: ContactData = req.body;
   const { companyId } = req.user;
 
+  contactData.number = contactData.number.replace(/\D/g, '');
+
   const schema = Yup.object().shape({
     name: Yup.string(),
     number: Yup.string().matches(
@@ -147,6 +149,8 @@ export const update = async (
   } catch (err: any) {
     throw new AppError(err.message);
   }
+
+  contactData.number = contactData.number.replace(/\D/g, "");
 
   await CheckIsValidContact(contactData.number, companyId);
   const validNumber = await CheckContactNumber(contactData.number, companyId);

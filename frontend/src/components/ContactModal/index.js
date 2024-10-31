@@ -178,19 +178,20 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 								<Field
 									name="number"
 									render={({ field }) => (
-									<MaskedTextField
-										{...field}
-										label="Phone Number"
-										error={touched.number && Boolean(errors.number)}
-										helperText={touched.number && errors.number}
-										placeholder="(XX) XXXXX-XXXX"
-										variant="outlined"
-										margin="dense"
-										mask="(99) 99999-9999"
-										maskChar="_"
-									/>
+										<MaskedTextField
+											{...field}
+											label="Phone Number"
+											error={touched.number && Boolean(errors.number)}
+											helperText={touched.number && errors.number}
+											placeholder="(XX) XXXXX-XXXX"
+											variant="outlined"
+											margin="dense"
+											mask="(99) 9999-9999"
+											maskChar="_"
+										/>			
 									)}
 								/>
+
 								<div>
 									<Field
 										as={TextField}

@@ -24,6 +24,7 @@ const SendWhatsAppMessage = async ({
   const number = `${ticket.contact.number}@${
     ticket.isGroup ? "g.us" : "s.whatsapp.net"
   }`;
+
   if (quotedMsg) {
       const chatMessages = await Message.findOne({
         where: {
@@ -54,6 +55,7 @@ const SendWhatsAppMessage = async ({
         ...options
       }
     );
+
     await ticket.update({ lastMessage: formatBody(body, ticket.contact) });
     return sentMessage;
   } catch (err) {
