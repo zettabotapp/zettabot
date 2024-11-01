@@ -7,7 +7,7 @@ module.exports = {
             references: { model: "Queues", key: "id" },
             onUpdate: "NO ACTION",
             onDelete: "NO ACTION",
-            allowNull: false
+            allowNull: true
           })
     },
     down: async(queryInterface: QueryInterface) => {
