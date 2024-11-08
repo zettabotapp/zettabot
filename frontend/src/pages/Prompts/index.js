@@ -240,9 +240,6 @@ const Prompts = () => {
                 {i18n.t("prompts.table.name")}
               </TableCell>
               <TableCell align="left">
-                {i18n.t("prompts.table.queue")}
-              </TableCell>
-              <TableCell align="left">
                 {i18n.t("prompts.table.max_tokens")}
               </TableCell>
               <TableCell align="center">
@@ -255,7 +252,6 @@ const Prompts = () => {
               {prompts.map((prompt) => (
                 <TableRow key={prompt.id}>
                   <TableCell align="left">{prompt.name}</TableCell>
-                  <TableCell align="left">{prompt.queue.name}</TableCell>
                   <TableCell align="left">{prompt.maxTokens}</TableCell>
                   <TableCell align="center">
                     <IconButton
