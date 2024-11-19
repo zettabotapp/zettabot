@@ -20,6 +20,7 @@ import { format } from 'date-fns';
 import { toast } from 'react-toastify';
 import { makeStyles } from "@material-ui/core/styles";
 import './button.css';
+import { i18n } from '../../translate/i18n';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -49,7 +50,7 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Gráfico de Conversas',
+            text: i18n.t("dashboard.charts.user.label"),
             position: 'left',
         },
         datalabels: {
@@ -101,14 +102,14 @@ export const ChatsUser = () => {
             const { data } = await api.get(`/dashboard/ticketsUsers?initialDate=${format(initialDate, 'yyyy-MM-dd')}&finalDate=${format(finalDate, 'yyyy-MM-dd')}&companyId=${companyId}`);
             setTicketsData(data);
         } catch (error) {
-            toast.error('Erro ao obter informações da conversa');
+            toast.error(i18n.t("dashboard.toasts.userChartError"));
         }
     }
 
     return (
         <>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                Total de Conversas por Usuários
+                {i18n.t("dashboard.charts.user.title")}
             </Typography>
 
             <Stack direction={'row'} spacing={2} alignItems={'center'} sx={{ my: 2, }} >
@@ -117,7 +118,7 @@ export const ChatsUser = () => {
                     <DatePicker
                         value={initialDate}
                         onChange={(newValue) => { setInitialDate(newValue) }}
-                        label="Inicio"
+                        label={i18n.t("dashboard.charts.user.start")}
                         renderInput={(params) => <TextField fullWidth {...params} sx={{ width: '20ch' }} />}
 
                     />
@@ -127,12 +128,14 @@ export const ChatsUser = () => {
                     <DatePicker
                         value={finalDate}
                         onChange={(newValue) => { setFinalDate(newValue) }}
-                        label="Fim"
+                        label={i18n.t("dashboard.charts.user.end")}
                         renderInput={(params) => <TextField fullWidth {...params} sx={{ width: '20ch' }} />}
                     />
                 </LocalizationProvider>
 
-                <Button className="buttonHover" onClick={handleGetTicketsInformation} variant='contained'>Filtrar</Button>
+                <Button className="buttonHover" onClick={handleGetTicketsInformation} variant='contained'>
+                    {i18n.t("dashboard.charts.user.filter")}
+                </Button>
 
             </Stack>
             <Bar options={options} data={dataCharts} style={{ maxWidth: '100%', maxHeight: '280px', }} />

@@ -8,13 +8,35 @@ const messages = {
 					fail: "Error creating user. Check the reported data.",
 				},
 				form: {
-					name: "Name",
+					name: "Company name",
 					email: "Email",
+					phone: "Phone with (DDD)",
+					plan: "Plan",
 					password: "Password",
+				},
+				formErrors: {
+					name: {
+						required: "Company name is required",
+						short: "Name too short",
+						long: "Name too long",
+					},
+					password: {
+						short: "Password too short",
+						long: "Password too long",
+					},
+					email: {
+						required: "Email is required",
+						invalid: "Invalid email",
+					},
 				},
 				buttons: {
 					submit: "Register",
 					login: "Already have an account? Log in!",
+				},
+				plan: {
+					attendant: "Attendant",
+					whatsapp: "WhatsApp",
+					queues: "Queues",
 				},
 			},
 			login: {
@@ -28,16 +50,109 @@ const messages = {
 					register: "Don't have an account? Register!",
 				},
 			},
-			auth: {
+			resetPassword: {
+				title: "Reset Password",
 				toasts: {
-					success: "Login successfully!",
+					emailSent: "Email sent successfully!",
+					emailNotFound: "Email not found!",
+					passwordUpdated: "Password updated successfully!",
+				},
+				formErrors: {
+					email: {
+						required: "Email is required",
+						invalid: "Invalid email",
+					},
+					newPassword: {
+						required: "New password is required",
+						matches:
+							"Your password must be at least 8 characters long, with one uppercase letter, one lowercase letter, and one number.",
+					},
+					confirmPassword: {
+						required: "Password confirmation is required",
+						matches: "Passwords do not match",
+					},
+				},
+				form: {
+					email: "Email",
+					verificationCode: "Verification code",
+					newPassword: "New password",
+					confirmPassword: "Confirm new password",
+				},
+				buttons: {
+					submitEmail: "Send email",
+					submitPassword: "Reset password",
+					back: "Don't have an account? Register!",
 				},
 			},
 			dashboard: {
-				charts: {
-					perDay: {
-						title: "Tickets today: ",
+				toasts: {
+					selectFilterError: "Set the filter",
+					userChartError: "Error getting conversation information",
+					dateChartError: "Error getting conversation information",
+				},
+				filters: {
+					initialDate: "Initial Date",
+					finalDate: "Final Date",
+					filterType: {
+						title: "Filter Type",
+						options: {
+							perDate: "Filter by Date",
+							perPeriod: "Filter by Period",
+						},
+						helper: "Select the desired filter type",
 					},
+				},
+				periodSelect: {
+					title: "Period",
+					options: {
+						none: "None selected",
+						last3: "Last 3 days",
+						last7: "Last 7 days",
+						last15: "Last 15 days",
+						last30: "Last 30 days",
+						last60: "Last 60 days",
+						last90: "Last 90 days",
+					},
+					helper: "Select the desired period",
+				},
+				counters: {
+					inTalk: "In conversation",
+					waiting: "Waiting",
+					finished: "Finished",
+					newContacts: "New contacts",
+					averageTalkTime: "Average Talk Time",
+					averageWaitTime: "Average Wait Time",
+				},
+				buttons: {
+					filter: "Filter",
+				},
+				onlineTable: {
+					ratingLabel: "1 - Unsatisfied, 2 - Satisfied, 3 - Very Satisfied",
+					name: "Name",
+					ratings: "Ratings",
+					avgSupportTime: "Average Support Time",
+					status: "Status (Current)",
+				},
+				charts: {
+					user: {
+						label: "Conversation Chart",
+						title: "Total Conversations by Users",
+						start: "Start",
+						end: "End",
+						filter: "Filter",
+					},
+					date: {
+						label: "Conversation Chart",
+						title: "Total",
+						start: "Start",
+						end: "End",
+						filter: "Filter",
+					},
+				},
+			},
+			auth: {
+				toasts: {
+					success: "Login successfully!",
 				},
 			},
 			connections: {

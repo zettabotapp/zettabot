@@ -10,22 +10,11 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
 
-import SpeedIcon from "@material-ui/icons/Speed";
-import GroupIcon from "@material-ui/icons/Group";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import PersonIcon from "@material-ui/icons/Person";
 import CallIcon from "@material-ui/icons/Call";
-import RecordVoiceOverIcon from "@material-ui/icons/RecordVoiceOver";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ForumIcon from "@material-ui/icons/Forum";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import ClearIcon from "@material-ui/icons/Clear";
-import SendIcon from '@material-ui/icons/Send';
-import MessageIcon from '@material-ui/icons/Message';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import TimerIcon from '@material-ui/icons/Timer';
 
@@ -33,26 +22,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import { grey, blue } from "@material-ui/core/colors";
 import { toast } from "react-toastify";
 
-import Chart from "./Chart";
 import ButtonWithSpinner from "../../components/ButtonWithSpinner";
 
-import CardCounter from "../../components/Dashboard/CardCounter";
 import TableAttendantsStatus from "../../components/Dashboard/TableAttendantsStatus";
 import { isArray } from "lodash";
 
-import { AuthContext } from "../../context/Auth/AuthContext";
-
 import useDashboard from "../../hooks/useDashboard";
-import useTickets from "../../hooks/useTickets";
-import useUsers from "../../hooks/useUsers";
 import useContacts from "../../hooks/useContacts";
-import useMessages from "../../hooks/useMessages";
 import { ChatsUser } from "./ChartsUser"
 
-import Filters from "./Filters";
 import { isEmpty } from "lodash";
 import moment from "moment";
 import { ChartsDate } from "./ChartsDate";
+import { i18n } from "../../translate/i18n";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -235,22 +217,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const { find } = useDashboard();
 
-  let newDate = new Date();
-  let date = newDate.getDate();
-  let month = newDate.getMonth() + 1;
-  let year = newDate.getFullYear();
-  let now = `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
-
-  const [showFilter, setShowFilter] = useState(false);
-  const [queueTicket, setQueueTicket] = useState(false);
-
-  const { user } = useContext(AuthContext);
-  var userQueueIds = [];
-
-  if (user.queues && user.queues.length > 0) {
-    userQueueIds = user.queues.map((q) => q.id);
-  }
-
   useEffect(() => {
     async function firstLoad() {
       await fetchData();
@@ -301,7 +267,7 @@ const Dashboard = () => {
     }
 
     if (Object.keys(params).length === 0) {
-      toast.error("Parametrize o filtro");
+      toast.error(i18n.t("dashboard.toasts.selectFilterError"));
       setLoading(false);
       return;
     }
@@ -325,18 +291,6 @@ const Dashboard = () => {
       .format("HH[h] mm[m]");
   }
 
-  const GetUsers = () => {
-    let count;
-    let userOnline = 0;
-    attendants.forEach(user => {
-      if (user.online === true) {
-        userOnline = userOnline + 1
-      }
-    })
-    count = userOnline === 0 ? 0 : userOnline;
-    return count;
-  };
-  
     const GetContacts = (all) => {
     let props = {};
     if (all) {
@@ -352,7 +306,7 @@ const Dashboard = () => {
         <>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Inicial"
+              label={i18n.t("dashboard.filters.initialDate")}
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
@@ -364,7 +318,7 @@ const Dashboard = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Data Final"
+              label={i18n.t("dashboard.filters.finalDate")}
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
@@ -380,22 +334,24 @@ const Dashboard = () => {
       return (
         <Grid item xs={12} sm={6} md={4}>
           <FormControl className={classes.selectContainer}>
-            <InputLabel id="period-selector-label">Período</InputLabel>
+            <InputLabel id="period-selector-label">
+              {i18n.t("dashboard.periodSelect.title")}
+            </InputLabel>
             <Select
               labelId="period-selector-label"
               id="period-selector"
               value={period}
               onChange={(e) => handleChangePeriod(e.target.value)}
             >
-              <MenuItem value={0}>Nenhum selecionado</MenuItem>
-              <MenuItem value={3}>Últimos 3 dias</MenuItem>
-              <MenuItem value={7}>Últimos 7 dias</MenuItem>
-              <MenuItem value={15}>Últimos 15 dias</MenuItem>
-              <MenuItem value={30}>Últimos 30 dias</MenuItem>
-              <MenuItem value={60}>Últimos 60 dias</MenuItem>
-              <MenuItem value={90}>Últimos 90 dias</MenuItem>
+              <MenuItem value={0}>{i18n.t("dashboard.periodSelect.options.none")}</MenuItem>
+              <MenuItem value={3}>{i18n.t("dashboard.periodSelect.options.last3")}</MenuItem>
+              <MenuItem value={7}>{i18n.t("dashboard.periodSelect.options.last7")}</MenuItem>
+              <MenuItem value={15}>{i18n.t("dashboard.periodSelect.options.last15")}</MenuItem>
+              <MenuItem value={30}>{i18n.t("dashboard.periodSelect.options.last30")}</MenuItem>
+              <MenuItem value={60}>{i18n.t("dashboard.periodSelect.options.last60")}</MenuItem>
+              <MenuItem value={90}>{i18n.t("dashboard.periodSelect.options.last90")}</MenuItem>
             </Select>
-            <FormHelperText>Selecione o período desejado</FormHelperText>
+            <FormHelperText>{i18n.t("dashboard.periodSelect.helper")}</FormHelperText>
           </FormControl>
         </Grid>
       );
@@ -422,7 +378,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Em Conversa
+                    {i18n.t("dashboard.counters.inTalk")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -459,7 +415,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Aguardando
+                    {i18n.t("dashboard.counters.waiting")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -538,7 +494,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Finalizados
+                    {i18n.t("dashboard.counters.finished")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -575,7 +531,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    Novos Contatos
+                    {i18n.t("dashboard.counters.newContacts")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -613,7 +569,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    T.M. de Conversa
+                    {i18n.t("dashboard.counters.averageTalkTime")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -650,7 +606,7 @@ const Dashboard = () => {
                     variant="h6"
                     paragraph
                   >
-                    T.M. de Espera
+                    {i18n.t("dashboard.counters.averageWaitTime")}
                   </Typography>
                   <Grid item>
                     <Typography
@@ -676,16 +632,18 @@ const Dashboard = () => {
 		  {/* FILTROS */}
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.selectContainer}>
-              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
+              <InputLabel id="period-selector-label">{i18n.t("dashboard.filters.filterType.title")}</InputLabel>
               <Select
                 labelId="period-selector-label"
                 value={filterType}
                 onChange={(e) => handleChangeFilterType(e.target.value)}
               >
-                <MenuItem value={1}>Filtro por Data</MenuItem>
-                <MenuItem value={2}>Filtro por Período</MenuItem>
+                <MenuItem value={1}>{i18n.t("dashboard.filters.filterType.options.perDate")}</MenuItem>
+                <MenuItem value={2}>{i18n.t("dashboard.filters.filterType.options.perPeriod")}</MenuItem>
               </Select>
-              <FormHelperText>Selecione o período desejado</FormHelperText>
+              <FormHelperText>
+                {i18n.t("dashboard.filters.filterType.helper")}
+              </FormHelperText>
             </FormControl>
           </Grid>
 
@@ -699,7 +657,7 @@ const Dashboard = () => {
               variant="contained"
               color="primary"
             >
-              Filtrar
+              {i18n.t("dashboard.buttons.filter")}
             </ButtonWithSpinner>
           </Grid>
 

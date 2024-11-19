@@ -8,13 +8,35 @@ const messages = {
           fail: "Error al crear usuario. Verifique los datos ingresados.",
         },
         form: {
-          name: "Nombre",
+          name: "Nombre de la empresa",
           email: "Correo electrónico",
+          phone: "Teléfono con (DDD)",
+          plan: "Plan",
           password: "Contraseña",
+        },
+        formErrors: {
+          name: {
+            required: "El nombre de la empresa es obligatorio",
+            short: "Nombre muy corto",
+            long: "Nombre muy largo",
+          },
+          password: {
+            short: "Contraseña muy corta",
+            long: "Contraseña muy larga",
+          },
+          email: {
+            required: "El correo electrónico es obligatorio",
+            invalid: "Correo electrónico inválido",
+          },
         },
         buttons: {
           submit: "Registrarse",
           login: "¿Ya tienes una cuenta? ¡Inicia sesión!",
+        },
+        plan: {
+          attendant: "Atendente",
+          whatsapp: "WhatsApp",
+          queues: "Filas",
         },
       },
       login: {
@@ -26,6 +48,105 @@ const messages = {
         buttons: {
           submit: "Iniciar sesión",
           register: " ¡Crea tu cuenta en solo unos clics!",
+        },
+      },
+      resetPassword: {
+        title: "Restablecer contraseña",
+        toasts: {
+          emailSent: "¡Correo electrónico enviado con éxito!",
+          emailNotFound: "¡Correo electrónico no encontrado!",
+          passwordUpdated: "¡Contraseña actualizada con éxito!",
+        },
+        formErrors: {
+          email: {
+            required: "El correo electrónico es obligatorio",
+            invalid: "Correo electrónico inválido",
+          },
+          newPassword: {
+            required: "Se requiere una nueva contraseña",
+            matches: "Tu contraseña debe tener al menos 8 caracteres, con una letra mayúscula, una letra minúscula y un número.",
+          },
+          confirmPassword: {
+            required: "Se requiere la confirmación de la contraseña",
+            matches: "Las contraseñas no coinciden",
+          },
+        },
+        form: {
+          email: "Correo electrónico",
+          verificationCode: "Código de verificación",
+          newPassword: "Nueva contraseña",
+          confirmPassword: "Confirmar nueva contraseña",
+        },
+        buttons: {
+          submitEmail: "Enviar correo electrónico",
+          submitPassword: "Restablecer contraseña",
+          back: "¿No tienes una cuenta? ¡Regístrate!",
+        },
+      },
+      dashboard: {
+        toasts: {
+          selectFilterError: "Establecer el filtro",
+          userChartError: "Error al obtener información de la conversación",
+          dateChartError: "Error al obtener información de la conversación",
+        },
+        filters: {
+          initialDate: "Fecha inicial",
+          finalDate: "Fecha final",
+          filterType: {
+            title: "Tipo de filtro",
+            options: {
+              perDate: "Filtrar por fecha",
+              perPeriod: "Filtrar por período",
+            },
+            helper: "Seleccione el tipo de filtro deseado",
+          },
+        },
+        periodSelect: {
+          title: "Período",
+          options: {
+            none: "Ninguno seleccionado",
+            last3: "Últimos 3 días",
+            last7: "Últimos 7 días",
+            last15: "Últimos 15 días",
+            last30: "Últimos 30 días",
+            last60: "Últimos 60 días",
+            last90: "Últimos 90 días",
+          },
+          helper: "Seleccione el período deseado",
+        },
+        counters: {
+          inTalk: "En conversación",
+          waiting: "Esperando",
+          finished: "Finalizado",
+          newContacts: "Nuevos contactos",
+          averageTalkTime: "Tiempo promedio de conversación",
+          averageWaitTime: "Tiempo promedio de espera",
+        },
+        buttons: {
+          filter: "Filtrar",
+        },
+        onlineTable: {
+          ratingLabel: "1 - Insatisfecho, 2 - Satisfecho, 3 - Muy satisfecho",
+          name: "Nombre",
+          ratings: "Calificaciones",
+          avgSupportTime: "Tiempo promedio de soporte",
+          status: "Estado (Actual)",
+        },
+        charts: {
+          user: {
+            label: "Gráfico de conversación",
+            title: "Total de conversaciones por usuarios",
+            start: "Inicio",
+            end: "Fin",
+            filter: "Filtro",
+          },
+          date: {
+            label: "Gráfico de conversación",
+            title: "Total",
+            start: "Inicio",
+            end: "Fin",
+            filter: "Filtro",
+          },
         },
       },
       plans: {
@@ -60,13 +181,6 @@ const messages = {
           success: "¡Inicio de sesión exitoso!",
         },
         token: "Token",
-      },
-      dashboard: {
-        charts: {
-          perDay: {
-            title: "Atenciones de hoy: ",
-          },
-        },
       },
       connections: {
         title: "Conexiones",

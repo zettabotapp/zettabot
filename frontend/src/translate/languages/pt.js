@@ -8,14 +8,36 @@ const messages = {
           fail: "Erro ao criar usuário. Verifique os dados informados.",
         },
         form: {
-          name: "Nome",
+          name: "Nome da empresa",
           email: "Email",
+          phone: "Telefone com (DDD)",
+          plan: "Plano",
           password: "Senha",
+        },
+        formErrors: {
+          name: {
+            required: "Nome da empresa é obrigatório",
+            short: "Nome muito curto",
+            long: "Nome muito longo",
+          },
+          password: {
+            short: "Senha muito curta",
+            long: "Senha muito longa",
+          }, 
+          email: {
+            required: "Email é obrigatório",
+            invalid: "Email inválido",
+          }
         },
         buttons: {
           submit: "Cadastrar",
           login: "Já tem uma conta? Entre!",
         },
+        plan: {
+          attendant: "Atendente",
+          whatsapp: "WhatsApp",
+          queues: "Filas",
+        }
       },
       login: {
         title: "Login",
@@ -27,6 +49,105 @@ const messages = {
           submit: "Entrar",
           register: "Registre-se, agora mesmo!",
         },
+      },
+      resetPassword: {
+        title: "Redefinir Senha",
+        toasts: {
+          emailSent: "Email enviado com sucesso!",
+          emailNotFound: "Email não encontrado!",
+          passwordUpdated: "Senha atualizada com sucesso!",
+        },
+        formErrors: {
+          email: {
+            required: "Email é obrigatório",
+            invalid: "Email inválido",
+          },
+          newPassword: {
+            required: "Nova senha é obrigatória",
+            matches: "Sua senha precisa ter no mínimo 8 caracteres, sendo uma letra maiúscula, uma minúscula e um número.",
+          },
+          confirmPassword: {
+            required: "Confirmação de senha é obrigatória",
+            matches: "As senhas não correspondem",
+          },
+        },
+        form: {
+          email: "Email",
+          verificationCode: "Código de verificação",
+          newPassword: "Nova senha",
+          confirmPassword: "Confirme a nova senha",
+        },
+        buttons: {
+          submitEmail: "Enviar email",
+          submitPassword: "Redefinir senha",
+          back: "Não tem uma conta? Cadastre-se!"
+        },
+      },
+      dashboard: {
+        toasts: {
+          selectFilterError: "Parametrize o filtro",
+          userChartError: 'Erro ao obter informações da conversa',
+          dateChartError: 'Erro ao obter informações da conversa',
+        },
+        filters: {
+          initialDate: "Data Inicial",
+          finalDate: "Data Final",
+          filterType: {
+            title: "Tipo de Filtro",
+            options: {
+              perDate: "Filtro por Data",
+              perPeriod: "Filtro por Período",
+            },
+            helper: "Selecione o tipo de filtro desejado"
+          }
+        },
+        periodSelect: {
+          title: "Período",
+          options: {
+            none: "Nenhum selecionado",
+            last3: "Últimos 3 dias",
+            last7: "Últimos 7 dias",
+            last15: "Últimos 15 dias",
+            last30: "Últimos 30 dias",
+            last60: "Últimos 60 dias",
+            last90: "Últimos 90 dias",
+          },
+          helper: "Selecione o período desejado",
+        },
+        counters: {
+          inTalk: "Em conversa",
+          waiting: "Aguardando",
+          finished: "Finalizados",
+          newContacts: "Novos contatos",
+          averageTalkTime: "T.M. de Conversa",
+          averageWaitTime: "T.M. de Espera"
+        },
+        buttons: {
+          filter: "Filtrar",
+        },
+        onlineTable: {
+          ratingLabel: "1 - Insatisfeito, 2 - Satisfeito, 3 - Muito Satisfeito",
+          name: "Nome",
+          ratings: "Avaliações",
+          avgSupportTime: "T.M. de Atendimento",
+          status: "Status (Atual)"
+        },
+        charts: {
+          user: {
+            label: 'Gráfico de Conversas',
+            title: "Total de Conversas por Usuários",
+            start: "Início",
+            end: "Fim",
+            filter: "Filtrar",
+          },
+          date: {
+            label: 'Gráfico de Conversas',
+            title: "Total",
+            start: "Início",
+            end: "Fim",
+            filter: "Filtrar",
+          }
+        }
       },
       plans: {
         form: {
@@ -60,13 +181,6 @@ const messages = {
           success: "Login efetuado com sucesso!",
         },
         token: "Token",
-      },
-      dashboard: {
-        charts: {
-          perDay: {
-            title: "Atendimentos hoje: ",
-          },
-        },
       },
       connections: {
         title: "Conexões",

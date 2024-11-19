@@ -17,6 +17,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import moment from 'moment';
 
 import Rating from '@material-ui/lab/Rating';
+import { i18n } from "../../translate/i18n";
 
 const useStyles = makeStyles(theme => ({
 	on: {
@@ -49,7 +50,7 @@ export default function TableAttendantsStatus(props) {
         return attendants.map((a, k) => (
             <TableRow key={k}>
                 <TableCell>{a.name}</TableCell>
-                <TableCell align="center" title="1 - Insatisfeito, 2 - Satisfeito, 3 - Muito Satisfeito" className={classes.pointer}>
+                <TableCell align="center" title={i18n.t("dashboard.onlineTable.ratingLabel")} className={classes.pointer}>
                     <RatingBox rating={a.rating} />
                 </TableCell>
                 <TableCell align="center">{formatTime(a.avgSupportTime, 2)}</TableCell>
@@ -72,30 +73,14 @@ export default function TableAttendantsStatus(props) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Nome</TableCell>
-                        <TableCell align="center">Avaliações</TableCell>
-                        <TableCell align="center">T.M. de Atendimento</TableCell>
-                        <TableCell align="center">Status (Atual)</TableCell>
+                        <TableCell>{i18n.t("dashboard.onlineTable.name")}</TableCell>
+                        <TableCell align="center">{i18n.t("dashboard.onlineTable.ratings")}</TableCell>
+                        <TableCell align="center">{i18n.t("dashboard.onlineTable.avgSupportTime")}</TableCell>
+                        <TableCell align="center">{i18n.t("dashboard.onlineTable.status")}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     { renderList() }
-                    {/* <TableRow>
-                        <TableCell>Nome 4</TableCell>
-                        <TableCell align="center">10</TableCell>
-                        <TableCell align="center">10 minutos</TableCell>
-                        <TableCell align="center">
-                            <CheckCircleIcon className={classes.off} />
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Nome 5</TableCell>
-                        <TableCell align="center">10</TableCell>
-                        <TableCell align="center">10 minutos</TableCell>
-                        <TableCell align="center">
-                            <CheckCircleIcon className={classes.on} />
-                        </TableCell>
-                    </TableRow> */}
                 </TableBody>
             </Table>
         </TableContainer>
