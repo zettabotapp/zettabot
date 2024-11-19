@@ -388,6 +388,20 @@ contactModal: {
     extraValue: "Valor",
     whatsapp: "Conexión Origen: "
   },
+  formErrors: {
+    name: {
+      required: "El nombre es obligatorio",
+      short: "Nombre muy corto",
+      long: "Nombre muy largo",
+    },
+    number: {
+      required: "El número es obligatorio",
+      invalid: "Número inválido",
+    },
+    email: {
+      invalid: "Correo electrónico inválido",
+    },
+  },
   buttons: {
     addExtraInfo: "Agregar información",
     okAdd: "Agregar",

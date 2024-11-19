@@ -391,6 +391,20 @@ const messages = {
           extraValue: "Valor",
           whatsapp: "Conexão Origem: "
         },
+        formErrors: {
+          name: {
+            required: "Nome é obrigatório",
+            short: "Nome muito curto",
+            long: "Nome muito longo",
+          },
+          phone: {
+            short: "Número muito curto",
+            long: "Número muito longo",
+          },
+          email: {
+            invalid: "Email inválido",
+          }
+        },
         buttons: {
           addExtraInfo: "Adicionar informação",
           okAdd: "Adicionar",
@@ -498,6 +512,11 @@ const messages = {
       tickets: {
         toasts: {
           deleted: "O atendimento que você estava foi deletado.",
+          unauthorized: "Acesso não permitido"
+        },
+        filters: {
+          user: "Filtro por usuários",
+          tags: "Filtro por tags",
         },
         notification: {
           message: "Mensagem de",
@@ -537,14 +556,32 @@ const messages = {
           reopen: "Reabrir"
         },
       },
+      ticketsListItem: {
+        tooltip: {
+          chatbot: "Chatbot",
+          peek: "Espiar Conversa"
+        },
+        noQueue: "SEM FILA",
+      },
+      ticketAdvanced: {
+        selectTicket: "Selecionar Ticket",
+        ticketNav: "Ticket",
+        attendanceNav: "Atendimentos",
+      },
       newTicketModal: {
         title: "Criar Ticket",
         fieldLabel: "Digite para pesquisar o contato",
         add: "Adicionar",
+        searchQueueError: "Ocorreu um erro inesperado ao tentar buscar as filas",
+        selectQueue: "Selecione uma fila",
+        selectConection: "Selecione uma conexão",
         buttons: {
           ok: "Salvar",
           cancel: "Cancelar",
         },
+      },
+      locationPreview: {
+        button: "Visualizar",
       },
       mainDrawer: {
         listItems: {
@@ -967,8 +1004,13 @@ const messages = {
             resolve: "Resolver",
             reopen: "Reabrir",
             accept: "Aceitar",
+            download: "Baixar",
           },
         },
+        lostCall: "Chamada de voz/vídeo perdida às",
+        deletedMessage: "Essa mensagem foi apagada pelo contato",
+        edited: "Editada",
+        saudation: "Diga olá para seu novo contato!"
       },
       messagesInput: {
         placeholderOpen: "Digite uma mensagem",

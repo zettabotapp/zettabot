@@ -260,6 +260,20 @@ const messages = {
 					extraName: "Field name",
 					extraValue: "Value",
 				},
+				formErrors: {
+					name: {
+						required: "Name is required",
+						short: "Name too short",
+						long: "Name too long",
+					},
+					phone: {
+						short: "Number too short",
+						long: "Number too long",
+					},
+					email: {
+						invalid: "Invalid email",
+					},
+				},
 				buttons: {
 					addExtraInfo: "Add information",
 					okAdd: "Add",
@@ -316,6 +330,11 @@ const messages = {
 			tickets: {
 				toasts: {
 					deleted: "The ticket you were on has been deleted.",
+					unauthorized: "Unauthorized access",
+				},
+				filters: {
+					user: "Filter by users",
+					tags: "Filter by tags",
 				},
 				notification: {
 					message: "Message from",
