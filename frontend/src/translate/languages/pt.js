@@ -23,11 +23,11 @@ const messages = {
           password: {
             short: "Senha muito curta",
             long: "Senha muito longa",
-          }, 
+          },
           email: {
             required: "Email é obrigatório",
             invalid: "Email inválido",
-          }
+          },
         },
         buttons: {
           submit: "Cadastrar",
@@ -37,7 +37,7 @@ const messages = {
           attendant: "Atendente",
           whatsapp: "WhatsApp",
           queues: "Filas",
-        }
+        },
       },
       login: {
         title: "Login",
@@ -64,7 +64,8 @@ const messages = {
           },
           newPassword: {
             required: "Nova senha é obrigatória",
-            matches: "Sua senha precisa ter no mínimo 8 caracteres, sendo uma letra maiúscula, uma minúscula e um número.",
+            matches:
+              "Sua senha precisa ter no mínimo 8 caracteres, sendo uma letra maiúscula, uma minúscula e um número.",
           },
           confirmPassword: {
             required: "Confirmação de senha é obrigatória",
@@ -80,14 +81,14 @@ const messages = {
         buttons: {
           submitEmail: "Enviar email",
           submitPassword: "Redefinir senha",
-          back: "Não tem uma conta? Cadastre-se!"
+          back: "Não tem uma conta? Cadastre-se!",
         },
       },
       dashboard: {
         toasts: {
           selectFilterError: "Parametrize o filtro",
-          userChartError: 'Erro ao obter informações da conversa',
-          dateChartError: 'Erro ao obter informações da conversa',
+          userChartError: "Erro ao obter informações da conversa",
+          dateChartError: "Erro ao obter informações da conversa",
         },
         filters: {
           initialDate: "Data Inicial",
@@ -98,8 +99,8 @@ const messages = {
               perDate: "Filtro por Data",
               perPeriod: "Filtro por Período",
             },
-            helper: "Selecione o tipo de filtro desejado"
-          }
+            helper: "Selecione o tipo de filtro desejado",
+          },
         },
         periodSelect: {
           title: "Período",
@@ -120,7 +121,7 @@ const messages = {
           finished: "Finalizados",
           newContacts: "Novos contatos",
           averageTalkTime: "T.M. de Conversa",
-          averageWaitTime: "T.M. de Espera"
+          averageWaitTime: "T.M. de Espera",
         },
         buttons: {
           filter: "Filtrar",
@@ -130,24 +131,24 @@ const messages = {
           name: "Nome",
           ratings: "Avaliações",
           avgSupportTime: "T.M. de Atendimento",
-          status: "Status (Atual)"
+          status: "Status (Atual)",
         },
         charts: {
           user: {
-            label: 'Gráfico de Conversas',
+            label: "Gráfico de Conversas",
             title: "Total de Conversas por Usuários",
             start: "Início",
             end: "Fim",
             filter: "Filtrar",
           },
           date: {
-            label: 'Gráfico de Conversas',
+            label: "Gráfico de Conversas",
             title: "Total",
             start: "Início",
             end: "Fim",
             filter: "Filtrar",
-          }
-        }
+          },
+        },
       },
       plans: {
         form: {
@@ -235,30 +236,40 @@ const messages = {
         title: {
           add: "Adicionar WhatsApp",
           edit: "Editar WhatsApp",
-        },		
-		 tabs: {
+        },
+        formErrors: {
+          name: {
+            required: "Nome é obrigatório",
+            short: "Nome muito curto",
+            long: "Nome muito longo",
+          },
+        },
+        tabs: {
           general: "Geral",
           messages: "Mensagens",
           assessments: "Avaliações",
           integrations: "Integrações",
           schedules: "Horário de expediente",
-		 },
+        },
         form: {
           name: "Nome",
           default: "Padrão",
           sendIdQueue: "Fila",
           timeSendQueue: "Redirecionar para fila em X minutos",
           queueRedirection: "Redirecionamento de Fila",
-		  outOfHoursMessage: "Mensagem de fora de expediente",
-          queueRedirectionDesc: "Selecione uma fila para os contatos que não possuem fila serem redirecionados",
+          outOfHoursMessage: "Mensagem de fora de expediente",
+          queueRedirectionDesc:
+            "Selecione uma fila para os contatos que não possuem fila serem redirecionados",
           prompt: "Prompt",
+          queue: "Fila de Transferência",
+          timeToTransfer: "Transferir após x (minutos)",
           //maxUseBotQueues: "Enviar bot x vezes",
           //timeUseBotQueues: "Intervalo em minutos entre envio de bot",
           expiresTicket: "Encerrar chats abertos após x minutos",
           expiresInactiveMessage: "Mensagem de encerramento por inatividade",
-		  greetingMessage: "Mensagem de saudação",
+          greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
-		  sendIdQueue: "Fila",
+          sendIdQueue: "Fila",
         },
         buttons: {
           okAdd: "Adicionar",
@@ -267,6 +278,21 @@ const messages = {
         },
         success: "WhatsApp salvo com sucesso.",
       },
+      qrCodeModal: {
+        title: "Utilize o seu WhatsApp:",
+        steps: {
+          one: "1 - Abra o WhatsApp no seu celular",
+          two: {
+            partOne: "2 - Toque em Mais opções no Android",
+            partTwo: "ou em Configurações",
+            partThree: "no iPhone",
+          },
+          three:
+            "3 - Toque em Dispositivos conectados e, em seguida, em Conectar dispositivos",
+          four: "4 - Aponte seu celular para essa tela para capturar o QR Code",
+        },
+        waiting: "Aguardando leitura do QR Code",
+      },
       qrCode: {
         message: "Leia o QrCode para iniciar a sessão",
       },
@@ -274,22 +300,24 @@ const messages = {
         title: "Contatos",
         toasts: {
           deleted: "Contato excluído com sucesso!",
-		  deletedAll: "Todos contatos excluídos com sucesso!",
+          deletedAll: "Todos contatos excluídos com sucesso!",
         },
-		  searchPlaceholder: "Pesquisar...",
-          confirmationModal: {
+        searchPlaceholder: "Pesquisar...",
+        confirmationModal: {
           deleteTitle: "Deletar ",
           deleteAllTitle: "Deletar Todos",
           importTitle: "Importar contatos",
-          deleteMessage: "Tem certeza que deseja deletar este contato? Todos os tickets relacionados serão perdidos.",
-          deleteAllMessage: "Tem certeza que deseja deletar todos os contatos? Todos os tickets relacionados serão perdidos.",
+          deleteMessage:
+            "Tem certeza que deseja deletar este contato? Todos os tickets relacionados serão perdidos.",
+          deleteAllMessage:
+            "Tem certeza que deseja deletar todos os contatos? Todos os tickets relacionados serão perdidos.",
           importMessage: "Deseja importar todos os contatos do telefone?",
         },
         buttons: {
           import: "Importar Contatos",
           add: "Adicionar Contato",
           export: "Exportar Contatos",
-          delete: "Excluir Todos Contatos"
+          delete: "Excluir Todos Contatos",
         },
         table: {
           name: "Nome",
@@ -317,7 +345,7 @@ const messages = {
           typebotKeywordRestart: "Palavra para reiniciar o fluxo",
           typebotRestartMessage: "Mensagem ao reiniciar a conversa",
           typebotUnknownMessage: "Mensagem de opção inválida",
-          typebotDelayMessage: "Intervalo (ms) entre mensagens",   
+          typebotDelayMessage: "Intervalo (ms) entre mensagens",
         },
         buttons: {
           okAdd: "Adicionar",
@@ -331,14 +359,14 @@ const messages = {
           editSuccess: "Integração editada com sucesso.",
         },
       },
-	  sideMenu: {
-            name: "Menu Lateral Inicial",
-            note: "Se habilitado, o menu lateral irá iniciar fechado",
-            options: {
-              enabled: "Aberto",
-              disabled: "Fechado",
-            },
-          },
+      sideMenu: {
+        name: "Menu Lateral Inicial",
+        note: "Se habilitado, o menu lateral irá iniciar fechado",
+        options: {
+          enabled: "Aberto",
+          disabled: "Fechado",
+        },
+      },
       promptModal: {
         form: {
           name: "Nome",
@@ -389,7 +417,7 @@ const messages = {
           email: "Email",
           extraName: "Nome do campo",
           extraValue: "Valor",
-          whatsapp: "Conexão Origem: "
+          whatsapp: "Conexão Origem: ",
         },
         formErrors: {
           name: {
@@ -403,7 +431,7 @@ const messages = {
           },
           email: {
             invalid: "Email inválido",
-          }
+          },
         },
         buttons: {
           addExtraInfo: "Adicionar informação",
@@ -498,7 +526,7 @@ const messages = {
       uploads: {
         titles: {
           titleUploadMsgDragDrop: "ARRASTE E SOLTE ARQUIVOS NO CAMPO ABAIXO",
-          titleFileList: "Lista de arquivo(s)"
+          titleFileList: "Lista de arquivo(s)",
         },
       },
       ticketsManager: {
@@ -512,7 +540,7 @@ const messages = {
       tickets: {
         toasts: {
           deleted: "O atendimento que você estava foi deletado.",
-          unauthorized: "Acesso não permitido"
+          unauthorized: "Acesso não permitido",
         },
         filters: {
           user: "Filtro por usuários",
@@ -553,13 +581,13 @@ const messages = {
         buttons: {
           accept: "Aceitar",
           closed: "Finalizar",
-          reopen: "Reabrir"
+          reopen: "Reabrir",
         },
       },
       ticketsListItem: {
         tooltip: {
           chatbot: "Chatbot",
-          peek: "Espiar Conversa"
+          peek: "Espiar Conversa",
         },
         noQueue: "SEM FILA",
       },
@@ -572,7 +600,8 @@ const messages = {
         title: "Criar Ticket",
         fieldLabel: "Digite para pesquisar o contato",
         add: "Adicionar",
-        searchQueueError: "Ocorreu um erro inesperado ao tentar buscar as filas",
+        searchQueueError:
+          "Ocorreu um erro inesperado ao tentar buscar as filas",
         selectQueue: "Selecione uma fila",
         selectConection: "Selecione uma conexão",
         buttons: {
@@ -607,7 +636,7 @@ const messages = {
           queueIntegration: "Integrações",
         },
         appBar: {
-          notRegister:"Sem notificações",
+          notRegister: "Sem notificações",
           user: {
             profile: "Perfil",
             logout: "Sair",
@@ -820,7 +849,7 @@ const messages = {
             confirmation: "Confirmação",
             contactList: "Lista de Contato",
             tagList: "Lista de Tags",
-            fileList: "Lista de Arquivos"
+            fileList: "Lista de Arquivos",
           },
           buttons: {
             add: "Adicionar",
@@ -844,8 +873,8 @@ const messages = {
         },
       },
       announcements: {
-        active: 'Ativo',
-        inactive: 'Inativo',
+        active: "Ativo",
+        inactive: "Inativo",
         title: "Informativos",
         searchPlaceholder: "Pesquisa",
         buttons: {
@@ -896,7 +925,7 @@ const messages = {
       queues: {
         title: "Filas & Chatbot",
         table: {
-		  id:"ID",
+          id: "ID",
           name: "Nome",
           color: "Cor",
           greeting: "Mensagem de saudação",
@@ -918,7 +947,7 @@ const messages = {
       users: {
         title: "Usuários",
         table: {
-		  id: "ID",
+          id: "ID",
           name: "Nome",
           email: "Email",
           profile: "Perfil",
@@ -934,6 +963,13 @@ const messages = {
           deleteTitle: "Excluir",
           deleteMessage:
             "Todos os dados do usuário serão perdidos. Os atendimento abertos deste usuário serão movidos para a fila.",
+        },
+      },
+      todolist: {
+        input: "Nova tarefa",
+        buttons: {
+          add: "Adicionar",
+          save: "Salvar",
         },
       },
       helps: {
@@ -965,8 +1001,8 @@ const messages = {
         confirmationModal: {
           deleteTitle: "Você tem certeza que quer excluir esta Tag?",
           deleteMessage: "Esta ação não pode ser revertida.",
-		  deleteAllMessage: "Tem certeza que deseja deletar todas as Tags?",
-		  deleteAllTitle: "Deletar Todos",
+          deleteAllMessage: "Tem certeza que deseja deletar todas as Tags?",
+          deleteAllTitle: "Deletar Todos",
         },
         table: {
           name: "Nome",
@@ -976,10 +1012,10 @@ const messages = {
         },
         buttons: {
           add: "Nova Tag",
-		  deleteAll: "Deletar Todas",
+          deleteAll: "Deletar Todas",
         },
         toasts: {
-		  deletedAll: "Todas Tags excluídas com sucesso!",
+          deletedAll: "Todas Tags excluídas com sucesso!",
           deleted: "Tag excluído com sucesso.",
         },
       },
@@ -1010,7 +1046,7 @@ const messages = {
         lostCall: "Chamada de voz/vídeo perdida às",
         deletedMessage: "Essa mensagem foi apagada pelo contato",
         edited: "Editada",
-        saudation: "Diga olá para seu novo contato!"
+        saudation: "Diga olá para seu novo contato!",
       },
       messagesInput: {
         placeholderOpen: "Digite uma mensagem",
@@ -1057,7 +1093,7 @@ const messages = {
         },
         confirmationModal: {
           title: "Deletar o ticket",
-		  titleFrom: "do contato ",
+          titleFrom: "do contato ",
           message:
             "Atenção! Todas as mensagens relacionadas ao ticket serão perdidas.",
         },
@@ -1081,7 +1117,8 @@ const messages = {
         },
       },
       backendErrors: {
-        ERR_INTERNAL_SERVER_ERROR: "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde",
+        ERR_INTERNAL_SERVER_ERROR:
+          "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde",
         ERR_NO_OTHER_WHATSAPP: "Deve haver pelo menos um WhatsApp padrão.",
         ERR_NO_DEF_WAPP_FOUND:
           "Nenhum WhatsApp padrão encontrado. Verifique a página de conexões.",
@@ -1094,7 +1131,8 @@ const messages = {
           "Não foi possível baixar mídia do WhatsApp. Verifique a página de conexões.",
         ERR_INVALID_CREDENTIALS:
           "Erro de autenticação. Por favor, tente novamente.",
-        ERR_USER_DONT_EXISTS: "Usuário não encontrado. Verifique o e-mail informado.",
+        ERR_USER_DONT_EXISTS:
+          "Usuário não encontrado. Verifique o e-mail informado.",
         ERR_SENDING_WAPP_MSG:
           "Erro ao enviar mensagem do WhatsApp. Verifique a página de conexões.",
         ERR_DELETE_WAPP_MSG: "Não foi possível excluir a mensagem do WhatsApp.",

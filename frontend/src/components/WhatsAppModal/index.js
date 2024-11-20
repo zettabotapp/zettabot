@@ -57,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SessionSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(2, i18n.t("whatsappModal.name.short"))
+    .max(50, i18n.t("whatsappModal.name.long"))
+    .required(i18n.t("whatsappModal.name.required")),
 });
 
 const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
@@ -366,7 +366,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                       fullWidth
                       type="number"
                       as={TextField}
-                      label='Transferir após x (minutos)'
+                      label={i18n.t("whatsappModal.form.timeToTransfer")}
                       name="timeToTransfer"
                       error={touched.timeToTransfer && Boolean(errors.timeToTransfer)}
                       helperText={touched.timeToTransfer && errors.timeToTransfer}
@@ -385,7 +385,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                         setSelectedQueueId(selectedId)
                       }}
                       multiple={false}
-                      title={'Fila de Transferência'}
+                      title={i18n.t("whatsappModal.form.queue")}
                     />
                   </Grid>
 
