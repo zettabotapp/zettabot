@@ -493,6 +493,24 @@ const messages = {
           allTicketEnabled: "Habilitado",
           allTicketDesabled: "Desabilitado",
         },
+        formErrors: {
+          name: {
+            required: "Nome é obrigatório",
+            short: "Nome muito curto",
+            long: "Nome muito longo",
+          },
+          password: {
+            short: "Senha muito curta",
+            long: "Senha muito longa",
+          },
+          email: {
+            required: "Email é obrigatório",
+            invalid: "Email inválido",
+          },
+        },
+        labels: {
+          liberations: "Liberações",
+        },
         buttons: {
           okAdd: "Adicionar",
           okEdit: "Salvar",
