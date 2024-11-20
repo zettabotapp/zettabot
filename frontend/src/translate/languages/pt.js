@@ -326,6 +326,20 @@ const messages = {
           actions: "Ações",
         },
       },
+      contactImportModal: {
+        title: "Planílha de contatos",
+        labels: {
+          import: "Importar contatos",
+          result: "resultados",
+          added: "Adicionados",
+          savedContact: "Contato salvo",
+          errors: "Erros",
+        },
+        buttons: {
+          download: "Baixar planílha modelo",
+          import: "Importar contatos",
+        },
+      },
       queueIntegrationModal: {
         title: {
           add: "Adicionar projeto",
