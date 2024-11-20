@@ -750,6 +750,25 @@ const messages = {
       },
       messagesAPI: {
         title: "API",
+        labels: {
+          doc: "Documentação para envio de mensagens",
+          method: "Métodos de Envio",
+          textMessage: "Mensagem de Texto",
+          mediaMessage: "Mensagem de Mídia",
+          instructions: "Instruções",
+          observations: "Observações importantes",
+          before1: "Antes de enviar mensagens, é necessário o cadastro do token vinculado à conexão que enviará as mensagens.",
+          before2: "Para realizar o cadastro acesse o menu 'Conexões', clique no botão editar da conexão e insira o token no devido campo.",
+          numberDescription: "O número para envio não deve ter mascara ou caracteres especiais e deve ser composto por:",
+          countryCode: "Código do País",
+          number: "Número",
+          textMessage2: "1. Mensagens de Texto",
+          textMessageInstructions: "Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:",
+          method2: "Método",
+          e: "e",
+          tests: "Teste de Envio",
+          mediaMessage2: "2. Mensagens de Mídia",
+        },
         textMessage: {
           number: "Número",
           body: "Mensagem",
@@ -761,6 +780,13 @@ const messages = {
           media: "Arquivo",
           token: "Token cadastrado",
         },
+        toasts: {
+          unauthorized: "Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.",
+          success: "Mensagem enviada com sucesso!",
+        },
+        buttons: {
+          send: "Enviar",
+        }
       },
       notifications: {
         noTickets: "Nenhuma notificação.",
