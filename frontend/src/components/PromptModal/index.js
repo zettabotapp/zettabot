@@ -21,7 +21,6 @@ import QueueSelectSingle from "../../components/QueueSelectSingle";
 
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
-import { max, min } from "moment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -58,14 +57,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PromptSchema = Yup.object().shape({
-    name: Yup.string().min(5, "Muito curto!").max(100, "Muito longo!").required("Obrigatório"),
-    prompt: Yup.string().min(50, "Muito curto!").required("Descreva o treinamento para Inteligência Artificial"),
-    model: Yup.string().required("Informe o modelo desejado para o Prompt"),
-    maxTokens: Yup.number().required("Informe o número máximo de tokens"),
-    temperature: Yup.number().required("Informe a temperatura"),
-    apiKey: Yup.string().required("Informe a API Key"),
-    queueId: Yup.number().required("Informe a fila"),
-    maxMessages: Yup.number().required("Informe o número máximo de mensagens")
+    name: Yup.string().min(5, i18n.t("promptModal.formErrors.name.short")).max(100, i18n.t("promptModal.formErrors.name.long")).required(i18n.t("promptModal.formErrors.name.required")),
+    prompt: Yup.string().min(50, i18n.t("promptModal.formErrors.prompt.short")).required(i18n.t("promptModal.formErrors.prompt.required")),
+    model: Yup.string().required(i18n.t("promptModal.formErrors.modal.required")),
+    maxTokens: Yup.number().required(i18n.t("promptModal.formErrors.maxTokens.required")),
+    temperature: Yup.number().required(i18n.t("promptModal.formErrors.temperature.required")),
+    apiKey: Yup.string().required(i18n.t("promptModal.formErrors.apikey.required")),
+    queueId: Yup.number().required(i18n.t("promptModal.formErrors.queueId.required")),
+    maxMessages: Yup.number().required(i18n.t("promptModal.formErrors.maxMessages.required"))
 });
 
 const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
@@ -125,7 +124,7 @@ const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
         const promptData = { ...values, model: selectedModel };
         console.log(promptData);
         if (!values.queueId) {
-            toastError("Informe o setor");
+            toastError(i18n.t("promptModal.setor"));
             return;
         }
         try {

@@ -391,7 +391,37 @@ const messages = {
           apikey: "API Key",
           max_messages: "Máximo de mensagens no Histórico",
         },
+        formErrors: {
+          name: {
+            short: "Nome muito curto",
+            long: "Nome muito longo",
+            required: "Nome é obrigatório",
+          },
+          prompt: {
+            short: "Prompt muito curto",
+            required: "Descreva o treinamento para Inteligência Artificial"
+          },
+          modal: {
+            required: "Informe o modelo desejado para o Prompt"
+          },
+          maxTokens: {
+            required: "Informe o número máximo de tokens na resposta",
+          },
+          temperature: {
+            required: "Informe a temperatura",
+          },
+          apikey: {
+            required: "Informe a API Key",
+          },
+          queueId: {
+            required: "Informe a fila",
+          },
+          maxMessages: {
+            required: "Informe o número máximo de mensagens no histórico",
+          },
+        },
         success: "Prompt salvo com sucesso!",
+        setor: "Informe o setor",
         title: {
           add: "Adicionar Prompt",
           edit: "Editar Prompt",
@@ -1128,6 +1158,15 @@ const messages = {
           fileOptions: "Lista de arquivos",
           extraName: "Mensagem para enviar com arquivo",
           extraValue: "Valor da opção",
+        },
+        formErrors: {
+          name: {
+            required: "Nome é obrigatório",
+            short: "Nome muito curto",
+          },
+          message: {
+            required: "Mensagem é obrigatória",
+          },
         },
         success: "Lista de arquivos salva com sucesso!",
       },
