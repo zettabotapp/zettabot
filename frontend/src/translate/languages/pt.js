@@ -1099,11 +1099,22 @@ const messages = {
           deleted: "Registro excluído",
         },
       },
+      subscription: {
+        title: "Assinatura",
+        testPeriod: "Período de Teste",
+        remainingTest: "Seu período de teste termina em",
+        remainingTest2: "dias!",
+        chargeEmail: "E-mail de cobrança",
+        signNow: "Assinar agora!",
+      },
       announcements: {
         active: "Ativo",
         inactive: "Inativo",
         title: "Informativos",
         searchPlaceholder: "Pesquisa",
+        high: "Alta",
+        medium: "Média",
+        low: "Baixa",
         buttons: {
           add: "Novo Informativo",
           contactLists: "Listas de Informativos",
@@ -1123,6 +1134,7 @@ const messages = {
           readonly: "Apenas Visualização",
           form: {
             priority: "Prioridade",
+            required: "Campo obrigatório",
             title: "Title",
             text: "Texto",
             mediaPath: "Arquivo",
@@ -1144,6 +1156,7 @@ const messages = {
         toasts: {
           success: "Operação realizada com sucesso",
           deleted: "Registro excluído",
+          info: "Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.",
         },
       },
       campaignsConfig: {
