@@ -613,7 +613,12 @@ const messages = {
         },
         form: {
           name: "Nome",
+          nameShort: "Nome curto",
+          nameLong: "Nome longo",
+          nameRequired: "Nome é obrigatório",
           color: "Cor",
+          colorShort: "Cor curta",
+          colorLong: "Cor longa",
           greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
           outOfHoursMessage: "Mensagem de fora de expediente",
@@ -626,6 +631,14 @@ const messages = {
           okAdd: "Adicionar",
           okEdit: "Salvar",
           cancel: "Cancelar",
+        },
+        toasts: {
+          success: "Fila salva com sucesso.",
+          info: "Clique em salvar para registar as alterações",
+        },
+        tabs: {
+          queueData: "Dados da fila",
+          attendanceTime: "Horários de Atendimento",
         },
       },
       userModal: {
@@ -1148,6 +1161,9 @@ const messages = {
         },
         buttons: {
           add: "Adicionar fila",
+        },
+        toasts: {
+          success: "Fila deletada com sucesso.",
         },
         confirmationModal: {
           deleteTitle: "Excluir",

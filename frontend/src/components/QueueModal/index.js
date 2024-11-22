@@ -69,10 +69,13 @@ const useStyles = makeStyles((theme) => ({
 
 const QueueSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  color: Yup.string().min(3, "Too Short!").max(9, "Too Long!").required(),
+    .min(2, i18n.t("queueModal.form.nameShort"))
+    .max(50, i18n.t("queueModal.form.nameLong"))
+    .required(i18n.t("queueModal.form.nameRequired")),
+  color: Yup.string()
+    .min(3, i18n.t("queueModal.form.colorShort"))
+    .max(9, i18n.t("queueModal.form.colorLong"))
+    .required(),
   greetingMessage: Yup.string(),
 });
 
@@ -86,7 +89,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
     outOfHoursMessage: "",
     orderQueue: "",
     integrationId: "",
-    promptId: ""
+    promptId: "",
   };
 
   const [colorPickerModalOpen, setColorPickerModalOpen] = useState(false);
@@ -97,13 +100,48 @@ const QueueModal = ({ open, onClose, queueId }) => {
   const [integrations, setIntegrations] = useState([]);
 
   const [schedules, setSchedules] = useState([
-    { weekday: "Segunda-feira", weekdayEn: "monday", startTime: "08:00", endTime: "18:00", },
-    { weekday: "Terça-feira", weekdayEn: "tuesday", startTime: "08:00", endTime: "18:00", },
-    { weekday: "Quarta-feira", weekdayEn: "wednesday", startTime: "08:00", endTime: "18:00", },
-    { weekday: "Quinta-feira", weekdayEn: "thursday", startTime: "08:00", endTime: "18:00", },
-    { weekday: "Sexta-feira", weekdayEn: "friday", startTime: "08:00", endTime: "18:00", },
-    { weekday: "Sábado", weekdayEn: "saturday", startTime: "08:00", endTime: "12:00", },
-    { weekday: "Domingo", weekdayEn: "sunday", startTime: "00:00", endTime: "00:00", },
+    {
+      weekday: "Segunda-feira",
+      weekdayEn: "monday",
+      startTime: "08:00",
+      endTime: "18:00",
+    },
+    {
+      weekday: "Terça-feira",
+      weekdayEn: "tuesday",
+      startTime: "08:00",
+      endTime: "18:00",
+    },
+    {
+      weekday: "Quarta-feira",
+      weekdayEn: "wednesday",
+      startTime: "08:00",
+      endTime: "18:00",
+    },
+    {
+      weekday: "Quinta-feira",
+      weekdayEn: "thursday",
+      startTime: "08:00",
+      endTime: "18:00",
+    },
+    {
+      weekday: "Sexta-feira",
+      weekdayEn: "friday",
+      startTime: "08:00",
+      endTime: "18:00",
+    },
+    {
+      weekday: "Sábado",
+      weekdayEn: "saturday",
+      startTime: "08:00",
+      endTime: "12:00",
+    },
+    {
+      weekday: "Domingo",
+      weekdayEn: "sunday",
+      startTime: "00:00",
+      endTime: "00:00",
+    },
   ]);
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [prompts, setPrompts] = useState([]);
@@ -150,7 +188,9 @@ const QueueModal = ({ open, onClose, queueId }) => {
         setQueue((prevState) => {
           return { ...prevState, ...data };
         });
-        data.promptId ? setSelectedPrompt(data.promptId) : setSelectedPrompt(null);
+        data.promptId
+          ? setSelectedPrompt(data.promptId)
+          : setSelectedPrompt(null);
 
         setSchedules(data.schedules);
       } catch (err) {
@@ -165,7 +205,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
         greetingMessage: "",
         outOfHoursMessage: "",
         orderQueue: "",
-        integrationId: ""
+        integrationId: "",
       });
     };
   }, [queueId, open]);
@@ -179,14 +219,18 @@ const QueueModal = ({ open, onClose, queueId }) => {
     try {
       if (queueId) {
         await api.put(`/queue/${queueId}`, {
-          ...values, schedules, promptId: selectedPrompt ? selectedPrompt : null
+          ...values,
+          schedules,
+          promptId: selectedPrompt ? selectedPrompt : null,
         });
       } else {
         await api.post("/queue", {
-          ...values, schedules, promptId: selectedPrompt ? selectedPrompt : null
+          ...values,
+          schedules,
+          promptId: selectedPrompt ? selectedPrompt : null,
         });
       }
-      toast.success("Queue saved successfully");
+      toast.success(i18n.t("queueModal.toasts.success"));
       handleClose();
     } catch (err) {
       toastError(err);
@@ -194,7 +238,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
   };
 
   const handleSaveSchedules = async (values) => {
-    toast.success("Clique em salvar para registar as alterações");
+    toast.success(i18n.t("queueModal.toasts.info"));
     setSchedules(values);
     setTab(0);
   };
@@ -224,8 +268,8 @@ const QueueModal = ({ open, onClose, queueId }) => {
           onChange={(_, v) => setTab(v)}
           aria-label="disabled tabs example"
         >
-          <Tab label="Dados da Fila" />
-          {schedulesEnabled && <Tab label="Horários de Atendimento" />}
+          <Tab label={i18n.t("queueModal.tabs.queueData")} />
+          {schedulesEnabled && <Tab label={i18n.t("queueModal.tabs.attendanceTime")} />}
         </Tabs>
         {tab === 0 && (
           <Paper>
@@ -328,20 +372,18 @@ const QueueModal = ({ open, onClose, queueId }) => {
                           labelId="integrationId-selection-label"
                           value={values.integrationId || ""}
                         >
-                          <MenuItem value={""} >{"Nenhum"}</MenuItem>
+                          <MenuItem value={""}>{"Nenhum"}</MenuItem>
                           {integrations.map((integration) => (
-                            <MenuItem key={integration.id} value={integration.id}>
+                            <MenuItem
+                              key={integration.id}
+                              value={integration.id}
+                            >
                               {integration.name}
                             </MenuItem>
                           ))}
                         </Field>
-
                       </FormControl>
-                      <FormControl
-                        margin="dense"
-                        variant="outlined"
-                        fullWidth
-                      >
+                      <FormControl margin="dense" variant="outlined" fullWidth>
                         <InputLabel>
                           {i18n.t("whatsappModal.form.prompt")}
                         </InputLabel>
@@ -366,10 +408,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
                           }}
                         >
                           {prompts.map((prompt) => (
-                            <MenuItem
-                              key={prompt.id}
-                              value={prompt.id}
-                            >
+                            <MenuItem key={prompt.id} value={prompt.id}>
                               {prompt.name}
                             </MenuItem>
                           ))}
@@ -411,7 +450,8 @@ const QueueModal = ({ open, onClose, queueId }) => {
                             Boolean(errors.outOfHoursMessage)
                           }
                           helperText={
-                            touched.outOfHoursMessage && errors.outOfHoursMessage
+                            touched.outOfHoursMessage &&
+                            errors.outOfHoursMessage
                           }
                           variant="outlined"
                           margin="dense"
@@ -458,7 +498,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
               loading={false}
               onSubmit={handleSaveSchedules}
               initialValues={schedules}
-              labelSaveButton="Adicionar"
+              labelSaveButton={i18n.t("queueModal.buttons.okAdd")}
             />
           </Paper>
         )}
