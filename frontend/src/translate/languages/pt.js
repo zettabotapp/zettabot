@@ -151,10 +151,27 @@ const messages = {
         },
       },
       plans: {
+        toasts: {
+          errorList: "Não foi possível carregar a lista de registros",
+          errorOperation: "Não foi possível realizar a operação",
+          error:
+            "Não foi possível realizar a operação. Verifique se já existe uma plano com o mesmo nome ou se os campos foram preenchidos corretamente",
+          success: "Operação realizada com sucesso!",
+        },
+        confirm: {
+          title: "Exclusão de Registro",
+          message: "Deseja realmente excluir o registro?",
+        },
         form: {
           name: "Nome",
           users: "Usuários",
           connections: "Conexões",
+          queues: "Filas",
+          value: "Valor",
+          internalChat: "Chat Interno",
+          externalApi: "API Externa",
+          kanban: "Kanban",
+          integrations: "Integrações",
           campaigns: "Campanhas",
           schedules: "Agendamentos",
           enabled: "Habilitadas",
@@ -399,10 +416,10 @@ const messages = {
           },
           prompt: {
             short: "Prompt muito curto",
-            required: "Descreva o treinamento para Inteligência Artificial"
+            required: "Descreva o treinamento para Inteligência Artificial",
           },
           modal: {
-            required: "Informe o modelo desejado para o Prompt"
+            required: "Informe o modelo desejado para o Prompt",
           },
           maxTokens: {
             required: "Informe o número máximo de tokens na resposta",
@@ -757,13 +774,17 @@ const messages = {
           mediaMessage: "Mensagem de Mídia",
           instructions: "Instruções",
           observations: "Observações importantes",
-          before1: "Antes de enviar mensagens, é necessário o cadastro do token vinculado à conexão que enviará as mensagens.",
-          before2: "Para realizar o cadastro acesse o menu 'Conexões', clique no botão editar da conexão e insira o token no devido campo.",
-          numberDescription: "O número para envio não deve ter mascara ou caracteres especiais e deve ser composto por:",
+          before1:
+            "Antes de enviar mensagens, é necessário o cadastro do token vinculado à conexão que enviará as mensagens.",
+          before2:
+            "Para realizar o cadastro acesse o menu 'Conexões', clique no botão editar da conexão e insira o token no devido campo.",
+          numberDescription:
+            "O número para envio não deve ter mascara ou caracteres especiais e deve ser composto por:",
           countryCode: "Código do País",
           number: "Número",
           textMessage2: "1. Mensagens de Texto",
-          textMessageInstructions: "Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:",
+          textMessageInstructions:
+            "Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:",
           method2: "Método",
           e: "e",
           tests: "Teste de Envio",
@@ -781,12 +802,13 @@ const messages = {
           token: "Token cadastrado",
         },
         toasts: {
-          unauthorized: "Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.",
+          unauthorized:
+            "Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.",
           success: "Mensagem enviada com sucesso!",
         },
         buttons: {
           send: "Enviar",
-        }
+        },
       },
       notifications: {
         noTickets: "Nenhuma notificação.",
@@ -1126,8 +1148,129 @@ const messages = {
         },
       },
       settings: {
+        schedulesUpdated: "Horários atualizados com sucesso.",
         success: "Configurações salvas com sucesso.",
         title: "Configurações",
+        tabs: {
+          options: "Opções",
+          schedules: "Horários",
+          companies: "Empresas",
+          plans: "Planos",
+          helps: "Ajuda",
+        },
+        options: {
+          toasts: {
+            success: "Operação atualizada com sucesso.",
+          },
+          fields: {
+            ratings: {
+              title: "Avaliações",
+              disabled: "Desabilitadas",
+              enabled: "Habilitadas",
+            },
+            expedientManager: {
+              title: "Gerenciamento de Expediente",
+              queue: "Fila",
+              company: "Empresa",
+            },
+            ignoreMessages: {
+              title: "Ignorar Mensagens de Grupos",
+            },
+            acceptCall: {
+              title: "Aceitar Chamada",
+              disabled: "Não aceitar",
+              enabled: "Aceitar",
+            },
+            chatbotType: {
+              title: "Tipo Chatbot",
+              text: "Texto",
+            },
+            sendGreetingAccepted: {
+              title: "Enviar saudação ao aceitar o ticket",
+            },
+            sendMsgTransfTicket: {
+              title: "Enviar mensagem de transferencia de Fila/agente",
+            },
+            sendGreetingMessageOneQueues: {
+              title: "Enviar saudação quando houver somente 1 fila<",
+            },
+            disabled: "Desabilitado",
+            active: "Ativo",
+            enabled: "Habilitado",
+          },
+          updating: "Atualizando...",
+          tabs: {
+            integrations: "INTEGRAÇÕES",
+          },
+        },
+        helps: {
+          toasts: {
+            errorList: "Não foi possível carregar a lista de registros",
+            errorOperation: "Não foi possível realizar a operação",
+            error:
+              "Não foi possível realizar a operação. Verifique se já existe uma helpo com o mesmo nome ou se os campos foram preenchidos corretamente",
+            success: "Operação realizada com sucesso!",
+          },
+          buttons: {
+            clean: "Limpar",
+            delete: "Excluir",
+            save: "Salvar",
+          },
+          grid: {
+            title: "Título",
+            description: "Descrição",
+            video: "Vídeo",
+          },
+          confirmModal: {
+            title: "Exclusão de Registro",
+            confirm: "Deseja realmente excluir esse registro?",
+          },
+        },
+        company: {
+          toasts: {
+            errorList: "Não foi possível carregar a lista de registros",
+            errorOperation: "Não foi possível realizar a operação",
+            error:
+              "Não foi possível realizar a operação. Verifique se já existe uma empresa com o mesmo nome ou se os campos foram preenchidos corretamente",
+            success: "Operação realizada com sucesso!",
+          },
+          confirmModal: {
+            title: "Exclusão de Registro",
+            confirm: "Deseja realmente excluir esse registro?",
+          },
+          form: {
+            name: "Nome",
+            email: "E-mail",
+            phone: "Telefone",
+            plan: "Plano",
+            status: "Status",
+            yes: "Sim",
+            no: "Não",
+            campanhas: "Campanhas",
+            enabled: "Habilitadas",
+            disabled: "Desabilitadas",
+            dueDate: "Data de vencimento",
+            recurrence: "Recorrência",
+            monthly: "Mensal",
+            expire: "Vencimento",
+            createdAt: "Criada Em",
+          },
+          buttons: {
+            clear: "Limpar",
+            delete: "Excluir",
+            expire: "+ Vencimento",
+            user: "Usuário",
+            save: "Salvar",
+          },
+        },
+        schedules: {
+          form: {
+            weekday: "Dia da Semana",
+            initialHour: "Hora Inicial",
+            finalHour: "Hora Final",
+            save: "Salvar",
+          },
+        },
         settings: {
           userCreation: {
             name: "Criação de usuário",
