@@ -717,7 +717,27 @@ const messages = {
         success: "Tag salvo com sucesso.",
       },
       chat: {
+        toasts: {
+          fillTitle: "Por favor, preencha o título da conversa.",
+          fillUser: "Por favor, selecione pelo menos um usuário.",
+        },
+        modal: {
+          title: "Conversa",
+          titleField: "Título",
+        },
+        confirm: {
+          title: "Excluir Conversa",
+          message: "Esta ação não pode ser revertida, confirmar?",
+        },
+        chats: "Chats",
+        messages: "Mensagens",
         noTicketMessage: "Selecione um ticket para começar a conversar.",
+        buttons: {
+          close: "Fechar",
+          save: "Salvar",
+          new: "Nova",
+          newChat: "Novo",
+        },
       },
       uploads: {
         titles: {
