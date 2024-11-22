@@ -184,6 +184,14 @@ const messages = {
           money: "R$",
         },
       },
+      kanban: {
+        toasts: {
+          removed: "Ticket Tag Removido!",
+          added: "Ticket Tag Adicionado com Sucesso!",
+        },
+        open: "Em aberto",
+        seeTicket: "Ver Ticket",
+      },
       companies: {
         title: "Cadastrar Empresa",
         form: {
