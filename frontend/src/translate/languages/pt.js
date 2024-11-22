@@ -192,6 +192,102 @@ const messages = {
         open: "Em aberto",
         seeTicket: "Ver Ticket",
       },
+      invoices: {
+        title: "Faturas",
+        paid: "Pago",
+        open: "Em Aberto",
+        expired: "Vencido",
+        details: "Detalhes",
+        value: "Valor",
+        dueDate: "Data Venc.",
+        status: "Status",
+        action: "Ação",
+        PAY: "PAGAR",
+        PAID: "PAGO",
+      },
+      checkoutPage: {
+        steps: {
+          data: "Dados",
+          customize: "Personalizar",
+          review: "Revisar",
+        },
+        success:
+          "Assinatura realizada com sucesso!, aguardando a realização do pagamento",
+        closeToEnd: "Falta pouco!",
+        BACK: "VOLTAR",
+        PAY: "PAGAR",
+        NEXT: "PRÓXIMO",
+        review: {
+          title: "Resumo da assinatura",
+          details: "Detalhes do plano",
+          users: "Usuários",
+          whatsapp: "Whatsapp",
+          charges: "Cobrança: Mensal",
+          total: "Total",
+        },
+        form: {
+          firstName: {
+            label: "Nome completo*",
+            required: "Nome completo é obrigatório",
+          },
+          lastName: {
+            label: "Sobrenome*",
+            required: "Sobrenome é obrigatório",
+          },
+          address1: {
+            label: "Endereço*",
+            required: "Endereço é obrigatório",
+          },
+          city: {
+            label: "Cidade*",
+            required: "Cidade é obrigatório",
+          },
+          state: {
+            label: "Estado*",
+            required: "Estado é obrigatório",
+          },
+          zipcode: {
+            label: "CEP*",
+            required: "CEP é obrigatório",
+            invalid: "Formato de CEP inválido",
+          },
+          country: {
+            label: "País*",
+            required: "País é obrigatório",
+          },
+          useAddressForPaymentDetails: {
+            label: "Use este endereço para os detalhes de pagamento",
+          },
+          invoiceId: {
+            label: "Use este invoiceId",
+          },
+          nameOnCard: {
+            label: "Nome no cartão*",
+            required: "Nome no cartão é obrigatório",
+          },
+          cardNumber: {
+            label: "Número do cartão*",
+            required: "Número do cartão é obrigatório",
+            invalid: "Número do cartão inválido (ex: 4111111111111)",
+          },
+          expiryDate: {
+            label: "Data de validade*",
+            required: "Data de validade é obrigatória",
+          },
+          cvv: {
+            label: "CVV*",
+            required: "CVV é obrigatório",
+            invalid: "CVV inválido (ex: 123)",
+          },
+        },
+        pricing: {
+          users: "Usuários",
+          connection: "Conexão",
+          queues: "Filas",
+          SELECT: "SELECIONAR",
+          month: "mês",
+        },
+      },
       companies: {
         title: "Cadastrar Empresa",
         form: {
