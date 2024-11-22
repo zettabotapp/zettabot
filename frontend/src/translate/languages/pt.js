@@ -1010,6 +1010,9 @@ const messages = {
         },
         dialog: {
           name: "Nome",
+          nameShort: "Nome curto",
+          nameLong: "Nome longo",
+          nameRequired: "Nome é obrigatório",
           company: "Empresa",
           okEdit: "Editar",
           okAdd: "Adicionar",
@@ -1023,6 +1026,7 @@ const messages = {
         },
         toasts: {
           deleted: "Registro excluído",
+          success: "Operação realizada com sucesso",
         },
       },
       contactListItems: {
