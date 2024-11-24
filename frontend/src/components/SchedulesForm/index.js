@@ -4,6 +4,7 @@ import { Formik, Form, FastField, FieldArray } from "formik";
 import { isArray } from "lodash";
 import NumberFormat from "react-number-format";
 import ButtonWithSpinner from "../ButtonWithSpinner";
+import { i18n } from "../../translate/i18n";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,7 +77,7 @@ function SchedulesForm(props) {
                       <Container>
                           <FastField
                             as={TextField}
-                            label="Dia da Semana"
+                            label={i18n.t("settings.schedules.form.weekday")}
                             name={`schedules[${index}].weekday`}
                             disabled
                             variant="outlined"
@@ -88,7 +89,7 @@ function SchedulesForm(props) {
                             >
                             {({ field }) => (
                               <NumberFormat
-                                label="Hora de Inicial"
+                                label={i18n.t("settings.schedules.form.initialHour")}
                                 {...field}
                                 variant="outlined"
                                 margin="dense"
@@ -103,7 +104,7 @@ function SchedulesForm(props) {
                             >
                             {({ field }) => (
                               <NumberFormat
-                                label="Hora de Final"
+                                label={i18n.t("settings.schedules.form.finalHour")}
                                 {...field}
                                 variant="outlined"
                                 margin="dense"
@@ -128,7 +129,7 @@ function SchedulesForm(props) {
               color="primary"
               variant="contained"
             >
-              {labelSaveButton ?? "Salvar"}
+              {labelSaveButton ?? i18n.t("settings.schedules.form.save")}
             </ButtonWithSpinner>
           </div>
         </Form>

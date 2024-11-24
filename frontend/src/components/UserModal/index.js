@@ -59,11 +59,11 @@ const useStyles = makeStyles(theme => ({
 
 const UserSchema = Yup.object().shape({
 	name: Yup.string()
-		.min(2, "Too Short!")
-		.max(50, "Too Long!")
-		.required("Required"),
-	password: Yup.string().min(5, "Too Short!").max(50, "Too Long!"),
-	email: Yup.string().email("Invalid email").required("Required"),
+		.min(2, i18n.t("userModal.formErrors.name.short"))
+		.max(50, i18n.t("userModal.formErrors.name.long"))
+		.required(i18n.t("userModal.formErrors.name.required")),
+	password: Yup.string().min(5, i18n.t("userModal.formErrors.password.short")).max(50, i18n.t("userModal.formErrors.password.long")),
+	email: Yup.string().email(i18n.t("userModal.formErrors.email.invalid")).required(i18n.t("userModal.formErrors.email.required")),
 });
 
 const UserModal = ({ open, onClose, userId }) => {
@@ -253,7 +253,9 @@ const UserModal = ({ open, onClose, userId }) => {
 								
 								
 								<div className={classes.divider}>
-									<span className={classes.dividerText}>Liberações</span>
+									<span className={classes.dividerText}>
+										{i18n.t("userModal.labels.liberations")}
+									</span>
 								</div>
 								
 								<Can

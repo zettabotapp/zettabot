@@ -64,11 +64,13 @@ const MaskedTextField = ({ field, form, ...props }) => {
 
 const ContactSchema = Yup.object().shape({
 	name: Yup.string()
-		.min(2, "Muito pequeno!")
-		.max(50, "Muito longo!")
-		.required("Required"),
-	number: Yup.string().min(8, "Muito curto!").max(50, "Muito longo!"),
-	email: Yup.string().email("Email inválido"),
+		.min(2, i18n.t("contactModal.formErrors.name.short"))
+		.max(50, i18n.t("contactModal.formErrors.name.long"))
+		.required(i18n.t("contactModal.formErrors.name.required")),
+	number: Yup.string().min(8, 
+		i18n.t("contactModal.formErrors.phone.short")).max(50, 
+		i18n.t("contactModal.formErrors.phone.long")),
+	email: Yup.string().email(i18n.t("contactModal.formErrors.email.invalid")),
 });
 
 const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
@@ -180,7 +182,7 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 									render={({ field }) => (
 										<MaskedTextField
 											{...field}
-											label="Phone Number"
+											label={i18n.t("contactModal.form.number")}
 											error={touched.number && Boolean(errors.number)}
 											helperText={touched.number && errors.number}
 											placeholder="(XX) XXXXX-XXXX"

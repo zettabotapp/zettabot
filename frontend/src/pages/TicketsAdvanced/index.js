@@ -69,7 +69,7 @@ const TicketAdvanced = (props) => {
 			//PLW DESIGN LOGO//
 			<br />
             <Button onClick={() => setOption(1)} variant="contained" color="primary">
-                Selecionar Ticket
+                {i18n.t("ticketAdvanced.selectTicket")}
             </Button>
         </Box>
 	}
@@ -96,8 +96,8 @@ const TicketAdvanced = (props) => {
                     showLabels
                     className={classes.root}
                 >
-                    <BottomNavigationAction label="Ticket" icon={<ChatIcon />} />
-                    <BottomNavigationAction label="Atendimentos" icon={<QuestionAnswerIcon />} />
+                    <BottomNavigationAction label={i18n.t("ticketAdvanced.ticketNav")} icon={<ChatIcon />} />
+                    <BottomNavigationAction label={i18n.t("ticketAdvanced.attendanceNav")} icon={<QuestionAnswerIcon />} />
                 </BottomNavigation>
             </Box>
             <Box className={classes.content}>

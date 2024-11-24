@@ -41,6 +41,7 @@ import { useDate } from "../hooks/useDate";
 import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import LanguageControl from "../components/LanguageControl";
 
 const drawerWidth = 240;
 
@@ -453,6 +454,9 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               </MenuItem>
               <MenuItem onClick={handleClickLogout}>
                 {i18n.t("mainDrawer.appBar.user.logout")}
+              </MenuItem>
+              <MenuItem>
+                <LanguageControl />
               </MenuItem>
             </Menu>
           </div>

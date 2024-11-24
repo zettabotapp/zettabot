@@ -80,7 +80,7 @@ const Kanban = () => {
     const lanes = [
       {
         id: "lane0",
-        title: i18n.t("Em aberto"),
+        title: i18n.t("kanban.open"),
         label: filteredTickets.length.toString(),
         cards: filteredTickets.map((ticket) => ({
           id: ticket.id.toString(),
@@ -98,7 +98,7 @@ const Kanban = () => {
                   handleCardClick(ticket.uuid);
                 }}
               >
-                Ver Ticket
+                {i18n.t("kanban.seeTicket")}
               </button>
             </div>
           ),
@@ -133,7 +133,7 @@ const Kanban = () => {
                     handleCardClick(ticket.uuid);
                   }}
                 >
-                  Ver Ticket
+                  {i18n.t("kanban.seeTicket")}
                 </button>
               </div>
             ),
@@ -161,9 +161,9 @@ const Kanban = () => {
   const handleCardMove = async (cardId, sourceLaneId, targetLaneId) => {
     try {
       await api.delete(`/ticket-tags/${targetLaneId}`);
-      toast.success("Ticket Tag Removido!");
+      toast.success(i18n.t("kanban.toasts.removed"));
       await api.put(`/ticket-tags/${targetLaneId}/${sourceLaneId}`);
-      toast.success("Ticket Tag Adicionado com Sucesso!");
+      toast.success(i18n.t("kanban.toasts.added"));
     } catch (err) {
       console.log(err);
     }

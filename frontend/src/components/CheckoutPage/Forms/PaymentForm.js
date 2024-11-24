@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import usePlans from "../../../hooks/usePlans";
 import useCompanies from "../../../hooks/useCompanies";
+import { i18n } from '../../../translate/i18n';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -146,14 +147,14 @@ export default function Pricing(props) {
         planId: plansCompanies.id,
         price: plansCompanies.value,
         description: [
-          `${plansCompanies.users} Usuários`,
-          `${plansCompanies.connections} Conexão`,
-          `${plansCompanies.queues} Filas`
+          `${plansCompanies.users} ${i18n.t("checkoutPage.pricing.users")}`,
+          `${plansCompanies.connections} ${i18n.t("checkoutPage.pricing.connection")}`,
+          `${plansCompanies.queues} ${i18n.t("checkoutPage.pricing.queues")}`
         ],
         users: plansCompanies.users,
         connections: plansCompanies.connections,
         queues: plansCompanies.queues,
-        buttonText: 'SELECIONAR',
+        buttonText: i18n.t("checkoutPage.pricing.SELECT"),
         buttonVariant: 'outlined',
       })
 
@@ -195,7 +196,7 @@ export default function Pricing(props) {
                     }
                   </Typography>
                   <Typography variant="h6" color="textSecondary">
-                    /mês
+                    /{i18n.t("checkoutPage.pricing.month")}
                   </Typography>
                 </div>
                 <ul>

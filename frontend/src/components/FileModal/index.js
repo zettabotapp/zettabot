@@ -82,10 +82,10 @@ const useStyles = makeStyles(theme => ({
 
 const FileListSchema = Yup.object().shape({
     name: Yup.string()
-        .min(3, "nome muito curto")
-        .required("Obrigatório"),
+        .min(3, i18n.t("fileModal.formErrors.name.short"))
+        .required(i18n.t("fileModal.formErrors.name.required")),
     message: Yup.string()
-        .required("Obrigatório")
+        .required(i18n.t("fileModal.formErrors.message.required"))
 });
 
 const FilesModal = ({ open, onClose, fileListId, reload }) => {

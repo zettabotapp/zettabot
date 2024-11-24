@@ -331,7 +331,7 @@ const useStyles = makeStyles((theme) => ({
       return (
         <>
           {ticket.chatbot && (
-            <Tooltip title="Chatbot">
+            <Tooltip title={i18n.t("ticketsListItem.tooltip.chatbot")}>
               <AndroidIcon
                 fontSize="small"
                 style={{ color: grey[700], marginRight: 5 }}
@@ -346,7 +346,7 @@ const useStyles = makeStyles((theme) => ({
       return (
         <>
           {ticket.chatbot && (
-            <Tooltip title="Chatbot">
+            <Tooltip title={i18n.t("ticketsListItem.tooltip.chatbot")}>
               <AndroidIcon
                 fontSize="small"
                 style={{ color: grey[700], marginRight: 5 }}
@@ -376,7 +376,7 @@ const useStyles = makeStyles((theme) => ({
           [classes.pendingTicket]: ticket.status === "pending",
         })}
       >
-        <Tooltip arrow placement="right" title={ticket.queue?.name?.toUpperCase() || "SEM FILA"} >
+        <Tooltip arrow placement="right" title={ticket.queue?.name?.toUpperCase() || i18n.t("ticketsListItem.noQueue")} >
           <span style={{ backgroundColor: ticket.queue?.color || "#7C7C7C" }} className={classes.ticketQueueColor}></span>
         </Tooltip>
         <ListItemAvatar>
@@ -417,7 +417,7 @@ const useStyles = makeStyles((theme) => ({
               >
                 {ticket.contact.name}
                 {profile === "admin" && (
-                  <Tooltip title="Espiar Conversa">
+                  <Tooltip title={i18n.t("ticketsListItem.tooltip.peek")}>
                     <VisibilityIcon
                       onClick={() => setOpenTicketMessageDialog(true)}
                       fontSize="small"
@@ -450,7 +450,7 @@ const useStyles = makeStyles((theme) => ({
                 <span className={classes.secondaryContentSecond} >
                   {ticket?.whatsapp?.name ? <Badge className={classes.connectionTag}>{ticket?.whatsapp?.name?.toUpperCase()}</Badge> : <br></br>}
                   {ticketUser ? <Badge style={{ backgroundColor: "#000000" }} className={classes.connectionTag}>{ticketUser}</Badge> : <br></br>}
-                  <Badge style={{ backgroundColor: ticket.queue?.color || "#7c7c7c" }} className={classes.connectionTag}>{ticket.queue?.name?.toUpperCase() || "SEM FILA"}</Badge>
+                  <Badge style={{ backgroundColor: ticket.queue?.color || "#7c7c7c" }} className={classes.connectionTag}>{ticket.queue?.name?.toUpperCase() || i18n.t("ticketsListItem.noQueue")}</Badge>
                 </span>
                 <span style={{ paddingTop: "2px" }} className={classes.secondaryContentSecond} >
                   {tag?.map((tag) => {

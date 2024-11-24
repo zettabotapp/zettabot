@@ -74,9 +74,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CampaignSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(2, i18n.t("campaigns.dialog.form.nameShort"))
+    .max(50, i18n.t("campaigns.dialog.form.nameLong"))
+    .required(i18n.t("campaigns.dialog.form.nameRequired")),
 });
 
 const CampaignModal = ({
@@ -277,7 +277,7 @@ const CampaignModal = ({
         placeholder={i18n.t("campaigns.dialog.form.messagePlaceholder")}
         multiline={true}
         variant="outlined"
-        helperText="Utilize variáveis como {nome}, {numero}, {email} ou defina variáveis personalziadas."
+        helperText={i18n.t("campaigns.dialog.form.helper")}
         disabled={!campaignEditable && campaign.status !== "CANCELADA"}
       />
     );

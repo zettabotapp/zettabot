@@ -200,8 +200,6 @@ const Prompts = () => {
 
   return (
     <MainContainer>
-   
-
       <ConfirmationModal
         title={
           selectedPrompt &&

@@ -103,7 +103,7 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
           }
 
         }catch(err){
-          toastError( "Ocorreu um erro inesperado ao tentar buscar as filas" );       
+          toastError(i18n.t("newTicketModal.searchQueueError"));       
         }        
       }
 
@@ -171,7 +171,7 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
   const handleSaveTicket = async contactId => {
     if (!contactId) return;
     if (selectedQueue === "" && user.profile !== 'admin') {
-      toast.error("Selecione uma fila");
+      toast.error(i18n.t("newTicketModal.selectQueue"));
       return;
     }
     
@@ -349,7 +349,7 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
                 }}
                 renderValue={() => {
                   if (selectedQueue === "") {
-                    return "Selecione uma fila"
+                    return i18n.t("newTicketModal.selectQueue")
                   }
 
                   const queue = queues.find(q => q.id === selectedQueue)
@@ -389,7 +389,7 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
                 }}
                 renderValue={() => {
                   if (selectedWhatsapp === "") {
-                    return "Selecione uma Conexão"
+                    return i18n.t("newTicketModal.selectConection")
                   }
                   const whatsapp = whatsapps.find(w => w.id === selectedWhatsapp)
                   return whatsapp.name
