@@ -1,6 +1,7 @@
 const messages = {
   pt: {
     translations: {
+      selectLanguage: "Selecione um idioma",
       signup: {
         title: "Cadastre-se",
         toasts: {
@@ -390,7 +391,6 @@ const messages = {
           expiresInactiveMessage: "Mensagem de encerramento por inatividade",
           greetingMessage: "Mensagem de saudação",
           complationMessage: "Mensagem de conclusão",
-          sendIdQueue: "Fila",
         },
         buttons: {
           okAdd: "Adicionar",
@@ -834,6 +834,7 @@ const messages = {
           connections: "Conexões",
           tickets: "Atendimentos",
           quickMessages: "Respostas Rápidas",
+          tasks: "Tarefas",
           contacts: "Contatos",
           queues: "Filas & Chatbot",
           tags: "Tags",
@@ -1095,7 +1096,6 @@ const messages = {
           second: "segundo",
           seconds: "segundos",
           notDefined: "Não definido",
-          noInterval: "Sem Intervalo",
           addVariable: "Adicionar Variável",
           save: "Salvar Configurações",
           shortcut: "Atalho",
