@@ -93,6 +93,7 @@ const SignUp = () => {
 		Object.assign(values, { status: "t" });
 		Object.assign(values, { campaignsEnabled: true });
 		try {
+			console.log(values);
 			await openApi.post("/companies/cadastro", values);
 			toast.success(i18n.t("signup.toasts.success"));
 			history.push("/login");

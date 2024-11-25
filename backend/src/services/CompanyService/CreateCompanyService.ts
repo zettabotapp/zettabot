@@ -28,7 +28,8 @@ const CreateCompanyService = async (
     planId,
     campaignsEnabled,
     dueDate,
-    recurrence
+    recurrence,
+    password
   } = companyData;
 
   const companySchema = Yup.object().shape({
@@ -67,12 +68,12 @@ const CreateCompanyService = async (
     recurrence
   });
 
-  const passwordHash = await hash('123456', 8);
+  const passwordHash = await hash(password, 8);
 
   await User.create({
     name: company.name,
     email: company.email,
-    password: '123456',
+    password: password,
     passwordHash,
     profile: "admin",
     companyId: company.id
