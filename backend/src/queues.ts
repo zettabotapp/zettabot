@@ -853,11 +853,11 @@ export async function startQueueProcess() {
 
   campaignQueue.process("VerifyCampaigns", 1, handleVerifyCampaigns);
 
-  campaignQueue.process("ProcessCampaign", 2, handleProcessCampaign);
+  campaignQueue.process("ProcessCampaign", 1, handleProcessCampaign);
 
-  campaignQueue.process("PrepareContact", 3, handlePrepareContact);
+  campaignQueue.process("PrepareContact", 1, handlePrepareContact);
 
-  campaignQueue.process("DispatchCampaign", 4, handleDispatchCampaign);
+  campaignQueue.process("DispatchCampaign", 1, handleDispatchCampaign);
   
 
   //queueMonitor.process("VerifyQueueStatus", handleVerifyQueue);
