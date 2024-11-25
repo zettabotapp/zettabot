@@ -307,7 +307,7 @@ const Contacts = () => {
             color="primary"
             onClick={handleOpenImportModal}
           >
-            Importar contatos
+            {i18n.t("contacts.buttons.import")}
           </Button>
           <Button
             variant="contained"
@@ -318,7 +318,7 @@ const Contacts = () => {
           </Button>
          <CSVLink style={{ textDecoration:'none'}} separator=";" filename={'contatos.csv'} data={contacts.map((contact) => ({ name: contact.name, number: contact.number, email: contact.email }))}>
           <Button	variant="contained" color="primary"> 
-            EXPORTAR CONTATOS 
+            {i18n.t("contacts.buttons.export")}
           </Button>
           </CSVLink>		  
 

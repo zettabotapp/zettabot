@@ -47,7 +47,7 @@ const MessagesAPI = () => {
       const companyId = localStorage.getItem("companyId");
       const planConfigs = await getPlanCompany(undefined, companyId);
       if (!planConfigs.plan.useExternalApi) {
-        toast.error("Esta empresa não possui permissão para acessar essa página! Estamos lhe redirecionando.");
+        toast.error("messagesAPI.toasts.unauthorized");
         setTimeout(() => {
           history.push(`/`)
         }, 1000);
@@ -74,7 +74,7 @@ const MessagesAPI = () => {
           'Authorization': `Bearer ${values.token}`
         }
       })
-      toast.success('Mensagem enviada com sucesso');
+      toast.success(i18n.t('messagesAPI.toasts.success'));
     } catch (err) {
       toastError(err);
     }
@@ -96,7 +96,7 @@ const MessagesAPI = () => {
           'Authorization': `Bearer ${values.token}`
         }
       })
-      toast.success('Mensagem enviada com sucesso');
+      toast.success(i18n.t('messagesAPI.toasts.success'));
     } catch (err) {
       toastError(err);
     }
@@ -170,7 +170,7 @@ const MessagesAPI = () => {
                       size={24}
                       className={classes.buttonProgress}
                     />
-                  ) : 'Enviar'}
+                  ) : i18n.t('messagesAPI.buttons.send')}
                 </Button>
               </Grid>
             </Grid>
@@ -240,7 +240,7 @@ const MessagesAPI = () => {
                       size={24}
                       className={classes.buttonProgress}
                     />
-                  ) : 'Enviar'}
+                  ) : i18n.t('messagesAPI.buttons.send')}
                 </Button>
               </Grid>
             </Grid>
@@ -258,64 +258,68 @@ const MessagesAPI = () => {
       variant="outlined"
     >
       <Typography variant="h5">
-        Documentação para envio de mensagens
+        {i18n.t('messagesAPI.labels.doc')}
       </Typography>
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
-        Métodos de Envio
+        {i18n.t('messagesAPI.labels.method')}
       </Typography>
       <Typography component="div">
         <ol>
-          <li>Mensagens de Texto</li>
-          <li>Mensagens de Media</li>
+          <li>
+            {i18n.t('messagesAPI.labels.textMessage')}
+          </li>
+          <li>
+            {i18n.t('messagesAPI.labels.mediaMessage')}
+          </li>
         </ol>
       </Typography>
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
-        Instruções
+        {i18n.t('messagesAPI.labels.instructions')}
       </Typography>
       <Typography className={classes.elementMargin} component="div">
-        <b>Observações importantes</b><br />
+        <b>{i18n.t('messagesAPI.labels.observations')}</b><br />
         <ul>
-          <li>Antes de enviar mensagens, é necessário o cadastro do token vinculado à conexão que enviará as mensagens. <br />Para realizar o cadastro acesse o menu "Conexões", clique no botão editar da conexão e insira o token no devido campo.</li>
+          <li>{i18n.t('messagesAPI.labels.before1')} <br />{i18n.t('messagesAPI.labels.before2')}</li>
           <li>
-            O número para envio não deve ter mascara ou caracteres especiais e deve ser composto por:
+            {i18n.t('messagesAPI.labels.numberDescription')}
             <ul>
-              <li>Código do país</li>
+              <li>{i18n.t('messagesAPI.labels.countryCode')}</li>
               <li>DDD</li>
-              <li>Número</li>
+              <li>{i18n.t('messagesAPI.labels.number')}</li>
             </ul>
           </li>
         </ul>
       </Typography>
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
-        1. Mensagens de Texto
+        {i18n.t('messagesAPI.labels.textMessage2')}
       </Typography>
       <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography className={classes.elementMargin} component="div">
-            <p>Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:</p>
+            <p>{i18n.t('messagesAPI.labels.textMessageInstructions')}</p>
             <b>Endpoint: </b> {getEndpoint()} <br />
-            <b>Método: </b> POST <br />
-            <b>Headers: </b> Authorization (Bearer token) e Content-Type (application/json) <br />
+            <b>{i18n.t('messagesAPI.labels.method2')}: </b> POST <br />
+            <b>Headers: </b> Authorization (Bearer token) {i18n.t('messagesAPI.labels.e')} Content-Type (application/json) <br />
             <b>Body: </b> {"{ \"number\": \"5599999999999\", \"body\": \"Sua mensagem\" }"}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography className={classes.elementMargin}>
-            <b>Teste de Envio</b>
+            <b>{i18n.t('messagesAPI.labels.tests')}</b>
           </Typography>
           {renderFormMessageText()}
         </Grid>
       </Grid>
       <Typography variant="h6" color="primary" className={classes.elementMargin}>
-        2. Mensagens de Media
+        {i18n.t('messagesAPI.labels.mediaMessage2')}
       </Typography>
       <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography className={classes.elementMargin} component="div">
-            <p>Seguem abaixo a lista de informações necessárias para envio das mensagens de texto:</p>
+            <p>{i18n.t('messagesAPI.labels.textMessageInstructions')}</p>
             <b>Endpoint: </b> {getEndpoint()} <br />
-            <b>Método: </b> POST <br />
-            <b>Headers: </b> Authorization (Bearer token) e Content-Type (multipart/form-data) <br />
+            <b>{i18n.t('messagesAPI.labels.method2')}: </b> POST <br />
+            <b>Headers: </b> Authorization (Bearer token) {i18n.t('messagesAPI.labels.e')} Content-Type (multipart/form-data) <br />
             <b>FormData: </b> <br />
             <ul>
               <li>
@@ -329,7 +333,7 @@ const MessagesAPI = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography className={classes.elementMargin}>
-            <b>Teste de Envio</b>
+            <b>{i18n.t('messagesAPI.labels.tests')}</b>
           </Typography>
           {renderFormMessageMedia()}
         </Grid>

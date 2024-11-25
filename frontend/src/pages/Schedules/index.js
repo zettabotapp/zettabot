@@ -43,23 +43,23 @@ const eventTitleStyle = {
 
 const localizer = momentLocalizer(moment);
 var defaultMessages = {
-  date: "Data",
-  time: "Hora",
-  event: "Evento",
-  allDay: "Dia Todo",
-  week: "Semana",
-  work_week: "Agendamentos",
-  day: "Dia",
-  month: "Mês",
-  previous: "Anterior",
-  next: "Próximo",
-  yesterday: "Ontem",
-  tomorrow: "Amanhã",
-  today: "Hoje",
-  agenda: "Agenda",
-  noEventsInRange: "Não há agendamentos no período.",
+  date: i18n.t("schedules.messages.date"),
+  time: i18n.t("schedules.messages.time"),
+  event: i18n.t("schedules.messages.event"),
+  allDay: i18n.t("schedules.messages.allDay"),
+  week: i18n.t("schedules.messages.week"),
+  work_week: i18n.t("schedules.messages.work_week"),
+  day: i18n.t("schedules.messages.day"),
+  month: i18n.t("schedules.messages.month"),
+  previous: i18n.t("schedules.messages.previous"),
+  next: i18n.t("schedules.messages.next"),
+  yesterday: i18n.t("schedules.messages.yesterday"),
+  tomorrow: i18n.t("schedules.messages.tomorrow"),
+  today: i18n.t("schedules.messages.today"),
+  agenda: i18n.t("schedules.messages.agenda"),
+  noEventsInRange: i18n.t("schedules.messages.noEventsInRange"),
   showMore: function showMore(total) {
-    return "+" + total + " mais";
+    return "+" + total + " " + i18n.t("schedules.messages.showMore");
   }
 };
 

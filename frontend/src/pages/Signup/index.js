@@ -66,11 +66,11 @@ const useStyles = makeStyles(theme => ({
 
 const UserSchema = Yup.object().shape({
 	name: Yup.string()
-		.min(2, "Too Short!")
-		.max(50, "Too Long!")
-		.required("Required"),
-	password: Yup.string().min(5, "Too Short!").max(50, "Too Long!"),
-	email: Yup.string().email("Invalid email").required("Required"),
+		.min(2, i18n.t("signup.formErrors.name.short"))
+		.max(50, i18n.t("signup.formErrors.name.long"))
+		.required(i18n.t("signup.formErrors.name.required")),
+	password: Yup.string().min(5, i18n.t("signup.formErrors.password.short")).max(50, i18n.t("signup.formErrors.password.long")),
+	email: Yup.string().email(i18n.t("signup.formErrors.email.invalid")).required(i18n.t("signup.formErrors.email.required")),
 });
 
 const SignUp = () => {
@@ -149,7 +149,7 @@ const SignUp = () => {
 										variant="outlined"
 										fullWidth
 										id="name"
-										label="Nome da Empresa"
+										label={i18n.t("signup.form.name")}
 									/>
 								</Grid>
 
@@ -186,7 +186,7 @@ const SignUp = () => {
 											{...field}
 											variant="outlined"
 											fullWidth
-											label="Telefone com (DDD)"
+											label={i18n.t("signup.form.phone")}
 											inputProps={{ maxLength: 11 }} // Definindo o limite de caracteres
 										/>
 									)}
@@ -214,13 +214,13 @@ const SignUp = () => {
 										variant="outlined"
 										fullWidth
 										id="plan-selection"
-										label="Plano"
+										label={i18n.t("signup.form.plan")}
 										name="planId"
 										required
 									>
 										{plans.map((plan, key) => (
 											<MenuItem key={key} value={plan.id}>
-												{plan.name} - Atendentes: {plan.users} - WhatsApp: {plan.connections} - Filas: {plan.queues} - R$ {plan.value}
+												{plan.name} - {i18n.t("signup.plan.attendant")}: {plan.users} - {i18n.t("signup.plan.whatsapp")}: {plan.connections} - {i18n.t("signup.plan.queues")}: {plan.queues} - R$ {plan.value}
 											</MenuItem>
 										))}
 									</Field>

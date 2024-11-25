@@ -19,6 +19,7 @@ import { Edit as EditIcon } from "@material-ui/icons";
 
 import { toast } from "react-toastify";
 import useHelps from "../../hooks/useHelps";
+import { i18n } from "../../translate/i18n";
 
 
 const useStyles = makeStyles(theme => ({
@@ -119,19 +120,19 @@ export function HelpManagerForm (props) {
                         </Grid>
                         <Grid sm={3} md={1} item>
                             <ButtonWithSpinner className={classes.fullWidth} loading={loading} onClick={() => onCancel()} variant="contained">
-                                Limpar
+                                {i18n.t('settings.helps.buttons.clean')}
                             </ButtonWithSpinner>
                         </Grid>
                         { record.id !== undefined ? (
                             <Grid sm={3} md={1} item>
                                 <ButtonWithSpinner className={classes.fullWidth} loading={loading} onClick={() => onDelete(record)} variant="contained" color="secondary">
-                                    Excluir
+                                    {i18n.t('settings.helps.buttons.delete')}
                                 </ButtonWithSpinner>
                             </Grid>
                         ) : null}
                         <Grid sm={3} md={1} item>
                             <ButtonWithSpinner className={classes.fullWidth} loading={loading} type="submit" variant="contained" color="primary">
-                                Salvar
+                                {i18n.t('settings.helps.buttons.save')}
                             </ButtonWithSpinner>
                         </Grid>
                     </Grid>
@@ -151,9 +152,9 @@ export function HelpsManagerGrid (props) {
                 <TableHead>
                 <TableRow>
                     <TableCell align="center" style={{width: '1%'}}>#</TableCell>
-                    <TableCell align="left">Título</TableCell>
-                    <TableCell align="left">Descrição</TableCell>
-                    <TableCell align="left">Vídeo</TableCell>
+                    <TableCell align="left">{i18n.t("settings.helps.grid.title")}</TableCell>
+                    <TableCell align="left">{i18n.t("settings.helps.grid.description")}</TableCell>
+                    <TableCell align="left">{i18n.t("settings.helps.grid.video")}</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -202,7 +203,7 @@ export default function HelpsManager () {
             const helpList = await list()
             setRecords(helpList)
         } catch (e) {
-            toast.error('Não foi possível carregar a lista de registros')
+            toast.error(i18n.t('settings.helps.toasts.errorList'))
         }
         setLoading(false)
     }
@@ -217,9 +218,9 @@ export default function HelpsManager () {
             }
             await loadHelps()
             handleCancel()
-            toast.success('Operação realizada com sucesso!')
+            toast.success(i18n.t('settings.helps.toasts.success'))
         } catch (e) {
-            toast.error('Não foi possível realizar a operação. Verifique se já existe uma helpo com o mesmo nome ou se os campos foram preenchidos corretamente')
+            toast.error(i18n.t('settings.helps.toasts.error'))
         }
         setLoading(false)
     }
@@ -230,9 +231,9 @@ export default function HelpsManager () {
             await remove(record.id)
             await loadHelps()
             handleCancel()
-            toast.success('Operação realizada com sucesso!')
+            toast.success(i18n.t('settings.helps.toasts.success'))
         } catch (e) {
-            toast.error('Não foi possível realizar a operação')
+            toast.error(i18n.t('settings.helps.toasts.errorOperation'))
         }
         setLoading(false)
     }
@@ -278,12 +279,12 @@ export default function HelpsManager () {
                 </Grid>
             </Grid>
             <ConfirmationModal
-                title="Exclusão de Registro"
+                title={i18n.t('settings.helps.confirmModal.title')}
                 open={showConfirmDialog}
                 onClose={() => setShowConfirmDialog(false)}
                 onConfirm={() => handleDelete()}
             >
-                Deseja realmente excluir esse registro?
+                {i18n.t('settings.helps.confirmModal.confirm')}
             </ConfirmationModal>
         </Paper>
     )

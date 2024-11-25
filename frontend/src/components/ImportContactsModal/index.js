@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 import { array } from "yup";
 import toastError from "../../errors/toastError";
 import api from "../../services/api";
+import { i18n } from "../../translate/i18n";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -137,7 +138,7 @@ const ImportContactsModal = ( props ) => {
                 <DialogTitle>
                     <Grid container alignItems="center">
                         <Grid item xs={6}>
-                            Planílha de contatos
+                            {i18n.t("contactImportModal.title")}
                         </Grid>
                         <Grid item xs={6} className={classes.cCloseModal}>
                             <IconButton onClick={onClose}>
@@ -151,11 +152,11 @@ const ImportContactsModal = ( props ) => {
                         <label className={classes.lbFile} htmlFor="i-import-contacts">
                             <FaDownload className={classes.iconDownload} />
                             <div className={classes.titleLb}>
-                                Importar contatos
+                                {i18n.t("contactImportModal.labels.import")}
                             </div>
                             {nameFile !== '' && (
                                 <div>
-                                    ({ nameFile } - {listcontacts.length} resultados)
+                                    ({ nameFile } - {listcontacts.length} {i18n.t("contactImportModal.labels.result")})
                                 </div> 
                             )}                                                      
                         </label>
@@ -164,11 +165,11 @@ const ImportContactsModal = ( props ) => {
                     {successUpload.length > 0 && (
                         <div className={classes.cSuccessContacts}>
                             <Typography className={classes.titleResult}>
-                                Adicionados:
+                                {i18n.t("contactImportModal.labels.added")}:
                             </Typography>
                             {successUpload.map((contact) => (
                                 <div>
-                                    {contact.contactId} | {contact.contactName} - Contato salvo 
+                                    {contact.contactId} | {contact.contactName} - {i18n.t("contactImportModal.labels.savedContact")}
                                 </div>
                             ))}
                         </div>
@@ -176,7 +177,7 @@ const ImportContactsModal = ( props ) => {
                     {errorUpload.length > 0 && (
                         <div className={classes.cErrorContacts}>
                             <Typography className={classes.titleResult}>
-                                Erros:
+                                {i18n.t("contactImportModal.labels.errors")}:
                             </Typography>
                             <ul>
                                 {errorUpload.map((contact) => (
@@ -196,7 +197,7 @@ const ImportContactsModal = ( props ) => {
                         onClick={handleDownloadModel}
                     >
                         <ImportContacts className={classes.iconPlanilha} />
-                        Baixar planílha modelo
+                        {i18n.t("contactImportModal.buttons.download")}
                     </Button>
                     <Button
                         color="primary"
@@ -205,7 +206,7 @@ const ImportContactsModal = ( props ) => {
                         className={classes.btnWrapper}
                         onClick={handleSaveListContacts}
                     >
-                        Importar contatos
+                        {i18n.t("contactImportModal.buttons.import")}
                     </Button>
                 </DialogActions>
             </Dialog>
