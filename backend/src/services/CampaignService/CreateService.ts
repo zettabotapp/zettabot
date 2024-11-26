@@ -10,6 +10,7 @@ interface Data {
   scheduledAt: string;
   companyId: number;
   contactListId: number;
+  tagId: number | null;
   message1?: string;
   message2?: string;
   message3?: string;

@@ -182,7 +182,7 @@ const CampaignModal = ({
             }
           });
 
-          return prevCampaignData;
+          return {...prevCampaignData, tagListId: data.tagId || "Nenhuma"};
         });
       });
     }
