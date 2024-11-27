@@ -42,6 +42,7 @@ import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import LanguageControl from "../components/LanguageControl";
+import { LanguageOutlined } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -196,6 +197,10 @@ const LoggedInLayout = ({ children, themeToggle }) => {
 
   const { dateToClient } = useDate();
 
+  // Languages
+  const [anchorElLanguage, setAnchorElLanguage] = useState(null);
+  const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
+
 
   //################### CODIGOS DE TESTE #########################################
   // useEffect(() => {
@@ -292,10 +297,20 @@ const LoggedInLayout = ({ children, themeToggle }) => {
     setMenuOpen(true);
   };
 
+  const handlemenuLanguage = ( event ) => {
+    setAnchorElLanguage(event.currentTarget);
+    setMenuLanguageOpen( true );
+  }
+
   const handleCloseMenu = () => {
     setAnchorEl(null);
     setMenuOpen(false);
   };
+
+  const handleCloseMenuLanguage = (  ) => {
+    setAnchorElLanguage(null);
+    setMenuLanguageOpen(false);
+  }
 
   const handleOpenUserModal = () => {
     setUserModalOpen(true);
@@ -399,6 +414,38 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               </>
             )}
           </Typography>
+          
+          <div>
+            <IconButton edge="start">
+              <LanguageOutlined
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handlemenuLanguage}
+                variant="contained"
+                style={{ color: "white",marginRight:10 }}
+              />
+            </IconButton>
+            <Menu
+              id="menu-appbar-language"
+              anchorEl={anchorElLanguage}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={menuLanguageOpen}
+              onClose={handleCloseMenuLanguage}
+            >
+              <MenuItem>
+                <LanguageControl />
+              </MenuItem>
+            </Menu>
+          </div>          
 
           <IconButton edge="start" onClick={toggleColorMode}>
             {theme.mode === 'dark' ? <Brightness7Icon style={{ color: "white" }} /> : <Brightness4Icon style={{ color: "white" }} />}
@@ -454,9 +501,6 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               </MenuItem>
               <MenuItem onClick={handleClickLogout}>
                 {i18n.t("mainDrawer.appBar.user.logout")}
-              </MenuItem>
-              <MenuItem>
-                <LanguageControl />
               </MenuItem>
             </Menu>
           </div>

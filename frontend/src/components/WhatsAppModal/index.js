@@ -57,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SessionSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, i18n.t("whatsappModal.name.short"))
-    .max(50, i18n.t("whatsappModal.name.long"))
-    .required(i18n.t("whatsappModal.name.required")),
+    .min(2, i18n.t("whatsappModal.formErrors.name.short"))
+    .max(50, i18n.t("whatsappModal.formErrors.name.long"))
+    .required(i18n.t("whatsappModal.formErrors.name.required")),
 });
 
 const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
