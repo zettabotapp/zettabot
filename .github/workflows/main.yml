@@ -3,7 +3,7 @@ name: Deploy
 # Trigger the workflow on push and 
 # pull request events on the production branch
 on:
-  pull_request:
+  push:
     branches:
       - dev
       
