@@ -272,6 +272,7 @@ const messages = {
           expiryDate: {
             label: "Fecha de vencimiento*",
             required: "La fecha de vencimiento es obligatoria",
+            invalid: "Fecha de vencimiento inválida"
           },
           cvv: {
             label: "CVV*",
@@ -844,6 +845,7 @@ const messages = {
           queueIntegration: "Integraciones",
         },
         appBar: {
+          refresh: "Recargar página",
           notRegister: "Sin notificaciones",
           user: {
             profile: "Perfil",

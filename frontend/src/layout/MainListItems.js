@@ -305,7 +305,7 @@ const MainListItems = (props) => {
 	{showKanban && (  
 	  <ListItemLink
         to="/kanban"
-        primary={i18n.t("Kanban")}
+        primary={`Kanban`}
         icon={<TableChartIcon />}
       />
 	  )}

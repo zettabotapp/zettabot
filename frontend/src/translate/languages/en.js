@@ -271,6 +271,7 @@ const messages = {
 					expiryDate: {
 						label: "Expiration Date*",
 						required: "Expiration date is required",
+						invalid: "Invalid expiration date"
 					},
 					cvv: {
 						label: "CVV*",
@@ -837,6 +838,7 @@ const messages = {
 					queueIntegration: "Integrations",
 				},
 				appBar: {
+					refresh: "Reload page",
 					notRegister: "No notifications",
 					user: {
 						profile: "Profile",
