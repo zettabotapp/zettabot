@@ -15,6 +15,9 @@ import { i18n } from "../../translate/i18n";
 import { nomeEmpresa } from "../../../package.json";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import logo from "../../assets/logo.png";
+import {LanguageOutlined} from "@material-ui/icons";
+import {IconButton, Menu, MenuItem} from "@material-ui/core";
+import LanguageControl from "../../components/LanguageControl";
 
 
 const Copyright = () => {
@@ -45,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 		alignItems: "center",
 		justifyContent: "center",
 		textAlign: "center",
+		position: "relative"
 	},
 	paper: {
 		backgroundColor: theme.palette.login,
@@ -67,6 +71,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	powered: {
 		color: "white"
+	},
+	languageControl: {
+		position: "absolute",
+		top: 0,
+		left: 0,
+		paddingLeft: 15
 	}
 }));
 
@@ -74,6 +84,10 @@ const Login = () => {
 	const classes = useStyles();
 
 	const [user, setUser] = useState({ email: "", password: "" });
+
+	// Languages
+	const [anchorElLanguage, setAnchorElLanguage] = useState(null);
+	const [menuLanguageOpen, setMenuLanguageOpen] = useState(false);
 
 	const { handleLogin } = useContext(AuthContext);
 
@@ -86,9 +100,49 @@ const Login = () => {
 		handleLogin(user);
 	};
 
+	const handlemenuLanguage = ( event ) => {
+		setAnchorElLanguage(event.currentTarget);
+		setMenuLanguageOpen( true );
+	}
+
+	const handleCloseMenuLanguage = (  ) => {
+		setAnchorElLanguage(null);
+		setMenuLanguageOpen(false);
+	}
 	
 	return (
 		<div className={classes.root}>
+		<div className={classes.languageControl}>
+			<IconButton edge="start">
+				<LanguageOutlined
+					aria-label="account of current user"
+					aria-controls="menu-appbar"
+					aria-haspopup="true"
+					onClick={handlemenuLanguage}
+					variant="contained"
+					style={{ color: "white",marginRight:10 }}
+				/>
+			</IconButton>
+			<Menu
+				id="menu-appbar-language"
+				anchorEl={anchorElLanguage}
+				getContentAnchorEl={null}
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "right",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "right",
+				}}
+				open={menuLanguageOpen}
+				onClose={handleCloseMenuLanguage}
+			>
+				<MenuItem>
+					<LanguageControl />
+				</MenuItem>
+			</Menu>
+		</div>
 		<Container component="main" maxWidth="xs">
 			<CssBaseline/>
 			<div className={classes.paper}>
