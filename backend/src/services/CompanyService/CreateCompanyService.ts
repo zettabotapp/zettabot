@@ -68,7 +68,7 @@ const CreateCompanyService = async (
     recurrence
   });
 
-  const passwordHash = await hash(password, 8);
+  const passwordHash = await hash(password || "123456", 8);
 
   await User.create({
     name: company.name,
@@ -208,7 +208,7 @@ const CreateCompanyService = async (
       value: "disabled"
     },
   });
-  
+
  // Enviar mensagem de transferencia
     await Setting.findOrCreate({
 	where:{
