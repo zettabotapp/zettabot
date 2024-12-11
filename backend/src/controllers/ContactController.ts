@@ -100,7 +100,7 @@ export const storeUpload = async (req: Request, res: Response) : Promise<Respons
   });
 
   const promises = contacts.map(async contact => {
-    
+
     const newContact : ContactData = {name: contact.Nome, number: contact.Telefone.replace(/\D/g, '')}
 
     try{
@@ -211,9 +211,15 @@ const createNewContact = async ( newContact : ContactData, companyId : number, s
       throw new AppError(err.message);
     }
 
+    logger.info(newContact);
+
     await CheckIsValidContact(newContact.number, companyId);
-    //const validNumber = await CheckContactNumber(newContact.number, companyId);
-    const number = "55" + newContact.number.replace(/\D/g, "");
+    const number = newContact.number.replace(/\D/g, "");
+    const validNumber = await CheckContactNumber(number, companyId);
+
+    if( !validNumber )
+      throw new AppError("Não foi possível localizar o número informado no Whatsapp");
+
     newContact.number = number;
 
     /**
@@ -244,7 +250,7 @@ const createUploadedContact = async ( newContact : ContactData, companyId : numb
     throw new AppError(err.message);
   }
 
-  newContact.number = "55" + newContact.number.replace(/\D/g, "");
+  newContact.number = newContact.number.replace(/\D/g, "");
   const contact = await CreateContactService({
     ...newContact,
     companyId
