@@ -376,7 +376,7 @@ export const getBodyMessage = (msg: proto.IWebMessageInfo): string | null => {
         msg.message?.locationMessage?.degreesLongitude
       ),
       liveLocationMessage: `Latitude: ${msg.message?.liveLocationMessage?.degreesLatitude} - Longitude: ${msg.message?.liveLocationMessage?.degreesLongitude}`,
-      documentMessage: msg.message?.documentMessage?.title,
+      documentMessage: msg.message?.documentMessage?.caption,
       documentWithCaptionMessage:
         msg.message?.documentWithCaptionMessage?.message?.documentMessage
           ?.caption,
@@ -871,7 +871,7 @@ const verifyMediaMessage = async (
   }
 
   const body = getBodyMessage(msg);
-  
+
   const hasCap = hasCaption(body, media.filename);
   const bodyMessage = body ? hasCap ? formatBody(body, ticket.contact) : "-" : "-";
 

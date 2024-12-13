@@ -107,7 +107,7 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 					console.log(data)
 					setContact({
 						...data,
-						number: data.number.substring(2),
+						number: data.number,
 					});
 				}
 			} catch (err) {
@@ -178,20 +178,14 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 									className={classes.textField}
 								/>
 								<Field
+									as={TextField}
 									name="number"
-									render={({ field }) => (
-										<MaskedTextField
-											{...field}
-											label={i18n.t("contactModal.form.number")}
-											error={touched.number && Boolean(errors.number)}
-											helperText={touched.number && errors.number}
-											placeholder="(XX) XXXXX-XXXX"
-											variant="outlined"
-											margin="dense"
-											mask="(99) 9999-9999"
-											maskChar="_"
-										/>			
-									)}
+									label={i18n.t("contactModal.form.number")}
+									error={touched.number && Boolean(errors.number)}
+									helperText={touched.number && errors.number}
+									placeholder=""
+									variant="outlined"
+									margin="dense"
 								/>
 
 								<div>

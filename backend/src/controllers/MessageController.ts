@@ -176,7 +176,7 @@ export const send = async (req: Request, res: Response): Promise<Response> => {
         });
       }, 1000);
     }
-    
+
     SetTicketMessagesAsRead(ticket);
 
     return res.send({ mensagem: "Mensagem enviada" });
