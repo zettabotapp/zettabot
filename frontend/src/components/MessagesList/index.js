@@ -427,6 +427,9 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
   };
 
   const checkMessageMedia = (message) => {
+
+    console.log(message);
+
     if (message.mediaType === "locationMessage" && message.body.split('|').length >= 2) {
       let locationParts = message.body.split('|')
       let imageLocation = locationParts[0]
@@ -494,6 +497,7 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
       return (
         <>
           <div className={classes.downloadMedia}>
+            teste
             <Button
               startIcon={<GetApp />}
               color="primary"
