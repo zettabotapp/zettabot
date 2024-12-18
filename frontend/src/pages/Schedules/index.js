@@ -27,6 +27,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 
 import "./Schedules.css"; // Importe o arquivo CSS
+import { createMomentLocalizer } from "../../translate/calendar-locale";
 
 // Defina a função getUrlParam antes de usá-la
 function getUrlParam(paramName) {
@@ -41,7 +42,6 @@ const eventTitleStyle = {
   textOverflow: "ellipsis", // Exiba "..." se o texto for muito longo
 };
 
-const localizer = momentLocalizer(moment);
 var defaultMessages = {
   date: i18n.t("schedules.messages.date"),
   time: i18n.t("schedules.messages.time"),
@@ -102,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Schedules = () => {
+  const localizer = createMomentLocalizer();
   const classes = useStyles();
   const history = useHistory();
 
