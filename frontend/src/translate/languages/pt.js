@@ -856,6 +856,11 @@ const messages = {
         appBar: {
           refresh: "Recarregar página",
           notRegister: "Sem notificações",
+          greeting: {
+            hello: "Olá",
+            welcome: "Bem vindo a",
+            active: "Ativo até",
+          },
           user: {
             profile: "Perfil",
             logout: "Sair",
