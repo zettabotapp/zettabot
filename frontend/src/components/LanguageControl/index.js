@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { changeLanguage, i18n } from "../../translate/i18n";
 import { RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import api from "../../services/api";
 
 const LanguageControl = () => {
     const [selectedLanguage, setSelectedLanguage] = useState('en');
 
-    const handleLanguageChange = (event) => {
+    const handleLanguageChange = async (event) => {
         const newLanguage = event.target.value;
         setSelectedLanguage(newLanguage);
         changeLanguage(newLanguage);
+
+        try{
+            await api.post(`/users/set-language/${newLanguage}`);
+        }catch(error){
+            console.error(error);
+        }
+
     };
 
     useEffect(() => {
