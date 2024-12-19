@@ -840,6 +840,11 @@ const messages = {
 				appBar: {
 					refresh: "Reload page",
 					notRegister: "No notifications",
+					greeting: {
+						hello: "Hello",
+						welcome: "Welcome to",
+						active: "Active until",
+					},
 					user: {
 						profile: "Profile",
 						logout: "Logout",

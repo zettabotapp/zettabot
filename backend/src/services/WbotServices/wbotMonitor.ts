@@ -15,6 +15,7 @@ import Whatsapp from "../../models/Whatsapp";
 import { logger } from "../../utils/logger";
 import createOrUpdateBaileysService from "../BaileysServices/CreateOrUpdateBaileysService";
 import CreateMessageService from "../MessageServices/CreateMessageService";
+import Company from "../../models/Company";
 
 type Session = WASocket & {
   id?: number;
@@ -44,10 +45,19 @@ const wbotMonitor = async (
           where: { key: "call", companyId },
         });
 
+        const translatedMessage = {
+          'pt': "*Mensagem Automática:*\n\nAs chamadas de voz e vídeo estão desabilitas para esse WhatsApp, favor enviar uma mensagem de texto. Obrigado",
+          'en': "*Automatic Message:*\n\nVoice and video calls are disabled for this WhatsApp, please send a text message. Thank you",
+          'es': "*Mensaje Automático:*\n\nLas llamadas de voz y video están deshabilitadas para este WhatsApp, por favor envía un mensaje de texto. Gracias"
+        }
+
         if (sendMsgCall.value === "disabled") {
+
+          const company = await Company.findByPk(companyId);
+
           await wbot.sendMessage(node.attrs.from, {
             text:
-              "*Mensagem Automática:*\n\nAs chamadas de voz e vídeo estão desabilitas para esse WhatsApp, favor enviar uma mensagem de texto. Obrigado",
+              translatedMessage[company.language],
           });
 
           const number = node.attrs.from.replace(/\D/g, "");
