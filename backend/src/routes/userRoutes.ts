@@ -17,4 +17,6 @@ userRoutes.get("/users/:userId", isAuth, UserController.show);
 
 userRoutes.delete("/users/:userId", isAuth, UserController.remove);
 
+userRoutes.post("/users/set-language/:newLanguage", isAuth, UserController.setLanguage)
+
 export default userRoutes;
