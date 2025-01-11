@@ -837,6 +837,7 @@ const messages = {
           messagesAPI: "API",
           schedules: "Programaciones",
           campaigns: "Campañas",
+          flows: "Flujos",
           annoucements: "Informativos",
           chats: "Chat Interno",
           financeiro: "Financiero",
