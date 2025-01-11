@@ -830,6 +830,7 @@ const messages = {
 					messagesAPI: "API",
 					schedules: "Schedules",
 					campaigns: "Campaigns",
+					flows: "Flows",
 					annoucements: "Announcements",
 					chats: "Internal Chat",
 					financeiro: "Financial",
