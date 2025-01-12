@@ -384,6 +384,7 @@ const messages = {
           expiresInactiveMessage: "Mensaje de cierre por inactividad",
           greetingMessage: "Mensaje de bienvenida",
           complationMessage: "Mensaje de conclusión",
+          integration: "Integración"
         },
         buttons: {
           okAdd: "Agregar",

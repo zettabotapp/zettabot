@@ -478,11 +478,13 @@ export const ActionsWebhookService = async (
           if (elementNowSelected.includes("img")) {
             await typeSimulation(ticket, "composing");
 
+            logger.info(__dirname.split("src")[0].split("\\").join("/"));
+
             await SendMessage(whatsapp, {
               number: numberClient,
               body: "",
               mediaPath:
-                process.env.BACKEND_URL === "http://localhost:8090"
+                process.env.BACKEND_URL.includes("http://localhost")
                   ? `${__dirname.split("src")[0].split("\\").join("/")}public/${
                       nodeSelected.data.elements.filter(
                         item => item.number === elementNowSelected

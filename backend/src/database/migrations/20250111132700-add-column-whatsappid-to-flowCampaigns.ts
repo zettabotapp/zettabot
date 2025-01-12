@@ -18,7 +18,7 @@ module.exports = {
 
   down: (queryInterface: QueryInterface) => {
     // Remover a coluna flowBuilderId da tabela Whatsapp
-    queryInterface.removeColumn("FlowCampaigns", "whatsappId");
+    return queryInterface.removeColumn("FlowCampaigns", "whatsappId");
   }
 
 }

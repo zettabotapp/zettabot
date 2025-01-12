@@ -382,6 +382,7 @@ const messages = {
 					expiresInactiveMessage: "Inactivity closure message",
 					greetingMessage: "Greeting message",
 					complationMessage: "Completion message",
+					integration: "Integration"
 				},
 				buttons: {
 					okAdd: "Add",

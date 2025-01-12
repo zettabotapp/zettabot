@@ -179,9 +179,10 @@ const FlowBuilderConfig = () => {
   const connectionLineStyle = { stroke: "#2b2b2b", strokeWidth: "6px" };
 
   const addNode = (type, data) => {
+
     const posY = nodes[nodes.length - 1].position.y;
-    const posX =
-      nodes[nodes.length - 1].position.x + nodes[nodes.length - 1].width + 40;
+    const posX = nodes[nodes.length - 1].position.x + nodes[nodes.length - 1].width + 40;
+
     if (type === "start") {
       return setNodes((old) => {
         return [
@@ -516,6 +517,7 @@ const FlowBuilderConfig = () => {
       })
     );
   };
+
   const clickEdge = (event, node) => {
     setNodes((old) =>
       old.map((item) => {
@@ -651,6 +653,7 @@ const FlowBuilderConfig = () => {
   ];
 
   const clickActions = (type) => {
+
     switch (type) {
       case "start":
         addNode("start");
@@ -669,84 +672,87 @@ const FlowBuilderConfig = () => {
         break;
       case "ticket":
         setModalAddTicket("create");
+        break;
       case "typebot":
         setModalAddTypebot("create");
         break;
       case "openai":
         setModalAddOpenAI("create");
+        break
       case "question":
         setModalAddQuestion("create");
+        break
       default:
     }
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const delayDebounceFn = setTimeout(() => {
-  //     const fetchContacts = async () => {
-  //       try {
-  //         const { data } = await api.get(`/flowbuilder/flow/${id}`);
-  //         if (data.flow.flow !== null) {
-  //           const flowNodes = data.flow.flow.nodes;
-  //           setNodes(flowNodes);
-  //           setEdges(data.flow.flow.connections);
-  //           const filterVariables = flowNodes.filter(
-  //             (nd) => nd.type === "question"
-  //           );
-  //           const variables = filterVariables.map(
-  //             (variable) => variable.data.typebotIntegration.answerKey
-  //           );
-  //           localStorage.setItem("variables", JSON.stringify(variables));
-  //         }
-  //         setLoading(false);
-  //       } catch (err) {
-  //         toastError(err);
-  //       }
-  //     };
-  //     fetchContacts();
-  //   }, 500);
-  //   return () => clearTimeout(delayDebounceFn);
-  // }, [id]);
+  useEffect(() => {
+    setLoading(true);
+    const delayDebounceFn = setTimeout(() => {
+      const fetchContacts = async () => {
+        try {
+          const { data } = await api.get(`/flowbuilder/flow/${id}`);
+          if (data.flow.flow !== null) {
+            const flowNodes = data.flow.flow.nodes;
+            setNodes(flowNodes);
+            setEdges(data.flow.flow.connections);
+            const filterVariables = flowNodes.filter(
+              (nd) => nd.type === "question"
+            );
+            const variables = filterVariables.map(
+              (variable) => variable.data.typebotIntegration.answerKey
+            );
+            localStorage.setItem("variables", JSON.stringify(variables));
+          }
+          setLoading(false);
+        } catch (err) {
+          toastError(err);
+        }
+      };
+      fetchContacts();
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
+  }, [id]);
 
-  // useEffect(() => {
-  //   if (storageItems.action === "delete") {
-  //     setNodes((old) => old.filter((item) => item.id !== storageItems.node));
-  //     setEdges((old) => {
-  //       const newData = old.filter((item) => item.source !== storageItems.node);
-  //       const newClearTarget = newData.filter(
-  //         (item) => item.target !== storageItems.node
-  //       );
-  //       return newClearTarget;
-  //     });
-  //     storageItems.setNodesStorage("");
-  //     storageItems.setAct("idle");
-  //   }
-  //   if (storageItems.action === "duplicate") {
-  //     const nodeDuplicate = nodes.filter(
-  //       (item) => item.id === storageItems.node
-  //     )[0];
-  //     const maioresX = nodes.map((node) => node.position.x);
-  //     const maiorX = Math.max(...maioresX);
-  //     const finalY = nodes[nodes.length - 1].position.y;
-  //     const nodeNew = {
-  //       ...nodeDuplicate,
-  //       id: geraStringAleatoria(30),
-  //       position: {
-  //         x: maiorX + 240,
-  //         y: finalY,
-  //       },
-  //       selected: false,
-  //       style: { backgroundColor: "#555555", padding: 0, borderRadius: 8 },
-  //     };
-  //     setNodes((old) => [...old, nodeNew]);
-  //     storageItems.setNodesStorage("");
-  //     storageItems.setAct("idle");
-  //   }
-  // }, [storageItems.action]);
+  useEffect(() => {
+    if (storageItems.action === "delete") {
+      setNodes((old) => old.filter((item) => item.id !== storageItems.node));
+      setEdges((old) => {
+        const newData = old.filter((item) => item.source !== storageItems.node);
+        const newClearTarget = newData.filter(
+          (item) => item.target !== storageItems.node
+        );
+        return newClearTarget;
+      });
+      storageItems.setNodesStorage("");
+      storageItems.setAct("idle");
+    }
+    if (storageItems.action === "duplicate") {
+      const nodeDuplicate = nodes.filter(
+        (item) => item.id === storageItems.node
+      )[0];
+      const maioresX = nodes.map((node) => node.position.x);
+      const maiorX = Math.max(...maioresX);
+      const finalY = nodes[nodes.length - 1].position.y;
+      const nodeNew = {
+        ...nodeDuplicate,
+        id: geraStringAleatoria(30),
+        position: {
+          x: maiorX + 240,
+          y: finalY,
+        },
+        selected: false,
+        style: { backgroundColor: "#555555", padding: 0, borderRadius: 8 },
+      };
+      setNodes((old) => [...old, nodeNew]);
+      storageItems.setNodesStorage("");
+      storageItems.setAct("idle");
+    }
+  }, [storageItems.action]);
 
   return (
     <Stack sx={{ height: "100vh" }}>
-      {/* <FlowBuilderAddTextModal
+      <FlowBuilderAddTextModal
         open={modalAddText}
         onSave={textAdd}
         data={dataNode}
@@ -832,7 +838,7 @@ const FlowBuilderConfig = () => {
         data={dataNode}
         onUpdate={updateNode}
         close={setModalAddQuestion}
-      /> */}
+      />
 
       <MainHeader>
         <Title>Desenhe seu fluxo</Title>

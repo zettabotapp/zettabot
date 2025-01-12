@@ -1083,6 +1083,9 @@ const verifyQueue = async (
   contact: Contact,
   mediaSent?: Message | undefined
 ) => {
+
+  logger.info("Verificando Fila");
+
   const companyId = ticket.companyId;
 
   const { queues, greetingMessage, maxUseBotQueues, timeUseBotQueues } =
@@ -1780,6 +1783,9 @@ const flowbuilderIntegration = async (
   */
 
   if (!msg.key.fromMe && ticket.status === "closed") {
+
+    logger.info("Mensagem do terceiro e ticket fechado");
+
     console.log("===== CHANGE =====");
     await ticket.update({ status: "pending" });
     await ticket.reload({
@@ -1820,9 +1826,10 @@ const flowbuilderIntegration = async (
     }
   });
 
+  // Welcome flow
   if (
     !isFirstMsg &&
-    listPhrase.filter(item => item.phrase === body).length === 0
+    listPhrase.filter(item => item.phrase.toLowerCase() === body.toLowerCase()).length === 0
   ) {
     const flow = await FlowBuilderModel.findOne({
       where: {
@@ -1882,14 +1889,16 @@ const flowbuilderIntegration = async (
   const dateTicket = new Date(
     isFirstMsg?.updatedAt ? isFirstMsg.updatedAt : ""
   );
+
   const dateNow = new Date();
   const diferencaEmMilissegundos = Math.abs(
     differenceInMilliseconds(dateTicket, dateNow)
   );
-  const seisHorasEmMilissegundos = 1000;
+  const seisHorasEmMilissegundos = 21600000;
 
+  // Flow with not found phrase
   if (
-    listPhrase.filter(item => item.phrase === body).length === 0 &&
+    listPhrase.filter(item => item.phrase.toLowerCase() === body.toLowerCase()).length === 0 &&
     diferencaEmMilissegundos >= seisHorasEmMilissegundos &&
     isFirstMsg
   ) {
@@ -1930,8 +1939,9 @@ const flowbuilderIntegration = async (
   }
 
   // Campaign fluxo
-  if (listPhrase.filter(item => item.phrase === body).length !== 0) {
-    const flowDispar = listPhrase.filter(item => item.phrase === body)[0];
+  if (listPhrase.filter(item => item.phrase.toLowerCase() === body.toLowerCase()).length !== 0) {
+
+    const flowDispar = listPhrase.filter(item => item.phrase.toLowerCase() === body.toLowerCase())[0];
     const flow = await FlowBuilderModel.findOne({
       where: {
         id: flowDispar.flowId
@@ -2113,6 +2123,8 @@ export const handleMessageIntegration = async (
 ): Promise<void> => {
   const msgType = getTypeMessage(msg);
 
+  logger.info(queueIntegration.type);
+
   if (queueIntegration.type === "n8n" || queueIntegration.type === "webhook") {
     if (queueIntegration?.urlN8N) {
       const options = {
@@ -2141,20 +2153,21 @@ export const handleMessageIntegration = async (
     await typebotListener({ ticket, msg, wbot, typebot: queueIntegration });
   } else if(queueIntegration.type === "flowbuilder") {
     if (!isMenu) {
-      const integrations = await ShowQueueIntegrationService(
-        whatsapp.integrationId,
-        companyId
-      );
+
       await flowbuilderIntegration(
         msg,
         wbot,
         companyId,
-        integrations,
+        queueIntegration,
         ticket,
         contact,
         isFirstMsg
       );
     } else {
+
+      logger.info(isNaN(parseInt(ticket.lastMessage)));
+      logger.info(ticket.status);
+
       if (
         !isNaN(parseInt(ticket.lastMessage)) &&
         ticket.status !== "open" &&
@@ -2190,6 +2203,8 @@ const flowBuilderQueue = async (
       id: ticket.flowStopped
     }
   });
+  
+  logger.info("Localizou flow: " + flow.id);
 
   const mountDataContact = {
     number: contact.number,
@@ -2212,6 +2227,8 @@ const flowBuilderQueue = async (
     return;
   }
 
+  logger.info("Enviando Webhook");
+
   await ActionsWebhookService(
     whatsapp.id,
     parseInt(ticket.flowStopped),
@@ -2229,7 +2246,7 @@ const flowBuilderQueue = async (
   );
 
   //const integrations = await ShowQueueIntegrationService(whatsapp.integrationId, companyId);
-  //await handleMessageIntegration(msg, wbot, companyId, integrations, ticket, contact, isFirstMsg)
+  //await handleMessageIntegration(msg, wbot, integrations, ticket, companyId, true, whatsapp);
 };
 
 
@@ -2241,6 +2258,7 @@ const handleMessage = async (
   let mediaSent: Message | undefined;
 
   if (!isValidMsg(msg)) return;
+
   try {
     let msgContact: IMe;
     let groupContact: Contact | undefined;
@@ -2555,7 +2573,6 @@ const handleMessage = async (
       return;
     }
 
-
     if (isOpenai && !isNil(flow) && !ticket.queue) {
       const nodeSelected = flow.flow["nodes"].find(
         (node: any) => node.id === ticket.lastFlowId
@@ -2620,6 +2637,7 @@ const handleMessage = async (
       !isNil(whatsapp.integrationId) &&
       !ticket.useIntegration
     ) {
+
       const integrations = await ShowQueueIntegrationService(
         whatsapp.integrationId,
         companyId
@@ -2646,6 +2664,7 @@ const handleMessage = async (
       ticket.useIntegration &&
       ticket.queueId
     ) {
+      logger.info("Openai na fila");
       await handleOpenAi(msg, wbot, ticket, contact, mediaSent);
     }
 
@@ -2700,6 +2719,55 @@ const handleMessage = async (
           chatbotAt: moment().toDate()
         });
       }
+    }
+
+    const isFirstMsg = await Ticket.findOne({
+      where: {
+        contactId: groupContact ? groupContact.id : contact.id,
+        companyId,
+        whatsappId: whatsapp.id
+      },
+      order: [["id", "DESC"]]
+    });
+
+
+    logger.info("Enviada por mim: " + msg.key.fromMe);
+    logger.info("É grupo: " + ticket.isGroup);
+    logger.info("Tem fila no ticket: " + ticket.queue);
+    logger.info("O ticket já tem um usuário: " + ticket.user);
+    logger.info("Whatsapp integration ID: " + isNil(whatsapp.integrationId));
+    logger.info("Ticket está usando integração: " + ticket.useIntegration);
+
+    // integração flowbuilder
+    if (
+      !msg.key.fromMe &&
+      !ticket.isGroup &&
+      !ticket.queue &&
+      !ticket.user &&
+      !isNil(whatsapp.integrationId) &&
+      !ticket.useIntegration
+    ) {
+
+      logger.info("Entrou no flowbuilder");
+
+      const integrations = await ShowQueueIntegrationService(
+        whatsapp.integrationId,
+        companyId
+      );
+
+      logger.info("integração ID: " + integrations.id);
+
+      await handleMessageIntegration(
+        msg,
+        wbot,
+        integrations,
+        ticket,
+        companyId,
+        isMenu,
+        whatsapp,
+        contact,
+        isFirstMsg
+      );
     }
 
     const dontReadTheFirstQuestion = ticket.queue === null;
@@ -2808,11 +2876,13 @@ const handleMessage = async (
         await handleChartbot(ticket, msg, wbot);
       }
     }
+    
     if (whatsapp.queues.length > 1 && ticket.queue) {
       if (ticket.chatbot && !msg.key.fromMe) {
         await handleChartbot(ticket, msg, wbot, dontReadTheFirstQuestion);
       }
     }
+    
   } catch (err) {
     console.log(err);
     Sentry.captureException(err);

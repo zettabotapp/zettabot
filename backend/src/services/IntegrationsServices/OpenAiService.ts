@@ -98,15 +98,12 @@ export const handleOpenAi = async (
     `company${ticket.companyId}`
   );
 
-  let { prompt } = await ShowWhatsAppService(wbot.id, ticket.companyId);
-
   let openai: OpenAIApi | any;
   const openAiIndex = sessionsOpenAi.findIndex(s => s.id === ticket.id);
 
   if (openAiIndex === -1) {
-    console.log("OpenAiService", openAiSettings.apiKey);
     const configuration = new Configuration({
-      apiKey: prompt.apiKey
+      apiKey: openAiSettings.apiKey
     });
     openai = new OpenAIApi(configuration);
     openai.id = ticket.id;
@@ -155,7 +152,7 @@ export const handleOpenAi = async (
 
     console.log(156, "OpenAiService");
 
-    const chat = await openai.chat.completions.create({
+    const chat = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-1106",
       messages: messagesOpenAi,
       max_tokens: openAiSettings.maxTokens,
