@@ -12,7 +12,7 @@ import {
   Default,
   BeforeCreate,
   BelongsToMany,
-  AllowNull
+  AllowNull, DataType
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from "uuid";
 
@@ -116,7 +116,7 @@ class Ticket extends Model<Ticket> {
   static setUUID(ticket: Ticket) {
     ticket.uuid = uuidv4();
   }
-  
+
   @Default(false)
   @Column
   useIntegration: boolean;
@@ -149,6 +149,21 @@ class Ticket extends Model<Ticket> {
   @Default(0)
   @Column
   amountUsedBotQueues: number;
+
+  @Column
+  flowWebhook: boolean;
+
+  @Column
+  lastFlowId: string;
+
+  @Column
+  hashFlowId: string;
+
+  @Column
+  flowStopped: string;
+
+  @Column(DataType.JSON)
+  dataWebhook: {} | null;
 }
 
 export default Ticket;

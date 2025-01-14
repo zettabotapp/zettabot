@@ -79,7 +79,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     expiresInactiveMessage: "",
     expiresTicket: 0,
     timeUseBotQueues: 0,
-    maxUseBotQueues: 3
+    maxUseBotQueues: 3,
+    integration: null
   };
 
   const [whatsApp, setWhatsApp] = useState(initialState);
@@ -88,6 +89,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
   const [selectedQueueId, setSelectedQueueId] = useState(null)
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [prompts, setPrompts] = useState([]);
+  const [integrations, setIntegrations] = useState([]);
+  const [selectedIntegration, setSelectedIntegration] = useState(null);
   
     useEffect(() => {
       const fetchSession = async () => {
@@ -99,6 +102,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
 
           setWhatsApp(data);
           setSelectedPrompt( data.promptId );
+          setSelectedIntegration(data.integrationId)
 
           const whatsQueueIds = data.queues?.map((queue) => queue.id);
           setSelectedQueueIds(whatsQueueIds);
@@ -115,6 +119,10 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
       try {
         const { data } = await api.get("/prompt");
         setPrompts(data.prompts);
+
+        const {data: dataIntegration} = await api.get("/queueIntegration");
+        setIntegrations(dataIntegration.queueIntegrations);
+
       } catch (err) {
         toastError(err);
       }
@@ -135,7 +143,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
   const handleSaveWhatsApp = async (values) => {
     const whatsappData = {
       ...values, queueIds: selectedQueueIds, transferQueueId: selectedQueueId,
-      promptId: selectedPrompt ? selectedPrompt : null
+      promptId: selectedPrompt ? selectedPrompt : null,
+      integrationId: selectedIntegration
     };
     delete whatsappData["queues"];
     delete whatsappData["session"];
@@ -162,6 +171,10 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     setSelectedPrompt(e.target.value);
     setSelectedQueueIds([]);
   };
+
+  const handleChangeIntegration = (e) => {
+    setSelectedIntegration(e.target.value);
+  }
 
   const handleClose = () => {
     onClose();
@@ -348,6 +361,44 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                     }}
                   >
                     {prompts.map((prompt) => (
+                      <MenuItem
+                        key={prompt.id}
+                        value={prompt.id}
+                      >
+                        {prompt.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl
+                  margin="dense"
+                  variant="outlined"
+                  fullWidth
+                >
+                  <InputLabel>
+                    {i18n.t("whatsappModal.form.integration")}
+                  </InputLabel>
+                  <Select
+                    labelId="dialog-select-integration-label"
+                    id="dialog-select-integration"
+                    name="promptId"
+                    value={selectedIntegration || ""}
+                    onChange={handleChangeIntegration}
+                    label={i18n.t("whatsappModal.form.integration")}
+                    fullWidth
+                    MenuProps={{
+                      anchorOrigin: {
+                        vertical: "bottom",
+                        horizontal: "left",
+                      },
+                      transformOrigin: {
+                        vertical: "top",
+                        horizontal: "left",
+                      },
+                      getContentAnchorEl: null,
+                    }}
+                  >
+                    {integrations.map((prompt) => (
                       <MenuItem
                         key={prompt.id}
                         value={prompt.id}
