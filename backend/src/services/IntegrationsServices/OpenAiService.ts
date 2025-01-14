@@ -20,6 +20,7 @@ import Message from "../../models/Message";
 import TicketTraking from "../../models/TicketTraking";
 import ShowWhatsAppService from "../WhatsappService/ShowWhatsAppService";
 import Whatsapp from "../../models/Whatsapp";
+import { logger } from "../../utils/logger";
 
 type Session = WASocket & {
   id?: number;
@@ -159,7 +160,7 @@ export const handleOpenAi = async (
       temperature: openAiSettings.temperature
     });
 
-    let response = chat.choices[0].message?.content;
+    let response = chat.data.choices[0].message?.content;
 
     if (response?.includes("Ação: Transferir para o setor de atendimento")) {
       console.log(166, "OpenAiService");
@@ -171,6 +172,8 @@ export const handleOpenAi = async (
 
     if (openAiSettings.voice === "texto") {
       console.log(173, "OpenAiService");
+      logger.info(chat.data.choices[0].message);
+      logger.info(response);
       const sentMessage = await wbot.sendMessage(msg.key.remoteJid!, {
         text: `\u200e ${response!}`
       });

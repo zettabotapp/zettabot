@@ -353,7 +353,7 @@ const FlowBuilder = () => {
                   <Stack
                     justifyContent={"center"}
                     height={"100%"}
-                    style={{ color: "#ededed" }}
+                    style={{ color: "#252525" }}
                   >
                     <Stack direction={"row"}>
                       <DevicesFold />
@@ -367,7 +367,7 @@ const FlowBuilder = () => {
                   item
                   xs={4}
                   align="center"
-                  style={{ color: "#ededed" }}
+                  style={{ color: "#252525" }}
                   onClick={() => history.push(`/flowbuilder/${contact.id}`)}
                 >
                   <Stack justifyContent={"center"} height={"100%"}>
@@ -387,7 +387,7 @@ const FlowBuilder = () => {
                     sx={{ borderRadius: "36px", minWidth: "24px" }}
                   >
                     <MoreVert
-                      sx={{ color: "#ededed", width: "21px", height: "21px" }}
+                      sx={{ color: "#252525", width: "21px", height: "21px" }}
                     />
                   </Button>
                   {/* <IconButton
