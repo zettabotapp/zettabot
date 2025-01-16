@@ -6,7 +6,6 @@ import ShowTicketService from "./ShowTicketService";
 import FindOrCreateATicketTrakingService from "./FindOrCreateATicketTrakingService";
 import Setting from "../../models/Setting";
 import Whatsapp from "../../models/Whatsapp";
-import {logger} from "../../utils/logger";
 
 interface TicketData {
   status?: string;
@@ -32,14 +31,6 @@ const FindOrCreateTicketService = async (
     },
     order: [["id", "DESC"]]
   });
-
-  logger.info("Contact ID: " + contact.id);
-  logger.info("Whatsapp ID: " + whatsappId);
-  logger.info("UnreadMessage: " + unreadMessages);
-  logger.info("Company ID: " + companyId);
-  logger.info("GroupContact ID: " + groupContact?.id);
-
-  logger.info("Ticket founded: " + ticket?.id)
 
   if (ticket) {
     await ticket.update({ unreadMessages, whatsappId });
