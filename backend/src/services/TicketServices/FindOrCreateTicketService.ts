@@ -6,6 +6,7 @@ import ShowTicketService from "./ShowTicketService";
 import FindOrCreateATicketTrakingService from "./FindOrCreateATicketTrakingService";
 import Setting from "../../models/Setting";
 import Whatsapp from "../../models/Whatsapp";
+import {logger} from "../../utils/logger";
 
 interface TicketData {
   status?: string;
@@ -32,10 +33,18 @@ const FindOrCreateTicketService = async (
     order: [["id", "DESC"]]
   });
 
+  logger.info("Contact ID: " + contact.id);
+  logger.info("Whatsapp ID: " + whatsappId);
+  logger.info("UnreadMessage: " + unreadMessages);
+  logger.info("Company ID: " + companyId);
+  logger.info("GroupContact ID: " + groupContact?.id);
+
+  logger.info("Ticket founded: " + ticket?.id)
+
   if (ticket) {
     await ticket.update({ unreadMessages, whatsappId });
   }
-  
+
   if (ticket?.status === "closed") {
     await ticket.update({ queueId: null, userId: null });
   }
@@ -66,7 +75,7 @@ const FindOrCreateTicketService = async (
     const msgIsGroupBlock = await Setting.findOne({
       where: { key: "timeCreateNewTicket" }
     });
-  
+
     const value = msgIsGroupBlock ? parseInt(msgIsGroupBlock.value, 10) : 7200;
   }
 
@@ -76,7 +85,9 @@ const FindOrCreateTicketService = async (
         updatedAt: {
           [Op.between]: [+subHours(new Date(), 2), +new Date()]
         },
-        contactId: contact.id
+        contactId: contact.id,
+        companyId,
+        whatsappId
       },
       order: [["updatedAt", "DESC"]]
     });
@@ -97,7 +108,7 @@ const FindOrCreateTicketService = async (
       });
     }
   }
-  
+
     const whatsapp = await Whatsapp.findOne({
     where: { id: whatsappId }
   });
