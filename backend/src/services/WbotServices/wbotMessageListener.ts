@@ -2207,37 +2207,6 @@ const handleMsgAck = async (
   }
 };
 
-const verifyRecentCampaign = async (
-  message: proto.IWebMessageInfo,
-  companyId: number
-) => {
-  if (!message.key.fromMe) {
-    const number = message.key.remoteJid.replace(/\D/g, "");
-    const campaigns = await Campaign.findAll({
-      where: { companyId, status: "EM_ANDAMENTO" }
-    });
-    if (campaigns) {
-      const ids = campaigns.map(c => c.id);
-      const campaignShipping = await CampaignShipping.findOne({
-        where: { campaignId: { [Op.in]: ids }, number }
-      });
-
-      if (campaignShipping) {
-        await campaignQueue.add(
-          "DispatchCampaign",
-          {
-            campaignShippingId: campaignShipping.id,
-            campaignId: campaignShipping.campaignId
-          },
-          {
-            delay: parseToMilliseconds(randomValue(0, 10))
-          }
-        );
-      }
-    }
-  }
-};
-
 const verifyCampaignMessageAndCloseTicket = async (
   message: proto.IWebMessageInfo,
   companyId: number
@@ -2306,7 +2275,6 @@ const wbotMessageListener = async (
 
         if (!messageExists) {
           await handleMessage(message, wbot, companyId);
-          //await verifyRecentCampaign(message, companyId);
           await verifyCampaignMessageAndCloseTicket(message, companyId);
         }
       }
