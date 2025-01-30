@@ -68,7 +68,7 @@ export const messageQueue = new BullQueue("MessageQueue", connection, {
 
 export const scheduleMonitor = new BullQueue("ScheduleMonitor", connection);
 export const sendScheduledMessages = new BullQueue(
-  "SendSacheduledMessages",
+  "SendScheduledMessages",
   connection
 );
 
@@ -225,7 +225,7 @@ async function handleVerifySchedules(job) {
         sentAt: null,
         sendAt: {
           [Op.gte]: moment().format("YYYY-MM-DD HH:mm:ss"),
-          [Op.lte]: moment().add("30", "seconds").format("YYYY-MM-DD HH:mm:ss")
+          [Op.lte]: moment().add("300", "seconds").format("YYYY-MM-DD HH:mm:ss")
         }
       },
       include: [{ model: Contact, as: "contact" }]
@@ -240,7 +240,7 @@ async function handleVerifySchedules(job) {
           { schedule },
           { delay: 40000 }
         );
-        logger.info(`Disparo agendado para: ${schedule.contact.name}`);
+        logger.info(`[🧵] Disparo agendado para: ${schedule.contact.name}`);
       });
     }
   } catch (e: any) {
@@ -282,7 +282,7 @@ async function handleSendScheduledMessage(job) {
       status: "ENVIADA"
     });
 
-    logger.info(`Mensagem agendada enviada para: ${schedule.contact.name}`);
+    logger.info(`[🧵] Mensagem agendada enviada para: ${schedule.contact.name}`);
     sendScheduledMessages.clean(15000, "completed");
   } catch (e: any) {
     Sentry.captureException(e);
@@ -549,7 +549,7 @@ async function handleProcessCampaign(job) {
         let baseDelay = campaign.scheduledAt;
 
         const queuePromises = [];
-        for (let i = 0; i < contactData.length; i++) {          
+        for (let i = 0; i < contactData.length; i++) {
 
           baseDelay = addSeconds(baseDelay, i > longerIntervalAfter ? greaterInterval : messageInterval);
 
@@ -573,7 +573,8 @@ async function handleProcessCampaign(job) {
 }
 
 async function handlePrepareContact(job) {
- 
+
+  logger.info("Preparando contatos");
   try {
     const { contactId, campaignId, delay, variables }: PrepareContactData =
       job.data;
@@ -617,7 +618,7 @@ async function handlePrepareContact(job) {
     }
 
     if (
-      record.deliveredAt === null 
+      record.deliveredAt === null
     ) {
       const nextJob = await campaignQueue.add(
         "DispatchCampaign",
@@ -799,7 +800,7 @@ async function handleInvoiceCreate() {
                         pass: 'senha'
                       }
                     });
- 
+
                     const mailOptions = {
                       from: 'heenriquega@gmail.com', // sender address
                       to: `${c.email}`, // receiver (use array of string for a list)
@@ -813,7 +814,7 @@ async function handleInvoiceCreate() {
           Qualquer duvida estamos a disposição!
                       `// plain text body
                     };
- 
+
                     transporter.sendMail(mailOptions, (err, info) => {
                       if (err)
                         console.log(err)
@@ -858,7 +859,7 @@ export async function startQueueProcess() {
   campaignQueue.process("PrepareContact", 1, handlePrepareContact);
 
   campaignQueue.process("DispatchCampaign", 1, handleDispatchCampaign);
-  
+
 
   //queueMonitor.process("VerifyQueueStatus", handleVerifyQueue);
 
@@ -866,7 +867,7 @@ export async function startQueueProcess() {
     try {
       await campaignQueue.clean(12 * 3600 * 1000, 'completed');
       await campaignQueue.clean(24 * 3600 * 1000, 'failed');
-      
+
       const jobs = await campaignQueue.getJobs(['waiting', 'active']);
       for (const job of jobs) {
         if (Date.now() - job.timestamp > 24 * 3600 * 1000) {
@@ -882,7 +883,7 @@ export async function startQueueProcess() {
   setInterval(async () => {
     const jobCounts = await campaignQueue.getJobCounts();
     const memoryUsage = process.memoryUsage();
-    
+
     logger.info('[📌] - Status da fila de campanhas:', {
       jobs: jobCounts,
       memory: {
