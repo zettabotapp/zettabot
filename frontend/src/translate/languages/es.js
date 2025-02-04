@@ -384,6 +384,7 @@ const messages = {
           expiresInactiveMessage: "Mensaje de cierre por inactividad",
           greetingMessage: "Mensaje de bienvenida",
           complationMessage: "Mensaje de conclusión",
+          integration: "Integración"
         },
         buttons: {
           okAdd: "Agregar",
@@ -837,6 +838,7 @@ const messages = {
           messagesAPI: "API",
           schedules: "Programaciones",
           campaigns: "Campañas",
+          flows: "Flujos",
           annoucements: "Informativos",
           chats: "Chat Interno",
           financeiro: "Financiero",

@@ -18,6 +18,7 @@ import SimpleListService, {
 } from "../services/ContactServices/SimpleListService";
 import ContactCustomField from "../models/ContactCustomField";
 import { logger } from "../utils/logger";
+import ToggleDisableBotContactService from "../services/ContactServices/ToggleDisableBotContactService";
 
 type IndexQuery = {
   searchParam: string;
@@ -264,3 +265,18 @@ const createUploadedContact = async ( newContact : ContactData, companyId : numb
 
   return contact;
 }
+
+export const toggleDisableBot = async (req: Request, res: Response): Promise<Response> => {
+  var { contactId } = req.params;
+  const { companyId } = req.user;
+  const contact = await ToggleDisableBotContactService({ contactId });
+
+  const io = getIO();
+  io.of(String(companyId))
+    .emit(`company-${companyId}-contact`, {
+      action: "update",
+      contact
+    });
+
+  return res.status(200).json(contact);
+};

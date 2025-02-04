@@ -37,6 +37,9 @@ import Files from "../pages/Files/";
 import Prompts from "../pages/Prompts";
 import QueueIntegration from "../pages/QueueIntegration";
 import ForgetPassword from "../pages/ForgetPassWord/"; // Reset PassWd
+import CampaignsPhrase from "../pages/CampaignsPhrase";
+import FlowBuilder from "../pages/FlowBuilder";
+import FlowBuilderConfig from "../pages/FlowBuilderConfig";
 
 const Routes = () => {
   const [showCampaigns, setShowCampaigns] = useState(false);
@@ -55,7 +58,7 @@ const Routes = () => {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-			      <Route exact path="/forgetpsw" component={ForgetPassword} /> 
+            <Route exact path="/forgetpsw" component={ForgetPassword} />
             {/* <Route exact path="/create-company" component={Companies} /> */}
             <WhatsAppsProvider>
               <LoggedInLayout>
@@ -78,12 +81,7 @@ const Routes = () => {
                   component={QuickMessages}
                   isPrivate
                 />
-                <Route
-                  exact
-                  path="/todolist"
-                  component={ToDoList}
-                  isPrivate
-                  />
+                <Route exact path="/todolist" component={ToDoList} isPrivate />
                 <Route
                   exact
                   path="/schedules"
@@ -96,7 +94,12 @@ const Routes = () => {
                 <Route exact path="/users" component={Users} isPrivate />
                 <Route exact path="/files" component={Files} isPrivate />
                 <Route exact path="/prompts" component={Prompts} isPrivate />
-                <Route exact path="/queue-integration" component={QueueIntegration} isPrivate />
+                <Route
+                  exact
+                  path="/queue-integration"
+                  component={QueueIntegration}
+                  isPrivate
+                />
 
                 <Route
                   exact
@@ -110,12 +113,7 @@ const Routes = () => {
                   component={SettingsCustom}
                   isPrivate
                 />
-				        <Route 
-                  exact
-                  path="/kanban"
-                  component={Kanban}
-                  isPrivate
-                />
+                <Route exact path="/kanban" component={Kanban} isPrivate />
                 <Route
                   exact
                   path="/financeiro"
@@ -166,6 +164,25 @@ const Routes = () => {
                       exact
                       path="/campaigns-config"
                       component={CampaignsConfig}
+                      isPrivate
+                    />
+
+                    <Route
+                      exact
+                      path="/phrase-lists"
+                      component={CampaignsPhrase}
+                      isPrivate
+                    />
+                    <Route
+                      exact
+                      path="/flowbuilders"
+                      component={FlowBuilder}
+                      isPrivate
+                    />
+                    <Route
+                      exact
+                      path="/flowbuilder/:id?"
+                      component={FlowBuilderConfig}
                       isPrivate
                     />
                   </>
