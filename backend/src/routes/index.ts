@@ -66,6 +66,5 @@ routes.use(filesRoutes);
 routes.use(promptRoutes);
 routes.use(queueIntegrationRoutes);
 routes.use(forgotsRoutes);
-routes.use(versionRouter);
 
 export default routes;

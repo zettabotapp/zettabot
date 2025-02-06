@@ -44,7 +44,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AllInclusive, AttachFile, BlurCircular, DeviceHubOutlined, Schedule } from '@material-ui/icons';
 import usePlans from "../hooks/usePlans";
 import Typography from "@material-ui/core/Typography";
-import useVersion from "../hooks/useVersion";
 
 const useStyles = makeStyles((theme) => ({
   ListSubheader: {
@@ -153,20 +152,11 @@ const MainListItems = (props) => {
   const [searchParam] = useState("");
   const [chats, dispatch] = useReducer(reducer, []);
   const { getPlanCompany } = usePlans();
-  
-  const [version, setVersion] = useState(false);
-  
-  
-  const { getVersion } = useVersion();
+
 
   const socketManager = useContext(SocketContext);
 
   useEffect(() => {
-    async function fetchVersion() {
-      const _version = await getVersion();
-      setVersion(_version.version);
-    }
-    fetchVersion();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
  
@@ -506,7 +496,7 @@ const MainListItems = (props) => {
               </Hidden> 
               */}
               <Typography style={{ fontSize: "12px", padding: "10px", textAlign: "right", fontWeight: "bold" }}>
-                {version}
+                8.0.1
               </Typography>
             </React.Fragment>
             }
