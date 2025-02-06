@@ -41,9 +41,10 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import ToDoList from "../pages/ToDoList/";
 import toastError from "../errors/toastError";
 import { makeStyles } from "@material-ui/core/styles";
-import { AllInclusive, AttachFile, BlurCircular, DeviceHubOutlined, Schedule } from '@material-ui/icons';
+import { AccountTree, AllInclusive, AttachFile, BlurCircular, Chat, DeviceHubOutlined, Schedule } from '@material-ui/icons';
 import usePlans from "../hooks/usePlans";
 import Typography from "@material-ui/core/Typography";
+import { ShapeLine } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => ({
   ListSubheader: {
@@ -152,11 +153,20 @@ const MainListItems = (props) => {
   const [searchParam] = useState("");
   const [chats, dispatch] = useReducer(reducer, []);
   const { getPlanCompany } = usePlans();
-
+  
+  const [version, setVersion] = useState(false);
+  
+  
+  const { getVersion } = useVersion();
 
   const socketManager = useContext(SocketContext);
 
   useEffect(() => {
+    async function fetchVersion() {
+      const _version = await getVersion();
+      setVersion(_version.version);
+    }
+    fetchVersion();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
  
@@ -417,8 +427,55 @@ const MainListItems = (props) => {
                     </ListItem>
                   </List>
                 </Collapse>
+                {/* Flow builder */}
+                <ListItem
+                    button
+                    onClick={() => setOpenFlowsSubmenu((prev) => !prev)}
+                >
+                  <ListItemIcon>
+                    <AccountTree />
+                  </ListItemIcon>
+                  <ListItemText
+                      primary={i18n.t("mainDrawer.listItems.flows")}
+                  />
+                  {openCampaignSubmenu ? (
+                      <ExpandLessIcon />
+                  ) : (
+                      <ExpandMoreIcon />
+                  )}
+                </ListItem>
+
+                <Collapse
+                    style={{ paddingLeft: 15 }}
+                    in={openFlowsSubmenu}
+                    timeout="auto"
+                    unmountOnExit
+                >
+                  <List component="div" disablePadding>
+                    <ListItem
+                        onClick={() => history.push("/phrase-lists")}
+                        button
+                    >
+                      <ListItemIcon>
+                        <EventAvailableIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Campanha" />
+                    </ListItem>
+
+                    <ListItem
+                        onClick={() => history.push("/flowbuilders")}
+                        button
+                    >
+                      <ListItemIcon>
+                        <ShapeLine />
+                      </ListItemIcon>
+                      <ListItemText primary="Conversa" />
+                    </ListItem>
+                  </List>
+                </Collapse>
               </>
             )}
+
             {user.super && (
               <ListItemLink
                 to="/announcements"
