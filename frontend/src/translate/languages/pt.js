@@ -834,7 +834,7 @@ const messages = {
         listItems: {
           dashboard: "Dashboard",
           connections: "Conexões",
-          tickets: "Atendimentos",
+          tickets: "Conversas",
           quickMessages: "Respostas Rápidas",
           tasks: "Tarefas",
           contacts: "Contatos",
@@ -845,7 +845,7 @@ const messages = {
           settings: "Configurações",
           helps: "Ajuda",
           messagesAPI: "API",
-          schedules: "Agendamentos",
+          schedules: "Agendar Mensagens",
           campaigns: "Campanhas",
           flows: "Fluxos",
           annoucements: "Informativos",

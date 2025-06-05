@@ -231,6 +231,12 @@ const PromptModal = ({ open, onClose, promptId, refreshPrompts }) => {
                                             <MenuItem key={"gpt-4"} value={"gpt-4o-mini"}>
                                                 GPT 4.0
                                             </MenuItem>
+                                            <MenuItem key={"gpt-4.1"} value={"gpt-4.1"}>
+                                                GPT 4.1
+                                            </MenuItem>
+                                            <MenuItem key={"gpt-4.1-mini"} value={"gpt-4.1-mini"}>
+                                                GPT 4.1 mini
+                                            </MenuItem>
                                         </Select>
                                     </FormControl>
                                     <Field
