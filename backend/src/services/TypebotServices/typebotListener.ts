@@ -151,13 +151,14 @@ const typebotListener = async ({
                     if (message.type === 'text') {
                         let formattedText = '';
                         let linkPreview = false;
-                        for (const richText of message.content.richText) {
-                            for (const element of richText.children) {
-                                let text = '';
+                        if (message.content.richText) {
+                            for (const richText of message.content.richText) {
+                                for (const element of richText.children) {
+                                    let text = '';
 
-                                if (element.text) {
-                                    text = element.text;
-                                }
+                                    if (element.text) {
+                                        text = element.text;
+                                    }
                                 if (element.type && element.children) {
                                     for (const subelement of element.children) {
                                         let text = '';
@@ -230,6 +231,13 @@ const typebotListener = async ({
                             formattedText += '\n';
                         }
                         formattedText = formattedText.replace('**', '').replace(/\n$/, '');
+                        } else if (message.content.plainText) {
+                            formattedText = message.content.plainText;
+                        }
+
+                        if (!formattedText) {
+                            continue;
+                        }
 
                         if (formattedText === "Invalid message. Please, try again.") {
                             formattedText = typebotUnknownMessage;
