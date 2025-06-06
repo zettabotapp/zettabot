@@ -48,7 +48,7 @@ const typebotListener = async ({
             const id = Math.floor(Math.random() * 10000000000).toString();
 
             const reqData = JSON.stringify({
-                "isStreamEnabled": false,
+                "isStreamEnabled": true,
                 "message": "string",
                 "resultId": "string",
                 "isOnlyRegistering": false,
